@@ -1,0 +1,21 @@
+
+
+.symbol {
+    align-self:center;
+}
+
+hr {
+    border: 1px solid #494E6E!important;
+}
+.footerContainer {
+    height: 117px;
+    margin-bottom: 25px;
+    text-align:center;
+    margin-top:auto;
+}
+
+.avatarImage {
+    max-width:55%;
+    height:auto;
+    border-radius:50%;
+}

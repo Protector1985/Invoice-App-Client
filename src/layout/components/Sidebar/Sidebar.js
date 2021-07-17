@@ -1,13 +1,14 @@
 import React from 'react'
-import sidebarModule from './sidebar.module.css'
-import SidebarLogo from './SidebarLogo/SidebarLogo'
+import sidebarCSS from './sidebar.module.css'
+import SidebarLogo from './sidebarLogo/SidebarLogo'
+import SidebarFooter from './sidebarFooter/SidebarFooter'
 
 function Sidebar() {
     return (
-        <div className={sidebarModule.masterLight}>
-            <div className={sidebarModule.body}>
+        <div className={sidebarCSS.masterLight}>
+            <div className={sidebarCSS.body}>
                 <SidebarLogo />
-                
+                <SidebarFooter className={sidebarCSS.footer}/>
             </div>
         </div>
     )

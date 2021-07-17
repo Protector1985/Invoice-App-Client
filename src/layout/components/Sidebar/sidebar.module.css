@@ -3,6 +3,7 @@
     background-color: #F8F8FB;
 }
 
+
 .masterDark {
     width: 103px;
     background-color: #141625;
@@ -11,6 +12,12 @@
 .body {
     background-color: #252945;
     height: 100vh;
-    border-radius: 0px 25px 25px 0px
+    border-radius: 0px 25px 25px 0px;
+    display:flex;
+    flex-direction:column;
+    min-height: 250px;
 }
 
+.footer {
+    text-align: center;
+}
