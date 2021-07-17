@@ -1,0 +1,16 @@
+.masterLight {
+    width: 103px;
+    background-color: #F8F8FB;
+}
+
+.masterDark {
+    width: 103px;
+    background-color: #141625;
+}
+
+.body {
+    background-color: #252945;
+    height: 100vh;
+    border-radius: 0px 25px 25px 0px
+}
+
