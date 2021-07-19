@@ -1,0 +1,18 @@
+.headerContainer {
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    width: 730px;
+    height: 59px;
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+
+.btnDropdownWrapper {
+    display:flex;
+    align-items:center;
+}
+
+.Dropdown-arrow-wrapper {
+    margin-left: 15px;
+}

@@ -1,11 +1,17 @@
 .bodyLight {
+    display:flex;
+    justify-content: center;
     background-color: #F8F8FB;
     width: 100%;
 }
-
 
 
 .bodyDark {
     background-color: #141625;
     width: 100%;
 }
+
+.bodyContent {
+    width: 730px;
+}
+
