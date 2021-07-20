@@ -1,0 +1,61 @@
+.container {
+    display:flex;
+    flex-direction: row;
+    width: 104px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50px;
+}
+
+
+.status {
+    font-family: 'Spartan', sans-serif;
+    font-weight:bold;
+    font-size: 9px;
+    margin-bottom:0px;
+    margin-top:0px;
+    margin-left:8px;
+}
+
+.greenContainer {
+    background-color: #33D69F50;
+}
+
+.greenCircle {
+    background-color: #33D69F;
+}
+
+.greenStatus {
+    color: #33D69F;
+}
+
+.orangeContainer {
+    background-color: #FF8F0050;
+}
+
+.orangeCircle {
+    background-color: #FF8F00;
+}
+
+.orangeStatus {
+    color: #FF8F00;
+}
+
+.greyContainer {
+    background-color: #97979750;
+}
+
+.greyCircle {
+    background-color: #373B53;
+}
+
+.greyStatus {
+    color: #373B53
+}
