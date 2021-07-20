@@ -5,4 +5,37 @@
     height: 72px;
     background-color: #FFFFFF;
     margin-top: 15px;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+}
+
+
+.invoiceNumber {
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.hashtag {
+    color: #7E88C3;
+}
+
+
+
+.recipientData {
+    color: #7E88C3;
+    font-family: 'Spartan', sans-serif;
+    font-size:10px;
+}
+
+.recipientName {
+    color: #7E88C3;
+    font-family: 'Spartan', sans-serif;
+    font-size:10px;
+}
+
+.amount {
+    font-family: 'Spartan', sans-serif;
+    font-size:16px;
 }

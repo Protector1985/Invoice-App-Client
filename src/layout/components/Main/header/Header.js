@@ -6,7 +6,7 @@ import {ReactComponent as ArrowDown} from '../../../../assets/icon-arrow-down.sv
 import {ReactComponent as ArrowLeft} from '../../../../assets/icon-arrow-left.svg'
 import './headStylesheet.css'
 
-function Header() {
+function Header({numInvoices}) {
 
     const dropdownItems = [
         {value: "PAID", label:"Paid"},
@@ -18,7 +18,7 @@ function Header() {
         <div className="headerContainer">
             <div className={headerCSS.headlineContainer}>
                 <h2 className={headerCSS.headline}>Invoices</h2> 
-                <h5 className={headerCSS.invoiceAmount}>No invoices</h5>
+                <h5 className={headerCSS.invoiceAmount}>{numInvoices === 0 ? "No invoices" : `There are ${numInvoices} invoices`}</h5>
             </div>
             <div className="btnDropdownWrapper">
                 <Dropdown arrowClassName={headerCSS.arrowContainer} menuClassName={headerCSS.placeholder} controlClassName={headerCSS.dropdownContainer} options={dropdownItems} arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} placeholder="Filter by status" />

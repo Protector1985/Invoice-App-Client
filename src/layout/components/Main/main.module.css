@@ -5,6 +5,24 @@
     width: 100%;
 }
 
+.emptyBody {
+    width:auto;
+    text-align:center;
+    margin-top:25%;
+}
+
+.emptyHeadline {
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    color: #0C0E16;
+    letter-spacing: -1px;
+}
+
+.emptyText {
+    font-family: 'Spartan', sans-serif;
+    color: #888EB0;
+    font-size: 12px;
+}
 
 .bodyDark {
     background-color: #141625;
