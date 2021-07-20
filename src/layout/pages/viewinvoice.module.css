@@ -1,0 +1,31 @@
+.bodyLight {
+    display:flex;
+    justify-content: center;
+    background-color: #F8F8FB;
+    width: 100%;
+}
+
+.bodyDark {
+    background-color: #141625;
+    width: 100%;
+}
+
+.bodyContent {
+    width: 730px;
+}
+
+.goBack {
+    display:flex;
+    flex-direction:row;
+    width: 81px;
+    height: 15px;
+    justify-content: center;
+    align-items: center;
+    align-self:flex-start;
+}
+
+.goBackHeadline{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 15px;
+}

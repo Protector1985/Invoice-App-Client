@@ -5,6 +5,9 @@ import mainCSS from './main.module.css'
 import Invoice from '../Invoice/Invoice'
 import getNodeSizeCB from '../../../utility/sizing/getNodeSizeCB'
 import {ReactComponent as EmptyPic} from '../../../assets/illustration-empty.svg'
+import ViewInvoice from '../../pages/Viewinvoice'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+
 
 function Main(props) {
 
@@ -34,7 +37,9 @@ function Main(props) {
                 </div>
             ) 
         } else {
-           return invoiceData.map((invoice) => <Invoice key={invoice.invoiceNumber} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />)
+           return invoiceData.map((invoice) => {
+               return <Invoice key={invoice.invoiceNumber} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />  
+           })
         }
     }
     
@@ -42,11 +47,10 @@ function Main(props) {
 
     return (
         <div className={mainCSS.bodyLight}>
-            <div ref={bodyContent} className={mainCSS.bodyContent}>
-                <Header numInvoices={invoiceData.length} className="headerContainer" />
-                {returnBody()}
-            </div>
-           
+                <div ref={bodyContent} className={mainCSS.bodyContent}>
+                    <Header numInvoices={invoiceData.length} className="headerContainer" />
+                    {returnBody()}
+                </div>
         </div>
     )
 }
