@@ -1,0 +1,182 @@
+.container{
+    width: 730px;
+    height: 631px;
+    background-color: #FFFF;
+    margin-top: 25px;
+    border-radius: 8px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topContainer {
+    width: 100%;
+    height: 75px;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    margin-top: 50px;
+    width:630px;
+
+}
+
+.centerContainer {
+    width: 630px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 15px;
+}
+
+.bottomContainer {
+    width: 630px;
+    height: 264px;
+    border-radius: 8px;
+    margin-top: 50px;
+}
+
+.result {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.amountDueDescription {
+    color: #FFFF;
+    font-family: 'Spartan', sans-serif;
+    font-size: 12px;
+    font-weight:100;
+    margin-left: 28px;
+}
+
+.breakdown {
+    width: 100%;
+    height: 184px;
+    background-color: #F9FAFE;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.totalPrice {
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #FFFF;
+    margin-right: 50px;
+}
+
+.itemName {
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 35px;
+    color: #0C0E16;
+}
+
+.itemNameContainer {
+    margin-bottom: 40px;
+    margin-left: 28px;
+}
+
+.itemAmountandPrice {
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 35px;
+    color: #7E88C3;
+
+}
+
+.qtyContainer {
+    margin-left: auto;
+    margin-right: 50px;
+    text-align:center;
+}
+
+.priceContainer {
+    margin-right: 50px;
+    text-align:right;
+}
+
+.totalContainer {
+    margin-right: 50px;
+    text-align: right;
+}
+.result {
+    width: 100%;
+    height: 80px;
+    background-color: #373B53;
+    border-radius: 0 0 8px 8px;
+}
+
+.invoiceHeadlineBreakdown {
+    font-family: 'Spartan', sans-serif;
+    color: #7E88C3;
+    font-size: 12px;
+    margin-bottom: 35px;
+}
+
+.invoiceHeadline {
+    font-family: 'Spartan', sans-serif;
+    color: #7E88C3;
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+.invoiceData {
+    margin-top: 4px;
+    font-family: 'Spartan', sans-serif;
+    font-size: 15px;
+}
+
+.invoiceDateContainer {
+    margin-bottom: 35px;
+}
+
+.centerLeft {
+    margin-right: 100px;
+}
+
+.centerMiddle {
+    margin-right: 100px;
+}
+
+.number {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.description{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: 'Spartan', sans-serif;
+    color: #7E88C3;
+    font-size: 12px;
+    
+}
+
+.hashtag {
+    color: #888EB0;
+}
+
+.addressContainer {
+    text-align:right;
+}
+
+.addressContainerBillTo {
+    text-align: left;
+}
+
+.address {
+    display:flex;
+    flex-direction:column;
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    margin-bottom: 4px;
+    margin-top: 0px;
+    color: #7E88C3;
+}

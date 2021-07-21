@@ -8,9 +8,6 @@ import {Link} from 'react-router-dom'
 function Invoice({invoiceNumber, recipientName, dueDate, amount, status}) {
     
 
-
-
-
     return (
         <div className={invoiceCSS.container}>
             <h4 className={invoiceCSS.invoiceNumber}><span className={invoiceCSS.hashtag}>#</span>{invoiceNumber}</h4>

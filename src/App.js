@@ -9,14 +9,13 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 function App() {
 
-  
- 
+
   return (
     <div className={appCSS.container}>
       <Router >
         <Sidebar />
         <Route exact path="/" component={Main} />
-        <Route path="/:invoiceNumber" component={ViewInvoice} />
+        <Route path="/:invoiceNumber" render={(rest) => <ViewInvoice {...rest} />} />
       </Router>
     </div>
     

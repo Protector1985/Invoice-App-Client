@@ -5,20 +5,19 @@ import mainCSS from './main.module.css'
 import Invoice from '../Invoice/Invoice'
 import getNodeSizeCB from '../../../utility/sizing/getNodeSizeCB'
 import {ReactComponent as EmptyPic} from '../../../assets/illustration-empty.svg'
-import ViewInvoice from '../../pages/Viewinvoice'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 function Main(props) {
 
-    const [invoiceData, setInvoiceData] = React.useState([
-        {invoiceNumber:"RT3080", dueDate: "19 Aug 2021", recipient: "Jensen Huang", amount: "$1,080.90", status: "PAID"},
-        {invoiceNumber:"XM9141", dueDate: "20 Sep 2021", recipient: "Alex Grim", amount: "$556.00", status: "PENDING"},
-        {invoiceNumber:"FV2353", dueDate: "12 Nov 2021", recipient: "Anita Wainwright", amount: "$3,102.04", status: "DRAFT"},
-    ])
+    // const [invoiceData, setInvoiceData] = React.useState([
+    //     {invoiceNumber:"RT3080", dueDate: "19 Aug 2021", recipient: "Jensen Huang", amount: "$1,080.90", status: "PAID"},
+    //     {invoiceNumber:"XM9141", dueDate: "20 Sep 2021", recipient: "Alex Grim", amount: "$556.00", status: "PENDING"},
+    //     {invoiceNumber:"FV2353", dueDate: "12 Nov 2021", recipient: "Anita Wainwright", amount: "$3,102.04", status: "DRAFT"},
+    // ])
 
     // const [invoiceData, setInvoiceData] = React.useState([])
-
+    const   {invoiceData}  = useSelector((state) => state.invoiceData)
 
     const bodyContent = React.useCallback((node) => {
         getNodeSizeCB(node, "invoice_invoiceNumber__O8Yds");
