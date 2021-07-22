@@ -1,11 +1,12 @@
 const invoiceData = [
+
     {
     invoiceNumber:"RT3080", 
     invoiceDate: "10 Aug 2021" ,
     dueDate: "19 Aug 2021", 
     recipient: "Jensen Huang", 
     itemsPurchased: [
-        {description:"Banner Design", qty: 1, PricePerItem: "$1,080.90", total: "$1,080.90"}
+        {description:"Banner Design", qty: 4, pricePerItem: 1080, total: 0}
     ],
     amount: "$1,080.90", 
     status: "PAID", 
@@ -22,8 +23,10 @@ const invoiceData = [
         dueDate: "20 Sep 2021", 
         recipient: "Alex Grim", 
         itemsPurchased: [
-            {description:"Page Design", qty: 2, PricePerItem: "$280.00", total: "$560.00"},
-            {description:"Frontend Development", qty: 2, PricePerItem: "$500.00", total: "$1,000.00"}
+            {description:"Page Design", qty: 2, pricePerItem: 280.60, total: 0},
+            {description:"Frontend Development", qty: 2, pricePerItem: 5000.45, total: 0},
+            {description:"Logo Design", qty: 2, pricePerItem: 150.62, total: 0},
+            {description:"Backend Development", qty: 2, pricePerItem: 5000.45, total: 0},
         ],
         amount: "$556.00", 
         status: "PENDING", 
@@ -40,7 +43,7 @@ const invoiceData = [
         dueDate: "12 Nov 2021", 
         recipient: "Anita Wainwright", 
         itemsPurchased: [
-            {description:"Node Server Development", qty: 1, PricePerItem: "$5,000.00", total: "$5,000.00"},
+            {description:"Node Server Development", qty: 1, pricePerItem: 5000, total: 0},
         ],
         amount: "$5,000.00", 
         status: "DRAFT", 
@@ -52,5 +55,7 @@ const invoiceData = [
         email: "yeees@yes.com"
     },
 ]
+
+
 
 export default invoiceData;

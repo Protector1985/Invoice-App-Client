@@ -9,14 +9,6 @@ import { useSelector, useDispatch } from 'react-redux'
 
 
 function Main(props) {
-
-    // const [invoiceData, setInvoiceData] = React.useState([
-    //     {invoiceNumber:"RT3080", dueDate: "19 Aug 2021", recipient: "Jensen Huang", amount: "$1,080.90", status: "PAID"},
-    //     {invoiceNumber:"XM9141", dueDate: "20 Sep 2021", recipient: "Alex Grim", amount: "$556.00", status: "PENDING"},
-    //     {invoiceNumber:"FV2353", dueDate: "12 Nov 2021", recipient: "Anita Wainwright", amount: "$3,102.04", status: "DRAFT"},
-    // ])
-
-    // const [invoiceData, setInvoiceData] = React.useState([])
     const   {invoiceData}  = useSelector((state) => state.invoiceData)
 
     const bodyContent = React.useCallback((node) => {
@@ -36,8 +28,8 @@ function Main(props) {
                 </div>
             ) 
         } else {
-           return invoiceData.map((invoice) => {
-               return <Invoice key={invoice.invoiceNumber} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />  
+           return invoiceData.map((invoice, index) => {
+               return <Invoice key={invoice.invoiceNumber} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />  
            })
         }
     }
@@ -47,7 +39,7 @@ function Main(props) {
     return (
         <div className={mainCSS.bodyLight}>
                 <div ref={bodyContent} className={mainCSS.bodyContent}>
-                    <Header numInvoices={invoiceData.length} className="headerContainer" />
+                    <Header key="pageHeader" numInvoices={invoiceData.length} className="headerContainer" />
                     {returnBody()}
                 </div>
         </div>
