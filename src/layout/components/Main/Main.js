@@ -6,11 +6,14 @@ import Invoice from '../Invoice/Invoice'
 import getNodeSizeCB from '../../../utility/sizing/getNodeSizeCB'
 import {ReactComponent as EmptyPic} from '../../../assets/illustration-empty.svg'
 import { useSelector, useDispatch } from 'react-redux'
+import Drawer from '../Drawer/Drawer'
+
 
 
 function Main(props) {
-    const   {invoiceData}  = useSelector((state) => state.invoiceData)
-
+    const {invoiceData}  = useSelector((state) => state.invoiceData)
+    const {drawerOpen} = useSelector((state)=> state.drawerOpen)
+    console.log(drawerOpen)
     const bodyContent = React.useCallback((node) => {
         getNodeSizeCB(node, "invoice_invoiceNumber__O8Yds");
         getNodeSizeCB(node, "invoice_recipientData__1RWck" );
@@ -38,6 +41,7 @@ function Main(props) {
 
     return (
         <div className={mainCSS.bodyLight}>
+            <Drawer open={drawerOpen} />
                 <div ref={bodyContent} className={mainCSS.bodyContent}>
                     <Header key="pageHeader" numInvoices={invoiceData.length} className="headerContainer" />
                     {returnBody()}

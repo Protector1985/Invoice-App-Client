@@ -2,7 +2,9 @@ import React from 'react';
 import invoiceCSS from './invoice.module.css'
 import {useSelector} from 'react-redux'
 
+
 function Fullinvoice({ invoiceNumber, service}) {
+    
     const invoices = useSelector((state) => state.invoiceData.invoiceData);
     let invoice = invoices.filter((item) => item.invoiceNumber === invoiceNumber);
     invoice = invoice[0]
@@ -14,6 +16,8 @@ function Fullinvoice({ invoiceNumber, service}) {
     function dollarAmount (x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');     
     }
+
+
 
     return(
         <div className={invoiceCSS.container}>
@@ -76,25 +80,23 @@ function Fullinvoice({ invoiceNumber, service}) {
                     <div className={invoiceCSS.priceContainer}>
                         <p className={invoiceCSS.invoiceHeadlineBreakdown}>Price</p>
                         {invoice.itemsPurchased.map((item)=> {
-                            return <p className={invoiceCSS.itemAmountandPrice}>$ {dollarAmount(item.pricePerItem.toFixed(2))}</p>
+                            return <p className={invoiceCSS.itemAmountandPrice}>${dollarAmount(item.pricePerItem.toFixed(2))}</p>
                         })}
                        
                     </div>
                     <div className={invoiceCSS.totalContainer}>
                         <p className={invoiceCSS.invoiceHeadlineBreakdown}>Total</p>
                         {invoice.itemsPurchased.map((item)=> {
-                            return <p className={invoiceCSS.itemName}>$ {dollarAmount((item.pricePerItem * item.qty).toFixed(2))}</p>
+                            return <p className={invoiceCSS.itemName}>${dollarAmount((item.pricePerItem * item.qty).toFixed(2))}</p>
                         })}
                     </div>
                 </div>
                 <div className={invoiceCSS.result}>
                     <p className={invoiceCSS.amountDueDescription}>Amount due</p>
-                    <p className={invoiceCSS.totalPrice}>$ {totalAmount}</p>
-                        
-                    
-                    
+                    <p className={invoiceCSS.totalPrice}>${totalAmount}</p>
                 </div>
             </div>
+            
 
         </div>
     )

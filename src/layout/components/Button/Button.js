@@ -1,19 +1,19 @@
 import React from 'react'
 import {ReactComponent as Plus} from '../../../assets/icon-plus.svg'
+import {useDispatch} from 'react-redux'
 
-function Button({description, mode, type}) {
+function Button({description, mode, type, clicked, invoiceNumber}) {
     const [hover, setHover] = React.useState(false)
     const [svg, setSVG] = React.useState(null)
-
-    
+    const dispatch = useDispatch()
     const targetSVG = React.useCallback((node) => {
         if(node) {
             node.setAttribute("fill", "rgb(126, 136, 195)")
             setSVG(()=> node)
         }
-         
     })
 
+    
     function returnButtonStyling(typeProp) {
         if(typeProp === 1) {
             return {
@@ -108,23 +108,31 @@ function Button({description, mode, type}) {
         justifyContent: type === 6 ? "center" : "space-around"
     }
 
+    function handleClick(e) {
+        const payload ={
+            type: e.target.innerText,
+            invoice: invoiceNumber
+        }
+        dispatch(clicked(payload))
+    }
+
     function returnButton(typeProp) {
         if(typeProp === 1) {
             return (
-                <button onMouseOver={() => setHover(() => true)} onMouseOut={() => setHover(() => false)}  style={buttonStyle}>
+                <button onClick={(e) => handleClick(e)} onMouseOver={() => setHover(() => true)} onMouseOut={() => setHover(() => false)}  style={buttonStyle}>
                     <div style={circleStyle}><Plus /></div>
                     <span style={descriptionStyle}>{description}</span>
                 </button>
             )
         } else if (typeProp === 6) {
             return (
-                <button onMouseOver={() => setHover(() => true)} onMouseOut={() => setHover(() => false)}  style={buttonStyle}>
+                <button onClick={(e) => handleClick(e)} onMouseOver={() => setHover(() => true)} onMouseOut={() => setHover(() => false)}  style={buttonStyle}>
                     <Plus ref={targetSVG} /> <span style={descriptionStyle}>{description}</span>
                 </button>
             )
         } else {
             return (
-                <button onMouseOver={() => setHover(() => true)} onMouseOut={() => setHover(() => false)}  style={buttonStyle}>
+                <button onClick={(e) => handleClick(e)} onMouseOver={() => setHover(() => true)} onMouseOut={() => setHover(() => false)}  style={buttonStyle}>
                     <span style={descriptionStyle}>{description}</span>
                 </button>
             )

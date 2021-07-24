@@ -30,9 +30,24 @@
 
 .bottomContainer {
     width: 630px;
-    height: 264px;
     border-radius: 8px;
     margin-top: 50px;
+    overflow:hidden;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #DFE3FA;
 }
 
 .result {
@@ -52,7 +67,7 @@
 
 .breakdown {
     width: 100%;
-    height: 184px;
+    height: auto;
     background-color: #F9FAFE;
     border-radius: 8px 8px 0 0;
     display: flex;

@@ -1,0 +1,9 @@
+.container {
+    height:100%;
+    width: 500px;
+    background-color: white;
+    position:absolute;
+    z-index: 999;
+    border-radius: 0 15px 15px 0;
+    left:103px;
+}

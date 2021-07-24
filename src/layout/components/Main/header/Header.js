@@ -5,9 +5,9 @@ import Dropdown from 'react-dropdown'
 import {ReactComponent as ArrowDown} from '../../../../assets/icon-arrow-down.svg'
 import {ReactComponent as ArrowLeft} from '../../../../assets/icon-arrow-left.svg'
 import './headStylesheet.css'
+import {toggleOpen} from '../../../../Redux/drawerSlice'
 
 function Header({numInvoices}) {
-
     const dropdownItems = [
         {value: "PAID", label:"Paid"},
         {value: "PENDING", label:"Pending"},
@@ -22,7 +22,7 @@ function Header({numInvoices}) {
             </div>
             <div className="btnDropdownWrapper">
                 <Dropdown arrowClassName={headerCSS.arrowContainer} menuClassName={headerCSS.placeholder} controlClassName={headerCSS.dropdownContainer} options={dropdownItems} arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} placeholder="Filter by status" />
-                <Button description="New Invoice" mode="light" type={1} />
+                <Button clicked={toggleOpen} description="New Invoice" mode="light" type={1} />
             </div>
         </div>
     )
