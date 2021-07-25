@@ -1,9 +1,142 @@
 .container {
-    height:100%;
-    width: 500px;
+    height:100vh;
+    width: 600px;
     background-color: white;
     position:absolute;
     z-index: 999;
     border-radius: 0 15px 15px 0;
     left:103px;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.btnContainer {
+    display: flex;
+    flex-direction:row;
+    margin-top: 15px;
+}
+
+.fromToHeadline {
+    color: #7C5DFA;
+    font-family: 'Spartan', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 55px;
+}
+
+.formContainer {
+    width: 90%;
+}
+
+.fromStreetContainer {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.fromStreetLabel {
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    color: #7E88C3;
+}
+
+.fromStreetInput {
+    height: 35px;
+    width: 100%;
+    display:block;
+    margin-top: 8px;
+    border-color: #DFE3FA;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+}
+
+.fromCityLabel {
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    color: #7E88C3;
+}
+
+.fromCityContainer {
+    width: 30%;
+    display: inline-block;
+    margin-right: 6%;
+}
+
+.fromCityInput {
+    width: 100%;
+    height: 35px;
+    display:block;
+    margin-top:8px;
+    border-color: #DFE3FA;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+}
+
+.fromZipLabel {
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    color: #7E88C3;
+    margin-top: 8px;
+}
+
+.fromZipContainer {
+    width: 28%;
+    display:inline-block;
+    margin-right: 6%;
+}
+.fromZipInput {
+    width: 100%;
+    height: 35px;
+    display:block;
+    margin-top: 8px;
+    border-color: #DFE3FA;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+}
+
+.fromCountryContainer {
+    width: 30%;
+    display: inline-block;
+}
+
+.fromCountryLabel {
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    color: #7E88C3;
+}
+
+.fromCountryInput {
+    width: 100%;
+    height: 35px;
+    display:block;
+    margin-top:8px;
+    border-color: #DFE3FA;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+}
+
+.dateTerms {
+    width: 100%;
+    margin-top: 20px;
+
+}
+
+.datePicker {
+    width: 45%;
+    height: 35px;
+    display:block;
+    margin-top:8px;
+    border-color: #DFE3FA;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
 }

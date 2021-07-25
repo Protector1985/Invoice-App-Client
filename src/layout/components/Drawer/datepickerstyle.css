@@ -1,0 +1,22 @@
+.popover-header {
+    background-color: #F8F8FB;
+    border-radius: 10px 10px 0 0;
+}
+
+.popover-body {
+    background-color: #FFFF;
+}
+
+.rdp-addon {
+    display:none;
+}
+
+.rdp-header {
+    display: flex;
+    flex-direction: row;
+    text-align:center;
+}
+
+.text-muted {
+    margin-right: 
+}
