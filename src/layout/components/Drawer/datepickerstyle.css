@@ -5,18 +5,44 @@
 
 .popover-body {
     background-color: #FFFF;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
 }
+
+#rdp-input-group-datePicker {
+    display:flex;
+    flex-direction:row;
+}
+
 
 .rdp-addon {
     display:none;
 }
 
+
 .rdp-header {
     display: flex;
     flex-direction: row;
-    text-align:center;
+    justify-content: center;
+    height: 40px;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
 }
 
-.text-muted {
-    margin-right: 
+.float-left {
+    margin-right: 15px;
+    font-size: 15px;
+    margin-top: 14px;
 }
+
+.float-right {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.rdp-header span {
+    margin:auto;
+}
+

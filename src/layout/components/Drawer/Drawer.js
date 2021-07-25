@@ -1,11 +1,15 @@
 import "./datepickerstyle.css"
 import React from 'react'
+import ReactDOM from 'react-dom'
 import drawerCSS from './drawer.module.css'
 import Button from '../Button/Button'
 import {toggleClose} from '../../../Redux/drawerSlice'
 import {useSelector} from 'react-redux'
 import { Form, FormGroup, Input, Label } from 'reactstrap'
+import {ReactComponent as Calendar} from '../../../assets/icon-calendar.svg'
+import Logo from '../../../assets/image-avatar.jpg'
 var DatePicker = require("reactstrap-date-picker");
+
 
 
 
@@ -18,6 +22,8 @@ function Drawer({open}) {
         "display": "none"
     }
    
+    
+    
 
     return (
         <div style={!open ? hidden : null} className={drawerCSS.container}>
@@ -76,6 +82,10 @@ function Drawer({open}) {
                     <div className={drawerCSS.dateTerms}>
                         <Label className={drawerCSS.fromCountryLabel} for="datePicker">Invoice Date</Label>
                         <DatePicker className={drawerCSS.datePicker} id="datePicker" />
+                        <div className={drawerCSS.calendarSymbol}>
+                            <Calendar  />
+                        </div>
+                        
                     </div>
                 </FormGroup>
             

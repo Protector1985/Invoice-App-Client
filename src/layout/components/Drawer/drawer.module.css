@@ -52,6 +52,17 @@
     font-weight: bold;
 }
 
+.dateTerms {
+    position:relative;
+}
+
+.calendarSymbol {
+    position:absolute;
+    top:39px;
+    left:220px;
+    z-index: 1;
+}
+
 .fromCityLabel {
     font-family: 'Spartan', sans-serif;
     font-size: 11px;
