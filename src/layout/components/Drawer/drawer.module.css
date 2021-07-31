@@ -11,6 +11,62 @@
     align-items: center;
 }
 
+.dateTermsSubContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dateTermsSubSubContainer {
+    width: 48%;
+}
+
+.dropdownControl {
+    margin-top:8px!important;
+    width: 100%;
+    display:flex!important;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #DFE3FA;
+    height: 35px;
+    display:block;
+    margin-top:8px;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold!important;
+    font-size: 15px!important;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset!important;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial
+}
+
+.dropdownMenu {
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold!important;
+    font-size: 13px!important;
+}
+
+
 .btnContainer {
     display: flex;
     flex-direction:row;
@@ -29,7 +85,11 @@
     width: 90%;
 }
 
-.fromStreetContainer {
+.projectDescription {
+    margin-top: 18px;
+}
+
+.fullWidthInput {
     width: 100%;
     margin-bottom: 20px;
 }
@@ -39,6 +99,84 @@
     font-size: 11px;
     color: #7E88C3;
 }
+
+.itemListHeadline {
+    font-family: 'Spartan', sans-serif;
+    color: #777F98;
+    font-size: 20px;
+}
+
+.iNameContainer {
+    width: 214px;
+}
+
+.qtyContainer {
+    width: 46px;
+}
+
+
+
+.totalAmount {
+    margin-top:0;
+    margin-bottom: 0;
+    align-self:center;
+    font-family: 'Spartan', sans-serif;
+    color: #888EB0;
+}
+
+.totalAmountContainer {
+    height: 35px;
+    margin-top:15px;
+    display:flex;
+}
+
+.trashSymbol {
+    align-self: flex-end;
+}
+
+.trashSymbolContainer {
+    height: 35px;
+    margin-top: 15px;
+    display:flex;
+}
+
+.iDataInput {
+    width: 90%;
+}
+
+.priceContainer {
+    width: 100px;
+}
+
+.totalContainer {
+    width:65px;
+}
+
+
+.itemListDesc {
+    font-family: 'Spartan', sans-serif;
+    color: #7E88C3;
+    font-size:12px;
+}
+
+.iDataInput {
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #DFE3FA;
+    margin-top: 15px;
+}
+
+.headlineContainer {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.itemName {
+    width: 214px;
+}
+
 
 .fromStreetInput {
     height: 35px;
@@ -59,7 +197,7 @@
 .calendarSymbol {
     position:absolute;
     top:39px;
-    left:220px;
+    left:210px;
     z-index: 1;
 }
 
@@ -141,7 +279,7 @@
 }
 
 .datePicker {
-    width: 45%;
+    width: 100%;
     height: 35px;
     display:block;
     margin-top:8px;

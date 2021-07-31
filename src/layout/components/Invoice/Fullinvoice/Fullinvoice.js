@@ -28,10 +28,10 @@ function Fullinvoice({ invoiceNumber, service}) {
                 </div>
                 
                 <div className={invoiceCSS.addressContainer}>
-                    <p className={invoiceCSS.address}>{invoice.street}</p>
-                    <p className={invoiceCSS.address}>{invoice.city}</p>
-                    <p className={invoiceCSS.address}>{invoice.zip}</p>
-                    <p className={invoiceCSS.address}>{invoice.country}</p>
+                    <p className={invoiceCSS.address}>{invoice.fromStreet}</p>
+                    <p className={invoiceCSS.address}>{invoice.fromCity}</p>
+                    <p className={invoiceCSS.address}>{invoice.fromZip}</p>
+                    <p className={invoiceCSS.address}>{invoice.fromCountry}</p>
                 </div>
             </div>
 
@@ -50,10 +50,10 @@ function Fullinvoice({ invoiceNumber, service}) {
                         <p className={invoiceCSS.invoiceHeadline}>Bill to</p>
                         <h3 className={invoiceCSS.invoiceData}>{invoice.recipient}</h3>
                     <div className={invoiceCSS.addressContainerBillTo}>
-                        <p className={invoiceCSS.address}>{invoice.street}</p>
-                        <p className={invoiceCSS.address}>{invoice.city}</p>
-                        <p className={invoiceCSS.address}>{invoice.zip}</p>
-                        <p className={invoiceCSS.address}>{invoice.country}</p>
+                        <p className={invoiceCSS.address}>{invoice.toStreet}</p>
+                        <p className={invoiceCSS.address}>{invoice.toCity}</p>
+                        <p className={invoiceCSS.address}>{invoice.toZip}</p>
+                        <p className={invoiceCSS.address}>{invoice.toCountry}</p>
                     </div>
                 </div>
                 <div className={invoiceCSS.centerRight}>
