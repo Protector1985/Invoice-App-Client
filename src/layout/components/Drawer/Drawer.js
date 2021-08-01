@@ -21,22 +21,49 @@ var DatePicker = require("reactstrap-date-picker");
 
 function Drawer({open}) {
 
-    const options = [
-        'Next 30 days', 'Next 14 days', 'Next 7 days'
-      ];
+    
 
-    const defaultOption = options[0];
+      function getOptions() {
+        const opt = [];
+        for (let i = 2 ; i <= 30 ; i ++) {
+            opt.push({
+                label: `Next ${i} days`,
+                value: i
+            })
+        }
+        return opt
+    }
+
+     
+
+    const defaultOption = {
+        label: "Next 1 day",
+        value: 1   
+    }
+
+
     const modType = useSelector((state) => state.drawerOpen.modType)
     const invoiceNumber = useSelector((state)=> state.drawerOpen.invoiceNumber)
     const invoice = useSelector((state)=> state.invoiceData.invoiceData).filter((invoice) => invoiceNumber === invoice.invoiceNumber)
-    console.log("rendered " + invoice)
+    const [date, setDate] = React.useState(new Date())
     const hidden = {
         "display": "none"
     }
    
-    
+    React.useEffect(() => {
+        if(invoice.length > 0) {
+            console.log("rendered " + invoice)
+        }
+        
+    },[invoiceNumber])
    
+    const dateRef = React.useCallback((node) => {
+        if(node) {
+            node._inputRef.current.value= "12 Aug 2021"
+        }
+    })
     
+
     
 
     return (
@@ -126,7 +153,7 @@ function Drawer({open}) {
                         <div className={drawerCSS.dateTermsSubContainer}>
                             <div className={drawerCSS.dateTermsSubSubContainer}>
                                 <Label className={drawerCSS.fromCountryLabel} for="datePicker">Invoice Date</Label>
-                                <DatePicker className={drawerCSS.datePicker}  id="datePicker" />
+                                <DatePicker ref={dateRef}className={drawerCSS.datePicker}  id="datePicker" />
                                 <div className={drawerCSS.calendarSymbol}>
                                     <Calendar  />
                                 </div>
@@ -134,13 +161,16 @@ function Drawer({open}) {
                             
                             <div className={drawerCSS.dateTermsSubSubContainer}>
                             <Label className={`${drawerCSS.fromCountryLabel} subSub`} for="termPicker">Payment Terms</Label>
-                            <Dropdown menuClassName={drawerCSS.dropdownMenu} controlClassName={drawerCSS.dropdownControl} style={style}  options={options} value={defaultOption} placeholder="Select an option" arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} />
+                            <Dropdown menuClassName={drawerCSS.dropdownMenu} controlClassName={drawerCSS.dropdownControl} style={style}  options={getOptions()} value={defaultOption} placeholder="Select an option" arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} />
                             </div>   
                         </div>
                             
                             <div className={`${drawerCSS.fullWidthInput} ${drawerCSS.projectDescription}`}>
                                 <Label className={drawerCSS.fromStreetLabel} for="pDescription">Project Description</Label>
-                                <Input className={drawerCSS.fromStreetInput} type="text" name="pDescription" id="pDescription" />
+                                {invoice.map((data)=> {
+                                    return <Input className={drawerCSS.fromStreetInput} value={data.overallProject} type="text" name="pDescription" id="pDescription" />
+                                })}
+                                
                             </div>
                         <div className={drawerCSS.addDeleteContainer}>
                             <h5 className={drawerCSS.itemListHeadline}>Item List</h5>

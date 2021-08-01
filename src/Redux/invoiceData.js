@@ -2,9 +2,13 @@ const invoiceData = [
 
     {
     invoiceNumber:"RT3080", 
-    invoiceDate: "07/19/2021" ,
+    invoiceDateMonth: "Jul",
+    invoiceDateDay: 8,
+    invoiceDateYear: 2021,
+    dueIn: 30,
     dueDate: "19 Aug 2021", 
     recipient: "Jensen Huang", 
+    overallProject: "Design",
     itemsPurchased: [
         {description:"Banner Design", qty: 4, pricePerItem: 1080, total: 0}
     ],
@@ -22,10 +26,14 @@ const invoiceData = [
     toEmail: "besttest@test.com"
 },
     {
-        invoiceNumber:"XM9141", 
-        invoiceDate: "03/10/2021" ,
+        invoiceNumber:"XM9141",
+        invoiceDateMonth: "Feb",
+        invoiceDateDay: 1,
+        invoiceDateYear: 2019,
+        dueIn: 10,
         dueDate: "20 Sep 2021", 
-        recipient: "Alex Grim", 
+        recipient: "Alex Grim",
+        overallProject: "Full Stack Development", 
         itemsPurchased: [
             {description:"Page Design", qty: 2, pricePerItem: 280.60, total: 0},
             {description:"Frontend Development", qty: 2, pricePerItem: 5000.45, total: 0},
@@ -47,9 +55,13 @@ const invoiceData = [
     },
     {
         invoiceNumber:"FV2353", 
-        invoiceDate: "01/11/2021" ,
+        invoiceDateMonth: "Jan",
+        invoiceDateDay: 5,
+        invoiceDateYear: 2020,
+        dueIn: 14,
         dueDate: "12 Nov 2021", 
-        recipient: "Anita Wainwright", 
+        recipient: "Anita Wainwright",
+        overallProject: "Web Development",
         itemsPurchased: [
             {description:"Node Server Development", qty: 1, pricePerItem: 5000, total: 0},
         ],

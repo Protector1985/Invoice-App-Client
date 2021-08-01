@@ -1,6 +1,7 @@
 import React from 'react';
 import invoiceCSS from './invoice.module.css'
 import {useSelector} from 'react-redux'
+import getDueDate from '../../../../utility/helpers/getDueDate'
 
 
 function Fullinvoice({ invoiceNumber, service}) {
@@ -17,6 +18,9 @@ function Fullinvoice({ invoiceNumber, service}) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');     
     }
 
+    // console.log(invoice.invoiceDateDay, invoice.invoiceDateMonth, invoice.invoiceDateYear, invoice.dueIn)
+    const dueDateData = getDueDate(invoice.dueIn, invoice.invoiceDateDay, invoice.invoiceDateYear, invoice.invoiceDateMonth)
+    console.log(dueDateData)
 
 
     return(
@@ -39,11 +43,11 @@ function Fullinvoice({ invoiceNumber, service}) {
                 <div className={invoiceCSS.centerLeft}>
                     <div className={invoiceCSS.invoiceDateContainer}>
                         <p className={invoiceCSS.invoiceHeadline}>Invoice Date</p>
-                        <h3 className={invoiceCSS.invoiceData}>{invoice.invoiceDate}</h3>
+                        <h3 className={invoiceCSS.invoiceData}>{`${invoice.invoiceDateDay} ${invoice.invoiceDateMonth} ${invoice.invoiceDateYear}`}</h3>
                     </div>
                     <div  className={invoiceCSS.dueDateContainer}>
                         <p className={invoiceCSS.invoiceHeadline}>Payment Due</p>
-                        <h3 className={invoiceCSS.invoiceData}>{invoice.dueDate}</h3>
+                        <h3 className={invoiceCSS.invoiceData}>{`${dueDateData.dueDay} ${dueDateData.dueMonth} ${dueDateData.dueYear}`}</h3>
                     </div>
                 </div>
                 <div className={invoiceCSS.centerMiddle}>
