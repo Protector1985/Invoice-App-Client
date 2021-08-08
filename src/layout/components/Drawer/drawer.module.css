@@ -9,6 +9,7 @@
     display: flex;
     flex-direction:column;
     align-items: center;
+    overflow-y:scroll;
 }
 
 .dateTermsSubContainer {
@@ -19,6 +20,11 @@
 
 .dateTermsSubSubContainer {
     width: 48%;
+}
+
+.svgContainer {
+    height: 35px;
+    margin-bottom:142%;
 }
 
 .dropdownControl {
@@ -111,17 +117,26 @@
 }
 
 .qtyContainer {
-    width: 46px;
+    width: 25px;
 }
 
 
 
-.totalAmount {
+.totalAmountLightText {
     margin-top:0;
     margin-bottom: 0;
     align-self:center;
     font-family: 'Spartan', sans-serif;
     color: #888EB0;
+    font-weight:bold;
+}
+
+.totalAmountDarkText {
+    margin-top:0;
+    margin-bottom: 0;
+    align-self:center;
+    font-family: 'Spartan', sans-serif;
+    font-weight:bold;
 }
 
 .totalAmountContainer {
@@ -134,10 +149,17 @@
     align-self: flex-end;
 }
 
+.removeBorder {
+    border: 1px transparent !important;
+    height: 37px!important;
+}
+
 .trashSymbolContainer {
-    height: 35px;
-    margin-top: 15px;
+    height:100%;
+    margin-top: 23px;
     display:flex;
+    flex-direction: column;
+   
 }
 
 .iDataInput {
@@ -149,7 +171,7 @@
 }
 
 .totalContainer {
-    width:65px;
+    width:100px;
 }
 
 

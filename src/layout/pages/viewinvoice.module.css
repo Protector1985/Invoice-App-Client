@@ -4,7 +4,7 @@
     background-color: #F8F8FB;
     width: 100%;
     align-items: center;
-    border-radius: 10px;
+    overflow-y:scroll;
     
 }
 

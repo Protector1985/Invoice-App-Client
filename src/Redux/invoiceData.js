@@ -35,10 +35,14 @@ const invoiceData = [
         recipient: "Alex Grim",
         overallProject: "Full Stack Development", 
         itemsPurchased: [
-            {description:"Page Design", qty: 2, pricePerItem: 280.60, total: 0},
-            {description:"Frontend Development", qty: 2, pricePerItem: 5000.45, total: 0},
+            {description:"Page Design", qty: 2, pricePerItem: 280.60, total: 0},{description:"Frontend Development", qty: 2, pricePerItem: 5000.45, total: 0},
             {description:"Logo Design", qty: 2, pricePerItem: 150.62, total: 0},
-            {description:"Backend Development", qty: 2, pricePerItem: 5000.45, total: 0},
+            {description:"Page Design", qty: 2, pricePerItem: 280.60, total: 0},
+            {description:"Ogliiii Design", qty: 20, pricePerItem: 150.62, total: 0},
+            
+            
+            
+            
         ],
         amount: "$556.00", 
         status: "PENDING", 

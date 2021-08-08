@@ -12,7 +12,7 @@ import {ReactComponent as ArrowDown} from '../../../assets/icon-arrow-down.svg'
 import {ReactComponent as ArrowLeft} from '../../../assets/icon-arrow-left.svg'
 import {ReactComponent as Trash} from '../../../assets/icon-delete.svg'
 import style from 'react-dropdown/style.css';
-import Logo from '../../../assets/image-avatar.jpg'
+
 var DatePicker = require("reactstrap-date-picker");
 
 
@@ -21,6 +21,15 @@ var DatePicker = require("reactstrap-date-picker");
 
 function Drawer({open}) {
 
+    const modType = useSelector((state) => state.drawerOpen.modType)
+    const invoiceNumber = useSelector((state)=> state.drawerOpen.invoiceNumber)
+    const invoice = useSelector((state)=> state.invoiceData.invoiceData).filter((invoice) => invoiceNumber === invoice.invoiceNumber)
+    const [date, setDate] = React.useState(new Date())
+    const hidden = {
+        "display": "none"
+    }
+    const [itemsPurchased, setItemsPurchased] = React.useState([])
+    const [totalContainerHeight, setTotalContainerHeight] = React.useState(0);
     
 
       function getOptions() {
@@ -41,20 +50,23 @@ function Drawer({open}) {
         value: 1   
     }
 
+    // const totalContainerRef = React.useCallback((node) => {
+    //     if(node && node.clientHeight !== 0) {
+    //         console.log(node.clientHeight)
+    //         setTotalContainerHeight(() => node.clientHeight)
+    //     }
+    // })
 
-    const modType = useSelector((state) => state.drawerOpen.modType)
-    const invoiceNumber = useSelector((state)=> state.drawerOpen.invoiceNumber)
-    const invoice = useSelector((state)=> state.invoiceData.invoiceData).filter((invoice) => invoiceNumber === invoice.invoiceNumber)
-    const [date, setDate] = React.useState(new Date())
-    const hidden = {
-        "display": "none"
-    }
-   
+    const totalContainerRef = React.useRef()
+    
+
+    
+    
+
     React.useEffect(() => {
         if(invoice.length > 0) {
-            console.log("rendered " + invoice)
-        }
-        
+            setItemsPurchased(() => invoice[0].itemsPurchased)
+        }    
     },[invoiceNumber])
    
     const dateRef = React.useCallback((node) => {
@@ -178,25 +190,37 @@ function Drawer({open}) {
                                 <div className={drawerCSS.headlineContainer}>
                                     <div className={drawerCSS.iNameContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="iName">Item Name</Label>
-                                        <Input className={drawerCSS.iDataInput} type="text" name="iName" id="iName" />
+                                        {itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.description} type="text" name="iName" id="iName" />)}
+                                        
                                     </div>
                                     <div className={drawerCSS.qtyContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="qty">Qty.</Label>
-                                        <Input className={drawerCSS.iDataInput} type="text" name="qty" id="qty" />
+                                        {itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.qty} type="text" name="qty" id="qty" />)}
+                                        
                                     </div>
                                     <div className={drawerCSS.priceContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="price">Price</Label>
-                                        <Input className={drawerCSS.iDataInput} type="text" name="price" id="price" />
+                                        {itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.pricePerItem.toFixed(2)} type="text" name="qty" id="qty" />)}
+                                        
                                     </div>
-                                    <div className={drawerCSS.totalContainer}>
+                                    <div ref={totalContainerRef} className={drawerCSS.totalContainer}>
                                         <Label className={drawerCSS.itemListDesc}>Total</Label>
-                                        <div className={drawerCSS.totalAmountContainer}>
-                                            <h5 className={drawerCSS.totalAmount}>159.00</h5>
-                                        </div>
+                                        {itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`} value={workItem.pricePerItem} value={(workItem.qty * workItem.pricePerItem).toFixed(2)} type="text" name="qty" id="qty" /> )}
+                                        
                                     </div>
                                     <div className={drawerCSS.trashSymbolContainer}>
-                                        <h4> </h4>
-                                        <span className={drawerCSS.trashSymbol}><Trash /> </span>    
+                                    
+                                    {itemsPurchased.map((workItem) => {
+                                        return (
+                                            <div className={drawerCSS.svgContainer}>
+                                                <h4> </h4>
+                                                <span className={drawerCSS.trashSymbol}><Trash /> </span> 
+                                            </div>
+                                             
+                                        )
+                                    })}
+                                        
+                                          
                                     </div>
                                     
                                 </div>

@@ -1,12 +1,12 @@
 .container{
     width: 730px;
-    height: 631px;
+    height: auto;
     background-color: #FFFF;
     margin-top: 25px;
-    border-radius: 8px;
     display:flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 65px;
 }
 
 .topContainer {
@@ -32,23 +32,11 @@
     width: 630px;
     border-radius: 8px;
     margin-top: 50px;
-    overflow:hidden;
-    overflow-y: auto;
+    margin-bottom: 50px;
+    
 }
 
-::-webkit-scrollbar {
-    width: 8px;
-}
 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #DFE3FA;
-}
 
 .result {
     display: flex;
