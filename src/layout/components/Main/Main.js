@@ -7,19 +7,31 @@ import getNodeSizeCB from '../../../utility/sizing/getNodeSizeCB'
 import {ReactComponent as EmptyPic} from '../../../assets/illustration-empty.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import Drawer from '../Drawer/Drawer'
+import axios from 'axios'
+import useDeepCompareEffect from 'use-deep-compare-effect'
 
 
 
 function Main(props) {
-    const {invoiceData}  = useSelector((state) => state.invoiceData)
+    // const {invoiceData}  = useSelector((state) => state.invoiceData)
+    const [invoiceData, setInvoiceData] = React.useState([])
     const {drawerOpen} = useSelector((state)=> state.drawerOpen)
-    console.log(drawerOpen)
     const bodyContent = React.useCallback((node) => {
         getNodeSizeCB(node, "invoice_invoiceNumber__O8Yds");
         getNodeSizeCB(node, "invoice_recipientData__1RWck" );
         getNodeSizeCB(node, "invoice_amount__1U-gr");
         getNodeSizeCB(node, "invoice_recipientName__adE_o");
     })
+
+    useDeepCompareEffect(() => {
+        axios.get("/invoice/fetchAll")
+            .then((res) => {
+                const invoices = res.data;
+                console.log(invoices)
+                setInvoiceData(invoices)
+            })
+    }, [invoiceData])
+    
 
     function returnBody() {
         if(invoiceData.length === 0) {
@@ -32,7 +44,9 @@ function Main(props) {
             ) 
         } else {
            return invoiceData.map((invoice, index) => {
-               return <Invoice key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />  
+               return <Invoice key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
+               
+              
            })
         }
     }

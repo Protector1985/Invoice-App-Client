@@ -34,6 +34,7 @@ const invoiceData = [
         dueDate: "20 Sep 2021", 
         recipient: "Alex Grim",
         overallProject: "Full Stack Development", 
+        toEmail: "michaelrbraun1985@gmail.com",
         itemsPurchased: [
             {description:"Page Design", qty: 2, pricePerItem: 280.60, total: 0},{description:"Frontend Development", qty: 2, pricePerItem: 5000.45, total: 0},
             {description:"Logo Design", qty: 2, pricePerItem: 150.62, total: 0},
@@ -66,6 +67,7 @@ const invoiceData = [
         dueDate: "12 Nov 2021", 
         recipient: "Anita Wainwright",
         overallProject: "Web Development",
+        
         itemsPurchased: [
             {description:"Node Server Development", qty: 1, pricePerItem: 5000, total: 0},
         ],
@@ -80,6 +82,7 @@ const invoiceData = [
         toCity: "Newbury Park",
         toZip: "91320",
         toCountry: "USA",
+        toEmail: "michaelrbraun1985@gmail.com",
         email: "yeees@yes.com"
     },
 ]
