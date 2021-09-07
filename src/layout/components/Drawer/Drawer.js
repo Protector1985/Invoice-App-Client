@@ -60,7 +60,7 @@ function Drawer({open}) {
     const totalContainerRef = React.useRef()
     
 
-    
+    console.log(invoice)
     
 
     React.useEffect(() => {
@@ -75,7 +75,8 @@ function Drawer({open}) {
         }
     })
     
-
+    
+    
     
 
     return (
@@ -88,22 +89,28 @@ function Drawer({open}) {
                 <FormGroup>
                     <div className={drawerCSS.fullWidthInput}>
                         <Label className={drawerCSS.fromStreetLabel} for="street">Street</Label>
-                        {invoice.map((data) => {
+                        {invoice.length === 0 ?  <Input className={drawerCSS.fromStreetInput} value={null} type="text" name="street" id="street" />
+                            :
+                        invoice.map((data) => {
                             return <Input className={drawerCSS.fromStreetInput} value={data.fromStreet} type="text" name="street" id="street" />
                         })}
                     </div>
                     
                     <div className={drawerCSS.fromCityContainer}>
                         <Label className={drawerCSS.fromCityLabel} for="city">City</Label>
-                        {invoice.map((data) => {
-                            return <Input className={drawerCSS.fromCityInput} value={data.fromCity} type="text" name="city" id="city" />
+                        {invoice.length === 0 ? <Input className={drawerCSS.fromCityInput} value={null} type="text" name="city" id="city" /> 
+                            :
+                        invoice.map((data) => {
+                                return <Input className={drawerCSS.fromCityInput} value={data.fromCity} type="text" name="city" id="city" />
                         })}
                         
                     </div>
                     
                     <div className={drawerCSS.fromZipContainer}>
                         <Label className={drawerCSS.fromZipLabel} for="zip">Zip Code</Label>
-                        {invoice.map((data) => {
+                        {invoice.length === 0 ? <Input className={drawerCSS.fromZipInput} value={null} type="text" name="zip" id="zip" />
+                            :
+                        invoice.map((data) => {
                             return <Input className={drawerCSS.fromZipInput} value={data.fromZip} type="text" name="zip" id="zip" />
                         })}
                         
@@ -111,7 +118,9 @@ function Drawer({open}) {
 
                     <div className={drawerCSS.fromCountryContainer}>
                         <Label className={drawerCSS.fromCountryLabel} for="country">Country</Label>
-                        {invoice.map((data) => {
+                        {invoice.length === 0 ? <Input className={drawerCSS.fromCountryInput} value={null} type="text" name="country" id="country" />
+                            :
+                        invoice.map((data) => {
                             return <Input className={drawerCSS.fromCountryInput} value={data.fromCountry} type="text" name="country" id="country" />
                         })}
                         
@@ -119,7 +128,9 @@ function Drawer({open}) {
                     <p className={drawerCSS.fromToHeadline}>Bill To</p>
                     <div className={drawerCSS.fullWidthInput}>
                         <Label className={drawerCSS.fromStreetLabel} for="cname">Client's Name</Label>
-                        {invoice.map((data) => {
+                        {invoice.length === 0 ? <Input className={drawerCSS.fromStreetInput} value={null} type="text" name="cname" id="cname" />
+                            : 
+                        invoice.map((data) => {
                             return <Input className={drawerCSS.fromStreetInput} value={data.recipient} type="text" name="cname" id="cname" />
                         })}
                         
@@ -133,14 +144,18 @@ function Drawer({open}) {
                     </div>
                     <div className={drawerCSS.fullWidthInput}>
                         <Label className={drawerCSS.fromStreetLabel} for="streetAddress">Street Address</Label>
-                        {invoice.map((data) => {
+                        {invoice.length === 0 ? <Input className={drawerCSS.fromStreetInput} value={null} type="text" name="streetAddress" id="streetAddress" />
+                            :
+                        invoice.map((data) => {
                             return <Input className={drawerCSS.fromStreetInput} value={data.toStreet} type="text" name="streetAddress" id="streetAddress" />
                         })}
                         
                     </div>
                     <div className={drawerCSS.fromCityContainer}>
                         <Label className={drawerCSS.fromCityLabel} for="ccity">City</Label>
-                        {invoice.map((data) => {
+                        {invoice.length === 0 ? <Input className={drawerCSS.fromCityInput} value={null} type="text" name="ccity" id="ccity" />
+                            : 
+                        invoice.map((data) => {
                             return  <Input className={drawerCSS.fromCityInput} value={data.toCity} type="text" name="ccity" id="ccity" />
                         })}
                        
@@ -148,7 +163,9 @@ function Drawer({open}) {
                     
                     <div className={drawerCSS.fromZipContainer}>
                         <Label className={drawerCSS.fromZipLabel} for="czip">Zip Code</Label>
-                        {invoice.map((data) => {
+                        {invoice.length === 0 ? <Input className={drawerCSS.fromZipInput} value={null} type="text" name="czip" id="czip" />
+                            : 
+                        invoice.map((data) => {
                             return <Input className={drawerCSS.fromZipInput} value={data.toZip} type="text" name="czip" id="czip" />
                         })}
                         
@@ -156,7 +173,9 @@ function Drawer({open}) {
 
                     <div className={drawerCSS.fromCountryContainer}>
                         <Label className={drawerCSS.fromCountryLabel} for="ccountry">Country</Label>
-                        {invoice.map((data) => {
+                        {invoice.length === 0 ? <Input className={drawerCSS.fromCountryInput} value={null} type="text" name="ccountry" id="ccountry" />
+                            : 
+                        invoice.map((data) => {
                             return <Input className={drawerCSS.fromCountryInput} value={data.toCountry} type="text" name="ccountry" id="ccountry" />
                         })}
                         
@@ -179,7 +198,9 @@ function Drawer({open}) {
                             
                             <div className={`${drawerCSS.fullWidthInput} ${drawerCSS.projectDescription}`}>
                                 <Label className={drawerCSS.fromStreetLabel} for="pDescription">Project Description</Label>
-                                {invoice.map((data)=> {
+                                {invoice.length === 0 ? <Input className={drawerCSS.fromStreetInput} value={null} type="text" name="pDescription" id="pDescription" />
+                                    : 
+                                invoice.map((data)=> {
                                     return <Input className={drawerCSS.fromStreetInput} value={data.overallProject} type="text" name="pDescription" id="pDescription" />
                                 })}
                                 
