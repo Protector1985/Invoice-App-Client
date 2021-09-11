@@ -12,6 +12,6 @@ export const invoiceDataSlice = createSlice({
   })
   
   // Action creators are generated for each case reducer function
-  export const { calculateTotal } = invoiceDataSlice.actions
+  
   
   export default invoiceDataSlice.reducer

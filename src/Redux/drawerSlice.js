@@ -20,5 +20,5 @@ export const drawerSlice = createSlice({
     },
 })
 
-export const {toggleOpen, toggleClose, invoice} = drawerSlice.actions
+export const {toggleOpen, toggleClose} = drawerSlice.actions
 export default drawerSlice.reducer;
