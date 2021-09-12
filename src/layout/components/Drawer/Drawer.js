@@ -23,7 +23,8 @@ import {setFromStreet,
         setToZip, 
         setToCountry, 
         setProjectDesc} from '../../../Redux/inputFieldsSlice'
-import {addRow} from '../../../Redux/itemListSlice'
+import {addRow, editRow} from '../../../Redux/itemListSlice'
+import {setDate, setDueIn} from "../../../Redux/dateSlice"
 var DatePicker = require("reactstrap-date-picker");
 
 
@@ -47,7 +48,7 @@ function Drawer({open}) {
     const toCountry = useSelector((state) => state.inputFieldsSlice.toCountry)
     const toProject = useSelector((state) => state.inputFieldsSlice.toProject)
     const itemRows = useSelector((state) => state.itemListSlice.rows)
-   
+    const itemArray = useSelector((state)=> state.itemListSlice.items)
     useSelector((state) => console.log(state))
 
     const hidden = {
@@ -192,12 +193,41 @@ function Drawer({open}) {
         dispatch(setProjectDesc(payload))   
     }
 
-    function returnInvoiceRows() {
-        if(invoice.length === 0) {
-            for(let i = 1 ; i < itemRows ; i ++ ) {
-                return
-            }
+    function editItemField(e, index, type, item) {
+        if(item) {
+            console.log(item.qty * item.pricePerItem)
         }
+
+        const payload = {
+            type: type,
+            index: index,
+            value: e.target.value
+        }
+        dispatch(editRow(payload))
+    }
+
+    function submitDate(dateValue) {
+        const dateTime = new Date(dateValue)
+        const month = dateTime.toLocaleString("default", {month: "short"})
+        const day = dateTime.getDate()
+        const year = dateTime.getFullYear()
+
+        const payload = {
+            type: "Set Date",
+            month: month,
+            day: day,
+            year: year
+        }
+        dispatch(setDate(payload))
+    }
+
+    function handleDueInChange(e) {
+        const dueIn = e.value
+        const payload = {
+            type: "DueIn", 
+            value: dueIn
+        }
+        dispatch(setDueIn(payload))
     }
 
     return (
@@ -307,7 +337,7 @@ function Drawer({open}) {
                         <div className={drawerCSS.dateTermsSubContainer}>
                             <div className={drawerCSS.dateTermsSubSubContainer}>
                                 <Label className={drawerCSS.fromCountryLabel} for="datePicker">Invoice Date</Label>
-                                <DatePicker ref={dateRef}className={drawerCSS.datePicker}  id="datePicker" />
+                                <DatePicker ref={dateRef} onChange={(dateValue) => submitDate(dateValue)} className={drawerCSS.datePicker}  id="datePicker" />
                                 <div className={drawerCSS.calendarSymbol}>
                                     <Calendar  />
                                 </div>
@@ -315,7 +345,7 @@ function Drawer({open}) {
                             
                             <div className={drawerCSS.dateTermsSubSubContainer}>
                             <Label className={`${drawerCSS.fromCountryLabel} subSub`} for="termPicker">Payment Terms</Label>
-                            <Dropdown menuClassName={drawerCSS.dropdownMenu} controlClassName={drawerCSS.dropdownControl} style={style}  options={getOptions()} value={defaultOption} placeholder="Select an option" arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} />
+                            <Dropdown menuClassName={drawerCSS.dropdownMenu} controlClassName={drawerCSS.dropdownControl} style={style} options={getOptions()} onChange={(e) => handleDueInChange(e)} value={defaultOption} placeholder="Select an option" arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} />
                             </div>   
                         </div>
                             
@@ -335,7 +365,7 @@ function Drawer({open}) {
                                     <div className={drawerCSS.iNameContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="iName">Item Name</Label>
                                         {invoice.length === 0 ? 
-                                            [...Array(itemRows)].map(() => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={null} type="text" name="iName" id="iName" />)
+                                            itemArray.map((item, index) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "description") } value={item.description} type="text" name="iName" id="iName" />)
                                             :
 
                                             itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.description} type="text" name="iName" id="iName" />)}
@@ -344,7 +374,7 @@ function Drawer({open}) {
                                     <div className={drawerCSS.qtyContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="qty">Qty.</Label>
                                         {invoice.length === 0 ? 
-                                        [...Array(itemRows)].map(() => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={null} type="text" name="qty" id="qty" />)
+                                        itemArray.map((item, index) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "qty") } value={!isNaN(item.qty) ? item.qty : ""} type="text" name="qty" id="qty" />)
                                             :
                                         itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.qty} type="text" name="qty" id="qty" />)}
                                         
@@ -352,17 +382,17 @@ function Drawer({open}) {
                                     <div className={drawerCSS.priceContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="price">Price</Label>
                                         { invoice.length === 0 ? 
-                                        [...Array(itemRows)].map(() => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={null} type="text" name="qty" id="qty" />)
+                                            itemArray.map((item, index) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "pricePerItem") } value={!isNaN(item.pricePerItem) ? item.pricePerItem : ""} type="text" name="price" id="price" />)
                                             :
-                                        itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.pricePerItem.toFixed(2)} type="text" name="qty" id="qty" />)}
+                                            itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.pricePerItem.toFixed(2)} type="text" name="pricePerItem" id="pricePerItem" />)}
                                         
                                     </div>
                                     <div ref={totalContainerRef} className={drawerCSS.totalContainer}>
                                         <Label className={drawerCSS.itemListDesc}>Total</Label>
                                         {invoice.length === 0 ? 
-                                            [...Array(itemRows)].map(() => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`}  value={null} type="text" name="qty" id="qty" />)
+                                            itemArray.map((item, index) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`} onChange={ (e) => editItemField(e, index, "total") }  value={ !isNaN(Number(item.qty) * Number(item.pricePerItem)) ? (Number(item.qty) * Number(item.pricePerItem)).toFixed(2) : "0.00"} type="text" name="total" id="total" />)
                                             :
-                                            itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`}  value={(workItem.qty * workItem.pricePerItem).toFixed(2)} type="text" name="qty" id="qty" /> )}
+                                            itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`}  value={(workItem.qty * workItem.pricePerItem).toFixed(2)} type="text" name="total" id="total" /> )}
                                         
                                     </div>
                                     <div className={drawerCSS.trashSymbolContainer}>
