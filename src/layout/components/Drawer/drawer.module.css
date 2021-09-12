@@ -73,6 +73,11 @@
 }
 
 
+.addRowBtn {
+    width: 100%!important;
+    margin-top: 10px;
+}
+
 .btnContainer {
     display: flex;
     flex-direction:row;

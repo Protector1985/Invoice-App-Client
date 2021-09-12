@@ -23,6 +23,7 @@ import {setFromStreet,
         setToZip, 
         setToCountry, 
         setProjectDesc} from '../../../Redux/inputFieldsSlice'
+import {addRow} from '../../../Redux/itemListSlice'
 var DatePicker = require("reactstrap-date-picker");
 
 
@@ -45,6 +46,8 @@ function Drawer({open}) {
     const toZip = useSelector((state) => state.inputFieldsSlice.toZip)
     const toCountry = useSelector((state) => state.inputFieldsSlice.toCountry)
     const toProject = useSelector((state) => state.inputFieldsSlice.toProject)
+    const itemRows = useSelector((state) => state.itemListSlice.rows)
+   
     useSelector((state) => console.log(state))
 
     const hidden = {
@@ -189,6 +192,14 @@ function Drawer({open}) {
         dispatch(setProjectDesc(payload))   
     }
 
+    function returnInvoiceRows() {
+        if(invoice.length === 0) {
+            for(let i = 1 ; i < itemRows ; i ++ ) {
+                return
+            }
+        }
+    }
+
     return (
         <div style={!open ? hidden : null} className={drawerCSS.container}>
             <div className={drawerCSS.formContainer}>
@@ -323,29 +334,52 @@ function Drawer({open}) {
                                 <div className={drawerCSS.headlineContainer}>
                                     <div className={drawerCSS.iNameContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="iName">Item Name</Label>
-                                        {itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.description} type="text" name="iName" id="iName" />)}
+                                        {invoice.length === 0 ? 
+                                            [...Array(itemRows)].map(() => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={null} type="text" name="iName" id="iName" />)
+                                            :
+
+                                            itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.description} type="text" name="iName" id="iName" />)}
                                         
                                     </div>
                                     <div className={drawerCSS.qtyContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="qty">Qty.</Label>
-                                        {invoice.length === 0 ? <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.qty} type="text" name="qty" id="qty" />create a slice here with all the input fields as a state. I'm tired now
+                                        {invoice.length === 0 ? 
+                                        [...Array(itemRows)].map(() => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={null} type="text" name="qty" id="qty" />)
                                             :
                                         itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.qty} type="text" name="qty" id="qty" />)}
                                         
                                     </div>
                                     <div className={drawerCSS.priceContainer}>
                                         <Label className={drawerCSS.itemListDesc} for="price">Price</Label>
-                                        {itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.pricePerItem.toFixed(2)} type="text" name="qty" id="qty" />)}
+                                        { invoice.length === 0 ? 
+                                        [...Array(itemRows)].map(() => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={null} type="text" name="qty" id="qty" />)
+                                            :
+                                        itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.pricePerItem.toFixed(2)} type="text" name="qty" id="qty" />)}
                                         
                                     </div>
                                     <div ref={totalContainerRef} className={drawerCSS.totalContainer}>
                                         <Label className={drawerCSS.itemListDesc}>Total</Label>
-                                        {itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`} value={workItem.pricePerItem} value={(workItem.qty * workItem.pricePerItem).toFixed(2)} type="text" name="qty" id="qty" /> )}
+                                        {invoice.length === 0 ? 
+                                            [...Array(itemRows)].map(() => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`}  value={null} type="text" name="qty" id="qty" />)
+                                            :
+                                            itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`}  value={(workItem.qty * workItem.pricePerItem).toFixed(2)} type="text" name="qty" id="qty" /> )}
                                         
                                     </div>
                                     <div className={drawerCSS.trashSymbolContainer}>
                                     
-                                    {itemsPurchased.map((workItem) => {
+                                    {invoice.length === 0 ? 
+                                        [...Array(itemRows)].map(() => {
+                                            return (
+                                            <div className={drawerCSS.svgContainer}>
+                                                <h4> </h4>
+                                                <span className={drawerCSS.trashSymbol}><Trash /> </span> 
+                                            </div>
+                                             
+                                            )
+                                        })
+                                        :
+                                        
+                                        itemsPurchased.map((workItem) => {
                                         return (
                                             <div className={drawerCSS.svgContainer}>
                                                 <h4> </h4>
@@ -365,9 +399,11 @@ function Drawer({open}) {
                         </div>
                         
                     </div>
+                    
                 </FormGroup>
             
             </Form>
+            <Button className={drawerCSS.addRowBtn} description="AddRow" mode="light" type={6} clicked={addRow} />
             <div className={drawerCSS.btnContainer}>
                 <Button className={drawerCSS.btn} description="Cancel" mode="light" type={3} clicked={toggleClose} />
                 <Button description="Submit" mode="light" type={2}  />

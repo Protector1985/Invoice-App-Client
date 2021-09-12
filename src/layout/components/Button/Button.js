@@ -59,7 +59,7 @@ function Button({description, mode, type, clicked, invoiceNumber}) {
         }
         } else if (typeProp === 6) {
             return {
-                width:"350px",
+                width:"100%",
                 bgColor: "#F9FAFE",
                 bgColorHover: mode === "light" ? "#DFE3FA" : "#DFE3FA",
                 txtColor: "#7E88C3",
