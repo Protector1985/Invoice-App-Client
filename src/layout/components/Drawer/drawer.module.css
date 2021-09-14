@@ -27,6 +27,15 @@
     margin-bottom:142%;
 }
 
+.formHeadline {
+    font-family: 'Spartan', sans-serif;
+    font-size: 30px;
+}
+
+.hashtag {
+    color: #888EB0;
+}   
+
 .dropdownControl {
     margin-top:8px!important;
     width: 100%;

@@ -7,6 +7,7 @@ const dateSlice = createSlice ({
         invoiceDateDay: null,
         invoiceDateYear: null,
         dueIn: null,
+        ISO: null,
     },
 
     reducers: {
@@ -14,6 +15,7 @@ const dateSlice = createSlice ({
             state.invoiceDateMonth = action.payload.month
             state.invoiceDateDay = action.payload.day
             state.invoiceDateYear = action.payload.year
+            state.ISO = action.payload.ISO
         },
         setDueIn: (state, action) => {
             console.log(action.payload)

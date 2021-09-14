@@ -25,6 +25,7 @@ import {setFromStreet,
         setProjectDesc} from '../../../Redux/inputFieldsSlice'
 import {addRow, editRow} from '../../../Redux/itemListSlice'
 import {setDate, setDueIn} from "../../../Redux/dateSlice"
+import { setInvoiceNumber} from '../../../Redux/invoiceNumberSlice'
 var DatePicker = require("reactstrap-date-picker");
 
 
@@ -49,7 +50,9 @@ function Drawer({open}) {
     const toProject = useSelector((state) => state.inputFieldsSlice.toProject)
     const itemRows = useSelector((state) => state.itemListSlice.rows)
     const itemArray = useSelector((state)=> state.itemListSlice.items)
-    useSelector((state) => console.log(state))
+    const isoDate = useSelector((state) => state.dateSlice.ISO)
+    const dueIn = useSelector((state)=> state.dateSlice.dueIn)
+  
 
     const hidden = {
         "display": "none"
@@ -57,7 +60,7 @@ function Drawer({open}) {
     const [itemsPurchased, setItemsPurchased] = React.useState([])
     const [totalContainerHeight, setTotalContainerHeight] = React.useState(0);
     
-
+    
       function getOptions() {
         const opt = [];
         for (let i = 2 ; i <= 30 ; i ++) {
@@ -69,10 +72,9 @@ function Drawer({open}) {
         return opt
     }
 
-     
 
     const defaultOption = {
-        label: "Next 1 day",
+        label: !dueIn ? `Next 1 day` : `Next ${dueIn} days`,
         value: 1   
     }
 
@@ -88,7 +90,11 @@ function Drawer({open}) {
    
     const dateRef = React.useCallback((node) => {
         if(node) {
-            node._inputRef.current.value= "12 Aug 2021"
+            const dateTime = new Date(isoDate)
+            const month = dateTime.toLocaleString("default", {month: "short"})
+            const day = dateTime.getDate()
+            const year = dateTime.getFullYear()
+            node._inputRef.current.value= `${day} ${month} ${year}`
         }
     })
     
@@ -211,18 +217,19 @@ function Drawer({open}) {
         const month = dateTime.toLocaleString("default", {month: "short"})
         const day = dateTime.getDate()
         const year = dateTime.getFullYear()
-
         const payload = {
             type: "Set Date",
             month: month,
             day: day,
-            year: year
+            year: year,
+            ISO: dateValue
         }
         dispatch(setDate(payload))
     }
 
     function handleDueInChange(e) {
         const dueIn = e.value
+
         const payload = {
             type: "DueIn", 
             value: dueIn
@@ -230,10 +237,31 @@ function Drawer({open}) {
         dispatch(setDueIn(payload))
     }
 
+    function generateInvoiceNumber() {
+        let invoiceNumber = ""
+        const letterArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W","X", "Y", "Z"]
+        const numbersArr = ["1","2","3","4","5","6","7","8","9"]
+
+        for(let i = 0 ; i < 2 ; i ++) {
+            invoiceNumber += letterArr[Math.floor(Math.random() * 26)]
+        }
+        for(let i = 0 ; i < 4 ; i ++) {
+            invoiceNumber += numbersArr[Math.floor(Math.random() * 9)]
+        }
+        const payload = {
+            type: "Set Invoice Number",
+            invoiceNumber: invoiceNumber
+        }
+        dispatch( setInvoiceNumber(payload))
+    }
+
     return (
         <div style={!open ? hidden : null} className={drawerCSS.container}>
             <div className={drawerCSS.formContainer}>
-            <h5>{modType}<span>#</span>{invoiceNumber}</h5>
+            <div className={drawerCSS.formHeadline}>
+            <h5>{modType}<span className={drawerCSS.hashtag}>{modType === "New Invoice" ? null : "#" }</span>{modType === "New Invoice" ? generateInvoiceNumber() : invoiceNumber}</h5>
+            </div>
+            
             
             <Form>
                 <p className={drawerCSS.fromToHeadline}>Bill From</p>
