@@ -6,6 +6,7 @@ import Invoice from '../Invoice/Invoice'
 import getNodeSizeCB from '../../../utility/sizing/getNodeSizeCB'
 import {ReactComponent as EmptyPic} from '../../../assets/illustration-empty.svg'
 import { useSelector, useDispatch } from 'react-redux'
+import {Spinner} from 'reactstrap'
 import Drawer from '../Drawer/Drawer'
 // import axios from 'axios'
 import useDeepCompareEffect from 'use-deep-compare-effect'
@@ -14,9 +15,7 @@ import {useGetAllInvoicesQuery} from '../../../Redux/services/invoiceDataService
 
 
 function Main(props) {
-    const {invoiceData}  = useSelector((state) => state.invoiceData)
-    
-    let { data, error, isLoading} = useGetAllInvoicesQuery('fetchAll')
+    let { data = [], error, isLoading} = useGetAllInvoicesQuery('fetchAll')
    
     const {drawerOpen} = useSelector((state)=> state.drawerOpen)
     const bodyContent = React.useCallback((node) => {
@@ -27,15 +26,6 @@ function Main(props) {
     })
 
     
-
-    // useDeepCompareEffect(() => {
-    //     axios.get("/invoice/fetchAll")
-    //         .then((res) => {
-    //             const invoices = res.data;
-    //             console.log(invoices)
-    //             setInvoiceData(invoices)
-    //         })
-    // }, [invoiceData])
 
   
     
@@ -52,7 +42,7 @@ function Main(props) {
                 ) 
             } else {
             return data.map((invoice, index) => {
-                return <Invoice key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
+                return  <Invoice key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
                 
                 
             })
@@ -61,10 +51,7 @@ function Main(props) {
         }
             
     }
-    
-    console.log(data)
-    console.log(isLoading)
-    
+
 
 
     return (

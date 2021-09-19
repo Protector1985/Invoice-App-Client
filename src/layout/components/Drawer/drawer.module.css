@@ -36,6 +36,10 @@
     color: #888EB0;
 }   
 
+.rightButton{
+    margin-left: auto;
+}
+
 .dropdownControl {
     margin-top:8px!important;
     width: 100%;

@@ -10,7 +10,20 @@ export const invoiceDataService = createApi({
                 mode: "cors"
             }) 
         }),
+
+        submitData: builder.mutation({
+            query (body){
+                return {
+                    url: "invoice/submitData",
+                    method: "POST",
+                    mode: "cors",
+                    body
+
+                }
+                
+            }
+        })
     })
 })
 
-export const {useGetAllInvoicesQuery} = invoiceDataService
+export const {useGetAllInvoicesQuery, useSubmitDataMutation} = invoiceDataService

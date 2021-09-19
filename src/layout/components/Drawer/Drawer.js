@@ -26,6 +26,7 @@ import {setFromStreet,
 import {addRow, editRow} from '../../../Redux/itemListSlice'
 import {setDate, setDueIn} from "../../../Redux/dateSlice"
 import { setInvoiceNumber} from '../../../Redux/invoiceNumberSlice'
+import {useSubmitDataMutation} from '../../../Redux/services/invoiceDataService'
 var DatePicker = require("reactstrap-date-picker");
 
 
@@ -52,8 +53,13 @@ function Drawer({open}) {
     const itemArray = useSelector((state)=> state.itemListSlice.items)
     const isoDate = useSelector((state) => state.dateSlice.ISO)
     const dueIn = useSelector((state)=> state.dateSlice.dueIn)
-  
-
+    const [submitData, {isError, isUninitialized, isLoading, isSuccess, error}] = useSubmitDataMutation()
+    
+    
+    
+    // React.useEffect(() => {
+    //     submitData({payload: "hello"})
+    // }, [])
     const hidden = {
         "display": "none"
     }
@@ -254,6 +260,8 @@ function Drawer({open}) {
         }
         dispatch( setInvoiceNumber(payload))
     }
+
+    
 
     return (
         <div style={!open ? hidden : null} className={drawerCSS.container}>
@@ -464,7 +472,8 @@ function Drawer({open}) {
             <Button className={drawerCSS.addRowBtn} description="AddRow" mode="light" type={6} clicked={addRow} />
             <div className={drawerCSS.btnContainer}>
                 <Button className={drawerCSS.btn} description="Cancel" mode="light" type={3} clicked={toggleClose} />
-                <Button description="Submit" mode="light" type={2}  />
+                <Button className={drawerCSS.rightButton} clicked={submitData} description="Save as Draft" mode="light" type={4} specialAlign={{property: "marginLeft", value: "auto"}} />
+                <Button clicked={submitData} description="Save & Send" mode="light" type={2}  />
             </div>
             </div>
         </div> 
