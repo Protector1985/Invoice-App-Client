@@ -80,7 +80,6 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
                 
             })
         } else {
-            console.log(clicked)
             const payload ={
                 type: e.target.innerText,
                 invoice: invoiceNumber
@@ -195,7 +194,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
         // [specialAlign.property]: specialAlign.value
         [returnSpecialProperty(specialAlign).property]: returnSpecialProperty(specialAlign).value
     }
-    console.log(specialAlign)
+    
     
 
     function returnButton(typeProp) {

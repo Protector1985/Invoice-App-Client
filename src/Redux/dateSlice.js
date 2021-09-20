@@ -20,9 +20,16 @@ const dateSlice = createSlice ({
         setDueIn: (state, action) => {
             console.log(action.payload)
             state.dueIn = action.payload.value
+        },
+        resetDateState: (state) => {
+            state.invoiceDateMonth= null;
+            state.invoiceDateDay = null;
+            state.invoiceDateYear = null;
+            state.dueIn = null;
+            state.ISO= null;
         }
     }
 })
 
-export const {setDate, setDueIn} = dateSlice.actions
+export const {setDate, setDueIn, resetDateState} = dateSlice.actions
 export default dateSlice.reducer

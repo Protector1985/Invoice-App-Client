@@ -23,10 +23,13 @@ import {setFromStreet,
         setToZip, 
         setToCountry, 
         setProjectDesc} from '../../../Redux/inputFieldsSlice'
-import {addRow, editRow} from '../../../Redux/itemListSlice'
+import {addRow, editRow, deleteRow} from '../../../Redux/itemListSlice'
 import {setDate, setDueIn} from "../../../Redux/dateSlice"
 import { setInvoiceNumber} from '../../../Redux/invoiceNumberSlice'
 import {useSubmitDataMutation} from '../../../Redux/services/invoiceDataService'
+import {resetItemState} from '../../../Redux/itemListSlice'
+import {resetDataState} from '../../../Redux/inputFieldsSlice'
+import {resetDateState} from '../../../Redux/dateSlice'
 var DatePicker = require("reactstrap-date-picker");
 
 
@@ -49,17 +52,12 @@ function Drawer({open}) {
     const toZip = useSelector((state) => state.inputFieldsSlice.toZip)
     const toCountry = useSelector((state) => state.inputFieldsSlice.toCountry)
     const toProject = useSelector((state) => state.inputFieldsSlice.toProject)
-    const itemRows = useSelector((state) => state.itemListSlice.rows)
     const itemArray = useSelector((state)=> state.itemListSlice.items)
     const isoDate = useSelector((state) => state.dateSlice.ISO)
     const dueIn = useSelector((state)=> state.dateSlice.dueIn)
+    
     const [submitData, {isError, isUninitialized, isLoading, isSuccess, error}] = useSubmitDataMutation()
     
-    
-    
-    // React.useEffect(() => {
-    //     submitData({payload: "hello"})
-    // }, [])
     const hidden = {
         "display": "none"
     }
@@ -258,9 +256,16 @@ function Drawer({open}) {
             type: "Set Invoice Number",
             invoiceNumber: invoiceNumber
         }
-        dispatch( setInvoiceNumber(payload))
+        dispatch(setInvoiceNumber(payload))
     }
 
+    function handleRowDelete(i) {
+        const payload ={
+            type: "Delete Row",
+            index: i
+        }
+        dispatch(deleteRow(payload))
+    }
     
 
     return (
@@ -434,22 +439,22 @@ function Drawer({open}) {
                                     <div className={drawerCSS.trashSymbolContainer}>
                                     
                                     {invoice.length === 0 ? 
-                                        [...Array(itemRows)].map(() => {
+                                        itemArray.map((_, index) => {
                                             return (
                                             <div className={drawerCSS.svgContainer}>
                                                 <h4> </h4>
-                                                <span className={drawerCSS.trashSymbol}><Trash /> </span> 
+                                                <span className={drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index)} /> </span> 
                                             </div>
                                              
                                             )
                                         })
                                         :
                                         
-                                        itemsPurchased.map((workItem) => {
+                                        itemsPurchased.map((workItem, index) => {
                                         return (
                                             <div className={drawerCSS.svgContainer}>
                                                 <h4> </h4>
-                                                <span className={drawerCSS.trashSymbol}><Trash /> </span> 
+                                                <span className={drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index)} /> </span> 
                                             </div>
                                              
                                         )
@@ -473,8 +478,8 @@ function Drawer({open}) {
             <div className={drawerCSS.btnContainer}>
                 <Button className={drawerCSS.btn} description="Cancel" mode="light" type={3} clicked={toggleClose} />
                 <Button className={drawerCSS.rightButton} clicked={submitData} description="Save as Draft" mode="light" type={4} specialAlign={{property: "marginLeft", value: "auto"}} />
-                <Button clicked={submitData} description="Save & Send" mode="light" type={2}  />
-            </div>
+                <Button clicked={submitData after submit data, use the 3 reset functions that we created!!!!!} description="Save & Send" mode="light" type={2}  />
+            </div> 
             </div>
         </div> 
     )

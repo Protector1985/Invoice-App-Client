@@ -51,10 +51,23 @@ export const inputFieldsSlice = createSlice({
         setProjectDesc: (state, action) => {
             state.toProject = action.payload.toProject
         },
+        resetDataState: (state,) => {
+            state.fromStreet = "";
+            state.fromCity= "";
+            state.fromZip = "";
+            state.fromCountry ="";
+            state.toName = "";
+            state.toEmail ="";
+            state.toStreet = "";
+            state.toCity = "";
+            state.toZip = "";
+            state.toCountry = "";
+            state.toProject = "";
+        }
 
     }
 
 })
 
-export const {setFromStreet, setFromCity, setFromZip, setFromCountry, setToName, setToEmail, setToStreet, setToCity, setToZip, setToCountry, setProjectDesc} = inputFieldsSlice.actions
+export const {resetDataState, setFromStreet, setFromCity, setFromZip, setFromCountry, setToName, setToEmail, setToStreet, setToCity, setToZip, setToCountry, setProjectDesc} = inputFieldsSlice.actions
 export default inputFieldsSlice.reducer
