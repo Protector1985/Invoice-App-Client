@@ -51,7 +51,8 @@ export const inputFieldsSlice = createSlice({
         setProjectDesc: (state, action) => {
             state.toProject = action.payload.toProject
         },
-        resetDataState: (state,) => {
+        resetDataState: (state) => {
+            console.log("Resetting Data State!!!")
             state.fromStreet = "";
             state.fromCity= "";
             state.fromZip = "";

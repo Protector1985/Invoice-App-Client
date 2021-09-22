@@ -1,6 +1,10 @@
 import React from 'react'
 import {ReactComponent as Plus} from '../../../assets/icon-plus.svg'
 import {useDispatch, useSelector} from 'react-redux'
+import {resetItemState} from '../../../Redux/itemListSlice'
+import {resetDataState} from '../../../Redux/inputFieldsSlice'
+import {resetDateState} from '../../../Redux/dateSlice'
+import {toggleClose} from '../../../Redux/drawerSlice'
 
 function Button({description, mode, type, clicked, invoiceNumber, specialAlign}) {
     const fromStreet = useSelector((state) => state.inputFieldsSlice.fromStreet)
@@ -54,10 +58,14 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
         }
     }
 
-    function handleClick(e) {
-        console.log(e.target.innerText)
+    function handleClick(e, invoiceNumber, paymentStatus) {
+
+        console.log(e)
+        console.log(invoiceNumber)
+        console.log(paymentStatus)
+        
         if(e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") {
-            return clicked({
+             clicked({
                 invoiceNumber: generatedInvoiceNumber,
                 fromStreet: fromStreet,
                 fromCity: fromCity,
@@ -79,14 +87,28 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
                 status: returnBillStatus(e) 
                 
             })
-        } else {
-            const payload ={
-                type: e.target.innerText,
-                invoice: invoiceNumber
-            }
-            dispatch(clicked(payload))
+            dispatch(resetItemState())
+            dispatch(resetDataState())
+            dispatch(resetDateState())
+            dispatch(toggleClose())
+        } else if(e.target.innerText === "Cancel") {
+            dispatch(resetItemState())
+            dispatch(resetDataState())
+            dispatch(resetDateState())
+            dispatch(toggleClose())
+        } else if(e.target.innerText === "Mark as Paid") {
+            
 
         }
+
+        //  else {
+        //     const payload ={
+        //         type: e.target.innerText,
+        //         invoice: invoiceNumber
+        //     }
+        //     dispatch(clicked(payload))
+
+        // }
         
     }
 

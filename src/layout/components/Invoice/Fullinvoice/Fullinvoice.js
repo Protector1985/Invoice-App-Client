@@ -1,36 +1,44 @@
 import React from 'react';
 import invoiceCSS from './invoice.module.css'
+import {Spinner} from 'reactstrap'
 import {useSelector} from 'react-redux'
 import getDueDate from '../../../../utility/helpers/getDueDate'
 
 
-function Fullinvoice({ invoiceNumber, service}) {
+function Fullinvoice(props) {
+    const invoice = props
+    const amount = props.amount
+    const invoiceNumber = props.invoiceNumber
+    const totalAmount = amount
+    const isLoading = props.isLoading
+    console.log(invoice)
     
-    const invoices = useSelector((state) => state.invoiceData.invoiceData);
-    let invoice = invoices.filter((item) => item.invoiceNumber === invoiceNumber);
-    invoice = invoice[0]
+    // const invoices = useSelector((state) => state.invoiceData.invoiceData);
+    // let invoice = invoices.filter((item) => item.invoiceNumber === invoiceNumber);
+    // invoice = invoice[0]
 
-    let totalAmount = invoice.itemsPurchased.map((item) => item.pricePerItem * item.qty).reduce((a,b) => a + b)
-    totalAmount = totalAmount.toFixed(2)
+    // let totalAmount = invoice.itemsPurchased.map((item) => item.pricePerItem * item.qty).reduce((a,b) => a + b)
+    // totalAmount = totalAmount.toFixed(2)
     
 
     function dollarAmount (x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');     
     }
 
-    // console.log(invoice.invoiceDateDay, invoice.invoiceDateMonth, invoice.invoiceDateYear, invoice.dueIn)
+    // // console.log(invoice.invoiceDateDay, invoice.invoiceDateMonth, invoice.invoiceDateYear, invoice.dueIn)
     const dueDateData = getDueDate(invoice.dueIn, invoice.invoiceDateDay, invoice.invoiceDateYear, invoice.invoiceDateMonth)
-    console.log(dueDateData)
+    // console.log(dueDateData)
 
 
     return(
+        isLoading ? <Spinner /> :
         <div className={invoiceCSS.container}>
+        
             <div className={invoiceCSS.topContainer}>
                 <div className={invoiceCSS.numberAndDescriptionContainer}>
                     <h4 className={invoiceCSS.number}><span className={invoiceCSS.hashtag}>#</span>{invoiceNumber}</h4>
-                    <p className={invoiceCSS.description}>{invoice.service}</p>
-                </div>
-                
+                    <p className={invoiceCSS.description}>{invoice.overallProject}</p>
+                </div>   
                 <div className={invoiceCSS.addressContainer}>
                     <p className={invoiceCSS.address}>{invoice.fromStreet}</p>
                     <p className={invoiceCSS.address}>{invoice.fromCity}</p>
@@ -69,7 +77,7 @@ function Fullinvoice({ invoiceNumber, service}) {
                 <div className={invoiceCSS.breakdown}>
                     <div className={invoiceCSS.itemNameContainer}>
                         <p className={invoiceCSS.invoiceHeadlineBreakdown}>Item Name</p>
-                        {invoice.itemsPurchased.map((item) => {
+                        {invoice.services.map((item) => {
                             return <p className={invoiceCSS.itemName}>{item.description}</p>
                         })}
                         
@@ -77,20 +85,20 @@ function Fullinvoice({ invoiceNumber, service}) {
                     <div className={invoiceCSS.qtyContainer}>
                         <p className={invoiceCSS.invoiceHeadlineBreakdown}>QTY.</p>
                         
-                        {invoice.itemsPurchased.map((item) => {
+                        {invoice.services.map((item) => {
                             return <p className={invoiceCSS.itemAmountandPrice}>{item.qty}</p>
                         })}
                     </div>
                     <div className={invoiceCSS.priceContainer}>
                         <p className={invoiceCSS.invoiceHeadlineBreakdown}>Price</p>
-                        {invoice.itemsPurchased.map((item)=> {
+                        {invoice.services.map((item)=> {
                             return <p className={invoiceCSS.itemAmountandPrice}>${dollarAmount(item.pricePerItem.toFixed(2))}</p>
                         })}
                        
                     </div>
                     <div className={invoiceCSS.totalContainer}>
                         <p className={invoiceCSS.invoiceHeadlineBreakdown}>Total</p>
-                        {invoice.itemsPurchased.map((item)=> {
+                        {invoice.services.map((item)=> {
                             return <p className={invoiceCSS.itemName}>${dollarAmount((item.pricePerItem * item.qty).toFixed(2))}</p>
                         })}
                     </div>
@@ -101,7 +109,7 @@ function Fullinvoice({ invoiceNumber, service}) {
                 </div>
             </div>
             
-
+        
         </div>
     )
 }

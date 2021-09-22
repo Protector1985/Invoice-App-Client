@@ -22,8 +22,25 @@ export const invoiceDataService = createApi({
                 }
                 
             }
+        }),
+
+        getOneInvoice: builder.query({
+            query: (invoiceNumber) => ({
+                url:`invoice/${invoiceNumber}`,
+                method: "GET",
+                mode: "cors",
+            })
+        }),
+
+        updatePayment: builder.mutation({
+            query: (invoiceNumber, body) => ({
+                url:`invoice/${invoiceNumber}/updatePayment`,
+                method: "POST",
+                mode: "cors",
+                body
+            })
         })
     })
 })
 
-export const {useGetAllInvoicesQuery, useSubmitDataMutation} = invoiceDataService
+export const {useGetAllInvoicesQuery, useSubmitDataMutation, useGetOneInvoiceQuery, useUpdatePaymentMutation} = invoiceDataService
