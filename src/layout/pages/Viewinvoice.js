@@ -13,13 +13,14 @@ function Viewinvoice(props) {
     const {drawerOpen} = useSelector((state) => state.drawerOpen)
     let { data = [], error, isLoading} = useGetOneInvoiceQuery(currentInvoice)
 
+    
     const invoiceData = {
         ...data.invoice,
         services: data.services,
         isLoading: isLoading ? true : false
                         }
-
-
+           
+    
     return (
         <div className={viewinvoiceCSS.bodyLight}>
         <Drawer open={drawerOpen} />
@@ -27,7 +28,7 @@ function Viewinvoice(props) {
                 <Link to="/"><ArrowLeft /></Link>
                 <h5 className={viewinvoiceCSS.goBackHeadline}>Go back</h5>
             </div>
-            <Invoicehead invoiceNumber={data.invoiceNumber} status={!isLoading ? data.invoice.status : "IS_LOADING"} />
+            <Invoicehead invoiceNumber={!isLoading ? data.invoice.invoiceNumber : null} status={!isLoading ? data.invoice.status : "IS_LOADING"} />
             <Fullinvoice {...invoiceData}  />
             
         </div>

@@ -58,12 +58,9 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
         }
     }
 
-    function handleClick(e, invoiceNumber, paymentStatus) {
-
-        console.log(e)
-        console.log(invoiceNumber)
-        console.log(paymentStatus)
+    function handleClick(e, cb) {
         
+       
         if(e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") {
              clicked({
                 invoiceNumber: generatedInvoiceNumber,
@@ -97,7 +94,10 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
             dispatch(resetDateState())
             dispatch(toggleClose())
         } else if(e.target.innerText === "Mark as Paid") {
-            
+            const paymentStatus = "PAID"
+            const inv = invoiceNumber
+            clicked(inv, paymentStatus)
+
 
         }
 
