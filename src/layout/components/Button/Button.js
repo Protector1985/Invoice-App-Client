@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {resetItemState} from '../../../Redux/itemListSlice'
 import {resetDataState} from '../../../Redux/inputFieldsSlice'
 import {resetDateState} from '../../../Redux/dateSlice'
-import {toggleClose} from '../../../Redux/drawerSlice'
+import {toggleClose, toggleOpen} from '../../../Redux/drawerSlice'
 
 function Button({description, mode, type, clicked, invoiceNumber, specialAlign}) {
     const fromStreet = useSelector((state) => state.inputFieldsSlice.fromStreet)
@@ -58,7 +58,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
         }
     }
 
-    function handleClick(e, cb) {
+    function handleClick(e) {
         
        
         if(e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") {
@@ -95,20 +95,21 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
             dispatch(toggleClose())
         } else if(e.target.innerText === "Mark as Paid") {
             const paymentStatus = "PAID"
-            const inv = invoiceNumber
-            clicked(inv, paymentStatus)
+            const body ={
+                paymentstatus: paymentStatus,
+                invoiceNumber: invoiceNumber
+            }
+            clicked(body)
 
+
+        } else {
+            const payload ={
+                type: e.target.innerText,
+                invoice: invoiceNumber
+            }
+            dispatch(clicked(payload))
 
         }
-
-        //  else {
-        //     const payload ={
-        //         type: e.target.innerText,
-        //         invoice: invoiceNumber
-        //     }
-        //     dispatch(clicked(payload))
-
-        // }
         
     }
 

@@ -11,7 +11,9 @@ import Drawer from '../components/Drawer/Drawer'
 function Viewinvoice(props) {
     const currentInvoice = props.history.location.pathname.substr(1)
     const {drawerOpen} = useSelector((state) => state.drawerOpen)
-    let { data = [], error, isLoading} = useGetOneInvoiceQuery(currentInvoice)
+    let { data = [], error, isLoading} = useGetOneInvoiceQuery(currentInvoice, {
+        refetchOnMountOrArgChange: true
+    })
 
     
     const invoiceData = {

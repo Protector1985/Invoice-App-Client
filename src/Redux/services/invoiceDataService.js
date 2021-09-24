@@ -33,12 +33,14 @@ export const invoiceDataService = createApi({
         }),
 
         updatePayment: builder.mutation({
-            query: (invoiceNumber, body) => ({
-                url:`invoice/${invoiceNumber}/updatePayment`,
-                method: "POST",
-                mode: "cors",
-                body
-            })
+            query (body){
+                return {
+                    url:`invoice/${body.invoiceNumber}/updatePayment`,
+                    method: "POST",
+                    mode: "cors",
+                    body
+                }
+            }
         })
     })
 })
