@@ -11,7 +11,6 @@ function Fullinvoice(props) {
     const invoiceNumber = props.invoiceNumber
     const totalAmount = amount
     const isLoading = props.isLoading
-    console.log(invoice)
     
     // const invoices = useSelector((state) => state.invoiceData.invoiceData);
     // let invoice = invoices.filter((item) => item.invoiceNumber === invoiceNumber);

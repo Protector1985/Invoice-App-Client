@@ -15,8 +15,7 @@ import {useGetAllInvoicesQuery} from '../../../Redux/services/invoiceDataService
 
 
 function Main(props) {
-    let { data = [], error, isLoading} = useGetAllInvoicesQuery('fetchAll')
-   
+    
     const {drawerOpen} = useSelector((state)=> state.drawerOpen)
     const bodyContent = React.useCallback((node) => {
         getNodeSizeCB(node, "invoice_invoiceNumber__O8Yds");
@@ -24,6 +23,14 @@ function Main(props) {
         getNodeSizeCB(node, "invoice_amount__1U-gr");
         getNodeSizeCB(node, "invoice_recipientName__adE_o");
     })
+
+    
+        let { data = [], refetch, error, isLoading} = useGetAllInvoicesQuery('fetchAll')
+        
+        React.useEffect(() => {
+            console.log("REEEEEEFEEETCH")
+            refetch()
+        }, [drawerOpen])
 
     
 
@@ -42,7 +49,7 @@ function Main(props) {
                 ) 
             } else {
             return data.map((invoice, index) => {
-                return  <Invoice key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
+                return  <Invoice refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
                 
                 
             })

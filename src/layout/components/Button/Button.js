@@ -6,7 +6,7 @@ import {resetDataState} from '../../../Redux/inputFieldsSlice'
 import {resetDateState} from '../../../Redux/dateSlice'
 import {toggleClose, toggleOpen} from '../../../Redux/drawerSlice'
 
-function Button({description, mode, type, clicked, invoiceNumber, specialAlign}) {
+function Button({description, mode, type, clicked, invoiceNumber, specialAlign, refetch}) {
     const fromStreet = useSelector((state) => state.inputFieldsSlice.fromStreet)
     const fromCity= useSelector((state) => state.inputFieldsSlice.fromCity)
     const fromZip= useSelector((state) => state.inputFieldsSlice.fromZip)
@@ -100,6 +100,12 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign})
                 invoiceNumber: invoiceNumber
             }
             clicked(body)
+            refetch()
+
+        
+                
+          
+          
 
 
         } else {

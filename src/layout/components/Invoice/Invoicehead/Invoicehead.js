@@ -8,20 +8,21 @@ import { useUpdatePaymentMutation } from '../../../../Redux/services/invoiceData
 import {useDispatch} from 'react-redux'
 import { CssBaseline } from '@material-ui/core'
 
-function Invoicehead({invoiceNumber, status}) {
-    const [submitData, {isError, isUninitialized, isLoading, isSuccess, error}] = useUpdatePaymentMutation()
-    // let { data = [], error, isLoading} = useGetOneInvoiceQuery(invoiceNumber)
-    // console.log(data)
+
+function Invoicehead({invoiceNumber, status, refetch}) {
+    
+    const [submitData,{ endpointName , data,  isError, isUninitialized, isLoading, isSuccess, error}] = useUpdatePaymentMutation()
+    
 
 
     return (
         <div className={invoiceheadCSS.container}>
                 <p className={invoiceheadCSS.statusText}>Status</p>
-                <Statusindicator status={status} />
+                <Statusindicator status={!data ? status : data.status} />
             <div className={invoiceheadCSS.btnContainer}>
                 <Button description="Edit" mode="light" type={3} clicked={toggleOpen} invoiceNumber={invoiceNumber}  />
                 <Button description="Delete" invoiceNumber={invoiceNumber} mode="light" type={5} />
-                <Button description="Mark as Paid" mode="light" invoiceNumber={invoiceNumber} clicked={submitData}  type={2} />
+                <Button description="Mark as Paid" mode="light" refetch={refetch} invoiceNumber={invoiceNumber} clicked={submitData}  type={2} />
             </div>
         </div>
     )

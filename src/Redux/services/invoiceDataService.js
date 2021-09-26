@@ -8,20 +8,20 @@ export const invoiceDataService = createApi({
             query: (request) => ({
                 url:`invoice/${request}`,
                 method: "GET",
-                mode: "cors"
-            }) 
+                mode: "cors",
+                
+            }),
+            
+            
         }),
 
         submitData: builder.mutation({
-            query (body){
-                return {
-                    url: "invoice/submitData",
-                    method: "POST",
-                    mode: "cors",
-                    body
-                }
-                
-            }
+            query: (body) => ({
+                url: "invoice/submitData",
+                method: "POST",
+                mode: "cors",
+                body  
+            })
         }),
 
         getOneInvoice: builder.query({
@@ -30,17 +30,17 @@ export const invoiceDataService = createApi({
                 method: "GET",
                 mode: "cors",
             })
+            
         }),
 
         updatePayment: builder.mutation({
             query (body){
-                return {
-                    url:`invoice/${body.invoiceNumber}/updatePayment`,
-                    method: "POST",
-                    mode: "cors",
-                    body
-                }
-            }
+            return {
+                url:`invoice/${body.invoiceNumber}/updatePayment`,
+                method: "POST",
+                mode: "cors",
+                body  
+            }}
         })
     })
 })
