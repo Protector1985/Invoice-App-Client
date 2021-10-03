@@ -32,11 +32,14 @@ const itemListSlice = createSlice({
             state.items = [
                 {description:"", qty: null, pricePerItem: null, total: null},
             ]
+        },
 
+        editItems: (state, action) => {
+            state.items = action.payload.items
         }
     }
 
 })
 
-export const {addRow, editRow, deleteRow, resetItemState} = itemListSlice.actions
+export const {addRow, editRow, deleteRow, resetItemState, editItems} = itemListSlice.actions
 export default itemListSlice.reducer

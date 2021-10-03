@@ -1,12 +1,17 @@
 import React from 'react'
 import {ReactComponent as Plus} from '../../../assets/icon-plus.svg'
 import {useDispatch, useSelector} from 'react-redux'
-import {resetItemState} from '../../../Redux/itemListSlice'
-import {resetDataState} from '../../../Redux/inputFieldsSlice'
+import { useGetOneInvoiceQuery } from '../../../Redux/services/invoiceDataService'
+import {resetItemState, editItems} from '../../../Redux/itemListSlice'
+import {resetDataState, editFields} from '../../../Redux/inputFieldsSlice'
+import { editDate } from '../../../Redux/dateSlice'
 import {resetDateState} from '../../../Redux/dateSlice'
 import {toggleClose, toggleOpen} from '../../../Redux/drawerSlice'
+import {useHistory} from 'react-router-dom'
 
 function Button({description, mode, type, clicked, invoiceNumber, specialAlign, refetch}) {
+    const navigate = useHistory()
+    let { data = [], error, isLoading} = useGetOneInvoiceQuery(invoiceNumber) 
     const fromStreet = useSelector((state) => state.inputFieldsSlice.fromStreet)
     const fromCity= useSelector((state) => state.inputFieldsSlice.fromCity)
     const fromZip= useSelector((state) => state.inputFieldsSlice.fromZip)
@@ -59,8 +64,6 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
     }
 
     function handleClick(e) {
-        
-       
         if(e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") {
              clicked({
                 invoiceNumber: generatedInvoiceNumber,
@@ -93,21 +96,56 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
             dispatch(resetDataState())
             dispatch(resetDateState())
             dispatch(toggleClose())
+           
         } else if(e.target.innerText === "Mark as Paid") {
             const paymentStatus = "PAID"
             const body ={
+                command: "PAYMENT_METHOD_UPDATE",
                 paymentstatus: paymentStatus,
                 invoiceNumber: invoiceNumber
             }
             clicked(body)
-            refetch()
-
-        
-                
+            refetch()      
           
-          
+        } else if(e.target.innerText === "Delete") {
+            const homeURL = "/"
+            const body ={
+                command: "DELETE_INVOICE_COMMAND",
+                invoiceNumber: invoiceNumber
+            }
+            clicked(body)
+            navigate.push("/")
+            
+        } else if(e.target.innerText === "Edit") {
+            const payload = {
+                type: e.target.innerText,
+                fromStreet: data.invoice.fromStreet,
+                fromCity: data.invoice.fromCity,
+                fromZip: data.invoice.fromZip,
+                fromCountry: data.invoice.fromCountry,
+                toName: data.invoice.recipient,
+                toEmail: data.invoice.toEmail,
+                toStreet: data.invoice.toStreet,
+                toCity: data.invoice.toCity,
+                toZip: data.invoice.toZip,
+                toCountry: data.invoice.toCountry,
+                toProject: data.invoice.overallProject,
+            }
+            const itemsPayload = {
+                type: e.target.innerText,
+                items: data.services
+            }
 
-
+            const datePayload =  {
+                invoiceDateMonth: data.invoice.invoiceDateMonth,
+                invoiceDateDay: data.invoice.invoiceDateDay,
+                invoiceDateYear: data.invoice.invoiceDateYear,
+                dueIn: data.invoice.dueIn,
+            }
+            dispatch(editFields(payload))
+            dispatch(editItems(itemsPayload))
+            dispatch(editDate(datePayload))
+            dispatch(clicked(toggleOpen))
         } else {
             const payload ={
                 type: e.target.innerText,

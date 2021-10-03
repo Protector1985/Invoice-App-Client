@@ -12,21 +12,12 @@ function Fullinvoice(props) {
     const totalAmount = amount
     const isLoading = props.isLoading
     
-    // const invoices = useSelector((state) => state.invoiceData.invoiceData);
-    // let invoice = invoices.filter((item) => item.invoiceNumber === invoiceNumber);
-    // invoice = invoice[0]
-
-    // let totalAmount = invoice.itemsPurchased.map((item) => item.pricePerItem * item.qty).reduce((a,b) => a + b)
-    // totalAmount = totalAmount.toFixed(2)
-    
-
     function dollarAmount (x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');     
     }
 
-    // // console.log(invoice.invoiceDateDay, invoice.invoiceDateMonth, invoice.invoiceDateYear, invoice.dueIn)
     const dueDateData = getDueDate(invoice.dueIn, invoice.invoiceDateDay, invoice.invoiceDateYear, invoice.invoiceDateMonth)
-    // console.log(dueDateData)
+   
 
 
     return(

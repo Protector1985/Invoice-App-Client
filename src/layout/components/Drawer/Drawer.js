@@ -33,7 +33,7 @@ var DatePicker = require("reactstrap-date-picker");
 
 
 
-function Drawer({open}) {
+function Drawer({open, refetch}) {
     const dispatch = useDispatch()
     const modType = useSelector((state) => state.drawerOpen.modType)
     const invoiceNumber = useSelector((state)=> state.drawerOpen.invoiceNumber)
@@ -52,15 +52,15 @@ function Drawer({open}) {
     const itemArray = useSelector((state)=> state.itemListSlice.items)
     const isoDate = useSelector((state) => state.dateSlice.ISO)
     const dueIn = useSelector((state)=> state.dateSlice.dueIn)
+    const [localInvoiceNumber, setLocalInvoiceNumber] = React.useState("")
     
     const [submitData, {isError, isUninitialized, isLoading, isSuccess, error}] = useSubmitDataMutation()
-    
     const hidden = {
         "display": "none"
     }
     const [itemsPurchased, setItemsPurchased] = React.useState([])
     const [totalContainerHeight, setTotalContainerHeight] = React.useState(0);
-    
+    console.log(invoice)
     
       function getOptions() {
         const opt = [];
@@ -249,6 +249,7 @@ function Drawer({open}) {
         for(let i = 0 ; i < 4 ; i ++) {
             invoiceNumber += numbersArr[Math.floor(Math.random() * 9)]
         }
+        // setLocalInvoiceNumber(invoiceNumber)
         const payload = {
             type: "Set Invoice Number",
             invoiceNumber: invoiceNumber
@@ -264,6 +265,7 @@ function Drawer({open}) {
         dispatch(deleteRow(payload))
     }
     
+    // console.log(localInvoiceNumber)
 
     return (
         <div style={!open ? hidden : null} className={drawerCSS.container}>
@@ -474,8 +476,8 @@ function Drawer({open}) {
             <Button className={drawerCSS.addRowBtn} description="AddRow" mode="light" type={6} clicked={addRow} />
             <div className={drawerCSS.btnContainer}>
                 <Button className={drawerCSS.btn} description="Cancel" mode="light" type={3} clicked={toggleClose} />
-                <Button className={drawerCSS.rightButton} clicked={submitData} description="Save as Draft" mode="light" type={4} specialAlign={{property: "marginLeft", value: "auto"}} />
-                <Button clicked={submitData} description="Save & Send" mode="light" type={2}  />
+                <Button refetch={refetch} className={drawerCSS.rightButton} clicked={submitData} description="Save as Draft" mode="light" type={4} specialAlign={{property: "marginLeft", value: "auto"}} />
+                <Button refetch={refetch} clicked={submitData} description="Save & Send" mode="light" type={2}  />
             </div> 
             </div>
         </div> 

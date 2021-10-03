@@ -3,6 +3,7 @@
     justify-content: center;
     background-color: #F8F8FB;
     width: 100%;
+    overflow-y:auto;
 }
 
 .emptyBody {

@@ -9,7 +9,6 @@ export const invoiceDataService = createApi({
                 url:`invoice/${request}`,
                 method: "GET",
                 mode: "cors",
-                
             }),
             
             
@@ -36,13 +35,14 @@ export const invoiceDataService = createApi({
         updatePayment: builder.mutation({
             query (body){
             return {
-                url:`invoice/${body.invoiceNumber}/updatePayment`,
+                url:`invoice/${body.invoiceNumber}/command`,
                 method: "POST",
                 mode: "cors",
+                keepalive: false,
                 body  
             }}
-        })
+        }),
     })
 })
 
-export const {useGetAllInvoicesQuery, useSubmitDataMutation, useGetOneInvoiceQuery, useUpdatePaymentMutation} = invoiceDataService
+export const {useGetAllInvoicesQuery, useSubmitDataMutation, useGetOneInvoiceQuery, useUpdatePaymentMutation, useDeleteInvoiceMutation} = invoiceDataService

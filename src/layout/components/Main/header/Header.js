@@ -7,7 +7,7 @@ import {ReactComponent as ArrowLeft} from '../../../../assets/icon-arrow-left.sv
 import './headStylesheet.css'
 import {toggleOpen} from '../../../../Redux/drawerSlice'
 
-function Header({numInvoices}) {
+function Header({numInvoices, refetch}) {
     const dropdownItems = [
         {value: "PAID", label:"Paid"},
         {value: "PENDING", label:"Pending"},
@@ -22,7 +22,7 @@ function Header({numInvoices}) {
             </div>
             <div className="btnDropdownWrapper">
                 <Dropdown arrowClassName={headerCSS.arrowContainer} menuClassName={headerCSS.placeholder} controlClassName={headerCSS.dropdownContainer} options={dropdownItems} arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} placeholder="Filter by status" />
-                <Button clicked={toggleOpen} description="New Invoice" mode="light" type={1} />
+                <Button refetch={refetch} clicked={toggleOpen} description="New Invoice" mode="light" type={1} />
             </div>
         </div>
     )

@@ -11,11 +11,12 @@ import Drawer from '../Drawer/Drawer'
 // import axios from 'axios'
 import useDeepCompareEffect from 'use-deep-compare-effect'
 import {useGetAllInvoicesQuery} from '../../../Redux/services/invoiceDataService'
+import {SocketContext} from '../../../context/socket'
 
 
 
 function Main(props) {
-    
+    const socket = React.useContext(SocketContext)
     const {drawerOpen} = useSelector((state)=> state.drawerOpen)
     const bodyContent = React.useCallback((node) => {
         getNodeSizeCB(node, "invoice_invoiceNumber__O8Yds");
@@ -23,19 +24,18 @@ function Main(props) {
         getNodeSizeCB(node, "invoice_amount__1U-gr");
         getNodeSizeCB(node, "invoice_recipientName__adE_o");
     })
-
-    
+    const [fetchController, setFetchController] = React.useState("")
         let { data = [], refetch, error, isLoading} = useGetAllInvoicesQuery('fetchAll')
         
+        socket.on("FETCH_ALL", (data) => {
+            setFetchController(data)
+        })
+
         React.useEffect(() => {
             console.log("REEEEEEFEEETCH")
             refetch()
-        }, [drawerOpen])
-
-    
-
-  
-    
+        }, [fetchController])
+    console.log(fetchController)
 
     function returnBody() {
         
@@ -63,9 +63,9 @@ function Main(props) {
 
     return (
         <div className={mainCSS.bodyLight}>
-            <Drawer open={drawerOpen} />
+            <Drawer refetch={refetch} open={drawerOpen} />
                 <div ref={bodyContent} className={mainCSS.bodyContent}>
-                    <Header key="pageHeader" numInvoices={data.length} className="headerContainer" />
+                    <Header refetch={refetch} key="pageHeader" numInvoices={data.length} className="headerContainer" />
                     {returnBody()}
                 </div>
         </div>

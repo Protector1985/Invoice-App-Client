@@ -11,7 +11,7 @@ function Invoice({invoiceNumber, recipientName, dueDate, status, itemsPurchased,
     return (
         <div className={invoiceCSS.container}>
         <h4 className={invoiceCSS.invoiceNumber}><span className={invoiceCSS.hashtag}>#</span>{invoiceNumber}</h4>
-            <p className={invoiceCSS.recipientData}>{`Due ${day} ${month} ${year}`}</p>
+            <p className={invoiceCSS.recipientDate}>{`Due ${day} ${month} ${year}`}</p>
             <p className={invoiceCSS.recipientName}>{recipientName}</p>
             <h3 className={invoiceCSS.amount}>{amount}</h3>
             <Statusindicator status={status} />

@@ -27,9 +27,16 @@ const dateSlice = createSlice ({
             state.invoiceDateYear = null;
             state.dueIn = null;
             state.ISO= null;
+        },
+        editDate: (state, action) => {
+            state.invoiceDateMonth= action.payload.invoiceDateMonth;
+            state.invoiceDateDay = action.payload.invoiceDateDay;
+            state.invoiceDateYear = action.payload.invoicedateYear;
+            state.dueIn = action.payload.dueIn;
+            state.ISO = `${action.payload.invoiceDateYear}-${action.payload.invoiceDateMonth}-${action.payload.invoiceDateDay}`
         }
     }
 })
 
-export const {setDate, setDueIn, resetDateState} = dateSlice.actions
+export const {setDate, setDueIn, resetDateState, editDate} = dateSlice.actions
 export default dateSlice.reducer

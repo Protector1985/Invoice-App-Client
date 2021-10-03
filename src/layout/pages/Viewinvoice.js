@@ -30,8 +30,7 @@ function Viewinvoice(props) {
                 <h5 className={viewinvoiceCSS.goBackHeadline}>Go back</h5>
             </div>
             <Invoicehead invoiceNumber={!isLoading ? data.invoice.invoiceNumber : null} refetch={refetch} status={!isLoading ? data.invoice.status : "IS_LOADING"} />
-            <Fullinvoice {...invoiceData}  />
-            
+            <Fullinvoice {...invoiceData}  />    
         </div>
     )
 }
