@@ -8,10 +8,13 @@ import { editDate } from '../../../Redux/dateSlice'
 import {resetDateState} from '../../../Redux/dateSlice'
 import {toggleClose, toggleOpen} from '../../../Redux/drawerSlice'
 import {useHistory} from 'react-router-dom'
+import { useUpdateCommandMutation, useDeleteInvoiceMutation } from '../../../Redux/services/invoiceDataService'
 
 function Button({description, mode, type, clicked, invoiceNumber, specialAlign, refetch}) {
+    const [submitTrigger] = useUpdateCommandMutation()
     const navigate = useHistory()
     let { data = [], error, isLoading} = useGetOneInvoiceQuery(invoiceNumber) 
+    const modType = useSelector((state) => state.drawerOpen.modType)
     const fromStreet = useSelector((state) => state.inputFieldsSlice.fromStreet)
     const fromCity= useSelector((state) => state.inputFieldsSlice.fromCity)
     const fromZip= useSelector((state) => state.inputFieldsSlice.fromZip)
@@ -23,7 +26,6 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
     const toZip = useSelector((state) => state.inputFieldsSlice.toZip)
     const toCountry = useSelector((state) => state.inputFieldsSlice.toCountry)
     const toProject = useSelector((state) => state.inputFieldsSlice.toProject)
-    const itemRows = useSelector((state) => state.itemListSlice.rows)
     const itemArray = useSelector((state)=> state.itemListSlice.items)
     const isoDate = useSelector((state) => state.dateSlice.ISO)
     const dueIn = useSelector((state)=> state.dateSlice.dueIn) 
@@ -64,7 +66,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
     }
 
     function handleClick(e) {
-        if(e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") {
+        if((e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") && modType !== "Edit" ) {
              clicked({
                 invoiceNumber: generatedInvoiceNumber,
                 fromStreet: fromStreet,
@@ -84,14 +86,43 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
                 year: year,
                 month: month,
                 day: day,
-                status: returnBillStatus(e) 
-                
+                status: returnBillStatus(e)     
             })
             dispatch(resetItemState())
             dispatch(resetDataState())
             dispatch(resetDateState())
             dispatch(toggleClose())
-        } else if(e.target.innerText === "Cancel") {
+        
+         } else if((e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") && modType === "Edit" ) {
+            
+            const body ={
+                command: "UPDATE_FIELDS",
+                invoiceNumber: invoiceNumber,
+                fromStreet: fromStreet,
+                fromCity: fromCity,
+                fromZip: fromZip,
+                fromCountry: fromCountry,
+                toName: toName,
+                toEmail: toEmail,
+                toStreet: toStreet,
+                toCity: toCity,
+                toZip: toZip,
+                toCountry: toCountry,
+                toProject: toProject,
+                itemArray: itemArray,
+                isoDate: isoDate,
+                dueIn: dueIn,
+                year: year,
+                month: month,
+                day: day,
+                items: itemArray,
+                status: returnBillStatus(e)  
+            }
+            
+            submitTrigger(body)
+            dispatch(toggleClose())
+         
+        }else if(e.target.innerText === "Cancel") {
             dispatch(resetItemState())
             dispatch(resetDataState())
             dispatch(resetDateState())
@@ -102,10 +133,10 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
             const body ={
                 command: "PAYMENT_METHOD_UPDATE",
                 paymentstatus: paymentStatus,
-                invoiceNumber: invoiceNumber
+                invoiceNumber: invoiceNumber,
+                
             }
-            clicked(body)
-            refetch()      
+            clicked(body)   
           
         } else if(e.target.innerText === "Delete") {
             const homeURL = "/"
@@ -133,7 +164,8 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
             }
             const itemsPayload = {
                 type: e.target.innerText,
-                items: data.services
+                items: data.services,
+                invoice: invoiceNumber
             }
 
             const datePayload =  {
@@ -145,7 +177,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
             dispatch(editFields(payload))
             dispatch(editItems(itemsPayload))
             dispatch(editDate(datePayload))
-            dispatch(clicked(toggleOpen))
+            dispatch(toggleOpen(itemsPayload))
         } else {
             const payload ={
                 type: e.target.innerText,

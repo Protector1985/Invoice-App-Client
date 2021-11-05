@@ -3,14 +3,18 @@ import invoiceCSS from './invoice.module.css'
 import {Spinner} from 'reactstrap'
 import {useSelector} from 'react-redux'
 import getDueDate from '../../../../utility/helpers/getDueDate'
+import {SocketContext} from '../../../../context/socket'
 
 
 function Fullinvoice(props) {
+    const [fetchController, setFetchController] = React.useState("")
     const invoice = props
     const amount = props.amount
     const invoiceNumber = props.invoiceNumber
     const totalAmount = amount
     const isLoading = props.isLoading
+    const refetch = props.refetch
+    const socket = React.useContext(SocketContext)
     
     function dollarAmount (x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');     
@@ -18,7 +22,16 @@ function Fullinvoice(props) {
 
     const dueDateData = getDueDate(invoice.dueIn, invoice.invoiceDateDay, invoice.invoiceDateYear, invoice.invoiceDateMonth)
    
+        
+        socket.on("FETCH_ALL", (data) => {
+            setFetchController(data)
+        })
 
+        React.useEffect(() => {
+            console.log("REEEEEEFEEETCH")
+            refetch()
+        }, [fetchController])
+    console.log("FETCH CONTROLLER FULL INVOICE")
 
     return(
         isLoading ? <Spinner /> :

@@ -29,8 +29,8 @@ const itemListSlice = createSlice({
         },
         resetItemState: (state) => {
             state.rows = 1;
-            state.items = [
-                {description:"", qty: null, pricePerItem: null, total: null},
+            state.items= [
+                {description:"", qty: "", pricePerItem: "", total: ""},
             ]
         },
 

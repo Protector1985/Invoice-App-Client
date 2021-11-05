@@ -35,7 +35,7 @@ function Main(props) {
             console.log("REEEEEEFEEETCH")
             refetch()
         }, [fetchController])
-    console.log(fetchController)
+    console.log("FETCH CONTROLLER MAIN")
 
     function returnBody() {
         

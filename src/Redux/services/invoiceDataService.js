@@ -32,7 +32,7 @@ export const invoiceDataService = createApi({
             
         }),
 
-        updatePayment: builder.mutation({
+        updateCommand: builder.mutation({
             query (body){
             return {
                 url:`invoice/${body.invoiceNumber}/command`,
@@ -45,4 +45,4 @@ export const invoiceDataService = createApi({
     })
 })
 
-export const {useGetAllInvoicesQuery, useSubmitDataMutation, useGetOneInvoiceQuery, useUpdatePaymentMutation, useDeleteInvoiceMutation} = invoiceDataService
+export const {useGetAllInvoicesQuery, useSubmitDataMutation, useGetOneInvoiceQuery, useUpdateCommandMutation, useDeleteInvoiceMutation} = invoiceDataService

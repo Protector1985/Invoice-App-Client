@@ -9,6 +9,7 @@ export const drawerSlice = createSlice({
     },
     reducers: {
         toggleOpen: (state, action) => {
+            console.log(action.payload.invoice)
             state.drawerOpen = true;
             state.modType = action.payload.type;
             state.invoiceNumber = action.payload.invoice;

@@ -15,6 +15,7 @@ export const inputFieldsSlice = createSlice({
         toZip: "",
         toCountry: "", 
         toProject: "",
+        isoDate: "",
     },
 
     reducers: {
@@ -51,6 +52,9 @@ export const inputFieldsSlice = createSlice({
         setProjectDesc: (state, action) => {
             state.toProject = action.payload.toProject
         },
+        setIsoDate: (state,action) => {
+            state.isoDate = action.payload.isoDate
+        },
         resetDataState: (state) => {
             console.log("Resetting Data State!!!")
             state.fromStreet = "";
@@ -64,6 +68,7 @@ export const inputFieldsSlice = createSlice({
             state.toZip = "";
             state.toCountry = "";
             state.toProject = "";
+            state.isoDate = "";
         },
         editFields: (state, action) => {
             state.fromStreet = action.payload.fromStreet;
@@ -77,7 +82,8 @@ export const inputFieldsSlice = createSlice({
             state.toZip = action.payload.toZip;
             state.toCountry = action.payload.toCountry;
             state.toProject = action.payload.toProject;
-            console.log(state)
+            state.isoDate = action.payload.isoDate;
+            
         }
 
 
