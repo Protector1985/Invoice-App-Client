@@ -26,6 +26,7 @@ function Main(props) {
     })
     const [fetchController, setFetchController] = React.useState("")
         let { data = [], refetch, error, isLoading} = useGetAllInvoicesQuery('fetchAll')
+        const filterState = useSelector((state) => state.filterSlice.value)
         
         socket.on("FETCH_ALL", (data) => {
             setFetchController(data)
@@ -49,7 +50,12 @@ function Main(props) {
                 ) 
             } else {
             return data.map((invoice, index) => {
-                return  <Invoice refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
+                if(filterState === invoice.status) {
+                    return  <Invoice refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
+                } else if(filterState === "ALL") {
+                    return  <Invoice refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
+                }
+                
                 
                 
             })

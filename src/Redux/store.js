@@ -5,6 +5,7 @@ import inputFieldsSlice from './inputFieldsSlice'
 import itemListSlice from './itemListSlice'
 import dateSlice from './dateSlice'
 import invoiceNumberSlice from './invoiceNumberSlice'
+import filterSlice from './filterSlice'
 import {invoiceDataService} from './services/invoiceDataService'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 
@@ -16,7 +17,8 @@ const store = configureStore({
     inputFieldsSlice: inputFieldsSlice,  
     itemListSlice: itemListSlice,
     dateSlice: dateSlice,
-    invoiceNumberSlice: invoiceNumberSlice
+    invoiceNumberSlice: invoiceNumberSlice,
+    filterSlice: filterSlice
   },
 
   
