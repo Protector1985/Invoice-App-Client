@@ -6,7 +6,9 @@ const itemListSlice = createSlice({
         rows: 1,
         items: [
             {description:"", qty: null, pricePerItem: null, total: null},
-        ]
+        ],
+        destroy: []
+
     },
 
     reducers: {
@@ -23,7 +25,8 @@ const itemListSlice = createSlice({
         },
         deleteRow: (state, action) => {
             const index = action.payload.index;
-            if(state.items.length > 1) {
+            if(state.items.length >= 1) {
+                state.destroy.push(state.items[index].id)
                 state.items.splice(index, 1)
             }  
         },
@@ -32,10 +35,12 @@ const itemListSlice = createSlice({
             state.items= [
                 {description:"", qty: "", pricePerItem: "", total: ""},
             ]
+            state.destroy = []
         },
 
         editItems: (state, action) => {
             state.items = action.payload.items
+            console.log(state.items)
         }
     }
 

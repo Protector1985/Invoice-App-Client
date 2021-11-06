@@ -42,6 +42,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
             setSVG(()=> node)
         }
     })
+    const destroyItems = useSelector((state) => state.itemListSlice.destroy)
 
     function returnSpecialProperty(specialProperty) {
         if(specialProperty !== undefined) {
@@ -95,7 +96,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
         
          } else if((e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") && modType === "Edit" ) {
             
-            const body ={
+            const body = {
                 command: "UPDATE_FIELDS",
                 invoiceNumber: invoiceNumber,
                 fromStreet: fromStreet,
@@ -116,10 +117,14 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
                 month: month,
                 day: day,
                 items: itemArray,
-                status: returnBillStatus(e)  
+                status: returnBillStatus(e),
+                destroy: destroyItems,
             }
             
             submitTrigger(body)
+            dispatch(resetItemState())
+            dispatch(resetDataState())
+            dispatch(resetDateState())
             dispatch(toggleClose())
          
         }else if(e.target.innerText === "Cancel") {
@@ -174,6 +179,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
                 invoiceDateYear: data.invoice.invoiceDateYear,
                 dueIn: data.invoice.dueIn,
             }
+            dispatch(resetItemState())
             dispatch(editFields(payload))
             dispatch(editItems(itemsPayload))
             dispatch(editDate(datePayload))

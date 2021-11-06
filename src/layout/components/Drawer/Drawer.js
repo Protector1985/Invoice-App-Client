@@ -53,6 +53,7 @@ function Drawer({open, refetch}) {
     const isoDate = useSelector((state) => state.dateSlice.ISO)
     const dueIn = useSelector((state)=> state.dateSlice.dueIn)
     
+    
     const [submitData, {isError, isUninitialized, isLoading, isSuccess, error}] = useSubmitDataMutation()
     const hidden = {
         "display": "none"
@@ -257,10 +258,14 @@ function Drawer({open, refetch}) {
         dispatch(setInvoiceNumber(payload))
     }
 
-    function handleRowDelete(i) {
+    function handleRowDelete(i, workItem) {
+        
         const payload ={
             type: "Delete Row",
-            index: i
+            index: i,
+            delete: {
+                [workItem.id]: workItem.description
+            }
         }
         dispatch(deleteRow(payload))
     }
@@ -438,22 +443,21 @@ function Drawer({open, refetch}) {
                                     <div className={drawerCSS.trashSymbolContainer}>
                                     
                                     {invoice.length === 0 ? 
-                                        itemArray.map((_, index) => {
+                                        itemArray.map((workItem, index) => {
+                                            
                                             return (
                                             <div className={drawerCSS.svgContainer}>
                                                 <h4> </h4>
-                                                <span className={drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index)} /> </span> 
+                                                <span className={drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index, workItem)} /> </span> 
                                             </div>
-                                             
                                             )
                                         })
-                                        :
-                                        
+                                            :
                                         itemsPurchased.map((workItem, index) => {
                                         return (
                                             <div className={drawerCSS.svgContainer}>
                                                 <h4> </h4>
-                                                <span className={drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index)} /> </span> 
+                                                <span className={drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index, workItem)} /> </span> 
                                             </div>
                                              
                                         )
