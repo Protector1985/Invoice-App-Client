@@ -1,7 +1,7 @@
 .body {
     display:flex;
     flex-direction: column;
-    background-color: #F8F8FB;
+    background-color: #141625;
     width: 100%;
     align-items: center;
     overflow-y:scroll;
@@ -27,5 +27,6 @@
     margin-top: 3.7px;
     margin-bottom: 0;
     margin-left: 15px;
+    color: #FFFFFF;
     font-family: 'Spartan', sans-serif;
 }

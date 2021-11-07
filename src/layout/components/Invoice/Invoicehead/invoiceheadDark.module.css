@@ -3,7 +3,7 @@
     flex-direction:row;
     width: 730px;
     min-height: 88px;
-    background-color: #FFFF;
+    background-color: #1E2139;
     align-items: center;
     border-radius: 9px;
 }
@@ -19,7 +19,7 @@
 
 .statusText {
     font-family: 'Spartan', sans-serif;
-    color: #858BB2;
+    color: #DFE3FA;
     margin-left: 25px;
     margin-right: 13px;
     font-size: 13px;
