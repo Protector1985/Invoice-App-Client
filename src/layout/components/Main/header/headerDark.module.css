@@ -5,13 +5,14 @@
     font-weight:bold;
     margin-bottom:0px;
     margin-top:12px;
+    color: #FFFFFF
 }
 
 .invoiceAmount {
     font-family: 'Spartan', sans-serif;
     margin-top: 3px;
     font-size: 9px;
-    color: #888EB0;
+    color: #DFE3FA;
 }
 
 .dropdownContainer {
@@ -22,8 +23,9 @@
     font-size: 12px;
     margin-right: 50px;
     align-self: center;
-    border: none;
-    background-color: #F8F8FB;
+    background-color: #141625;
+    border:none;
+    color: #FFFFFF;
 
 }
 
@@ -33,4 +35,5 @@
     letter-spacing:-1px;
     font-size: 12px;
     margin-top: 3px;
+    color: #FFFFFF;
 }

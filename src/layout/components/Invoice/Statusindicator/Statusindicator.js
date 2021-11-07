@@ -1,31 +1,33 @@
 import React from 'react'
 import indicatorCSS from './statusindicator.module.css'
+import indicatorDarkCSS from './statusindicatorDark.module.css'
 import {Spinner} from 'reactstrap'
+import {useSelector} from 'react-redux'
 
 function Statusindicator({status}) {
-    console.log(status)
+    const darkMode = useSelector((state) => state.themeSlice.darkMode)
     function returnClassStyling() {
         switch (status) {
             case "PAID":
                 return {
                     descriptor: "Paid",
-                    containerColor: indicatorCSS.greenContainer,
-                    circleColor: indicatorCSS.greenCircle,
-                    statusColor: indicatorCSS.greenStatus
+                    containerColor: darkMode ? indicatorDarkCSS.greenContainer : indicatorCSS.greenContainer,
+                    circleColor: darkMode ? indicatorDarkCSS.greenCircle : indicatorCSS.greenCircle,
+                    statusColor: darkMode ? indicatorDarkCSS.greenStatus : indicatorCSS.greenStatus
                 }
             case "PENDING":
                 return {
                     descriptor: "Pending",
-                    containerColor: indicatorCSS.orangeContainer,
-                    circleColor: indicatorCSS.orangeCircle,
-                    statusColor: indicatorCSS.orangeStatus
+                    containerColor: darkMode ? indicatorDarkCSS.orangeContainer : indicatorCSS.orangeContainer,
+                    circleColor: darkMode ? indicatorDarkCSS.orangeCircle : indicatorCSS.orangeCircle,
+                    statusColor: darkMode ? indicatorDarkCSS.orangeStatus : indicatorCSS.orangeStatus
                 }
             case "DRAFT":
                 return {
                     descriptor: "Draft",
-                    containerColor: indicatorCSS.greyContainer,
-                    circleColor: indicatorCSS.greyCircle,
-                    statusColor: indicatorCSS.greyStatus
+                    containerColor: darkMode ? indicatorDarkCSS.greyContainer : indicatorCSS.greyContainer,
+                    circleColor: darkMode ? indicatorDarkCSS.greyCircle : indicatorCSS.greyCircle,
+                    statusColor: darkMode ? indicatorDarkCSS.greyStatus : indicatorCSS.greyStatus
                 }
                 
             case "IS_LOADING" :

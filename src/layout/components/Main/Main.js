@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from './header/Header'
 import mainCSS from './main.module.css'
+import mainDarkCSS from './mainDark.module.css'
 import Invoice from '../Invoice/Invoice'
 import getNodeSizeCB from '../../../utility/sizing/getNodeSizeCB'
 import {ReactComponent as EmptyPic} from '../../../assets/illustration-empty.svg'
@@ -16,6 +17,7 @@ import {SocketContext} from '../../../context/socket'
 
 
 function Main(props) {
+    const darkMode = useSelector((state) => state.themeSlice.darkMode)
     const socket = React.useContext(SocketContext)
     const {drawerOpen} = useSelector((state)=> state.drawerOpen)
     const bodyContent = React.useCallback((node) => {
@@ -42,10 +44,10 @@ function Main(props) {
         
             if(data.length === 0) {
                 return (
-                    <div className={mainCSS.emptyBody}>
+                    <div className={darkMode ? mainDarkCSS.emptyBody : mainCSS.emptyBody}>
                         <EmptyPic />
-                        <h3 className={mainCSS.emptyHeadline}>There is nothing here</h3>
-                        <p className={mainCSS.emptyText}>  Create an invoice by clicking the <br/> <span style={{"fontWeight": "bold"}}>New Invoice</span> button and get started</p>
+                        <h3 className={darkMode ? mainDarkCSS.emptyHeadline : mainCSS.emptyHeadline}>There is nothing here</h3>
+                        <p className={darkMode ? mainDarkCSS.emptyText : mainCSS.emptyText}>  Create an invoice by clicking the <br/> <span style={{"fontWeight": "bold"}}>New Invoice</span> button and get started</p>
                     </div>
                 ) 
             } else {
@@ -68,7 +70,7 @@ function Main(props) {
 
 
     return (
-        <div className={mainCSS.bodyLight}>
+        <div className={darkMode ? mainDarkCSS.body : mainCSS.body}>
             <Drawer refetch={refetch} open={drawerOpen} />
                 <div ref={bodyContent} className={mainCSS.bodyContent}>
                     <Header refetch={refetch} key="pageHeader" numInvoices={data.length} className="headerContainer" />
