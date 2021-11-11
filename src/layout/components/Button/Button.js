@@ -249,9 +249,9 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
         } else if (typeProp === 6) {
             return {
                 width:"100%",
-                bgColor: "#F9FAFE",
+                bgColor: mode === "light" ? "#F9FAFE" : "#252945",
                 bgColorHover: mode === "light" ? "#DFE3FA" : "#DFE3FA",
-                txtColor: "#7E88C3",
+                txtColor: mode === "light" ? "#7E88C3" : "#DFE3FA",
                 txtColorHover: mode === "light" ? "#7E88C3" : "#7E88C3",
                 specialAlign: specialAlign
         } 

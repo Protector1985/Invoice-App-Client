@@ -1,7 +1,9 @@
 import "./datepickerstyle.css"
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types'
 import drawerCSS from './drawer.module.css'
+import drawerDarkCSS from './drawerDark.module.css'
 import Button from '../Button/Button'
 import {toggleClose} from '../../../Redux/drawerSlice'
 import {useSelector, useDispatch} from 'react-redux'
@@ -27,6 +29,7 @@ import {addRow, editRow, deleteRow} from '../../../Redux/itemListSlice'
 import {setDate, setDueIn} from "../../../Redux/dateSlice"
 import { setInvoiceNumber} from '../../../Redux/invoiceNumberSlice'
 import {useSubmitDataMutation} from '../../../Redux/services/invoiceDataService'
+import {inputValidator} from '../../../utility/helpers/inputSecurity'
 var DatePicker = require("reactstrap-date-picker");
 
 
@@ -35,6 +38,7 @@ var DatePicker = require("reactstrap-date-picker");
 
 function Drawer({open, refetch}) {
     const dispatch = useDispatch()
+    const darkMode = useSelector((state)=> state.themeSlice.darkMode)
     const modType = useSelector((state) => state.drawerOpen.modType)
     const invoiceNumber = useSelector((state)=> state.drawerOpen.invoiceNumber)
     const invoice = useSelector((state)=> state.invoiceData.invoiceData).filter((invoice) => invoiceNumber === invoice.invoiceNumber)
@@ -52,8 +56,7 @@ function Drawer({open, refetch}) {
     const itemArray = useSelector((state)=> state.itemListSlice.items)
     const isoDate = useSelector((state) => state.dateSlice.ISO)
     const dueIn = useSelector((state)=> state.dateSlice.dueIn)
-    
-    
+    const [calendarOpen, setCalendarOpen] = React.useState(false)
     const [submitData, {isError, isUninitialized, isLoading, isSuccess, error}] = useSubmitDataMutation()
     const hidden = {
         "display": "none"
@@ -81,6 +84,56 @@ function Drawer({open, refetch}) {
 
 
     const totalContainerRef = React.useRef()
+
+    const nodeObserver = new MutationObserver((childNodeList, a)=> {
+        if(childNodeList) {
+
+            for(const mutation of childNodeList) {
+                if(mutation.target.className === "popover show bs-popover-auto") {
+                    const fourthParent = mutation.target.parentNode
+                    const thirdParent = ReactDOM.findDOMNode(fourthParent).parentNode
+                    const secondParent = ReactDOM.findDOMNode(thirdParent).parentNode
+                    const dark = ReactDOM.findDOMNode(secondParent).parentNode.parentNode.getAttribute("darkmode") //extracts darkmode attribute from parent
+                
+                    
+                    const container = mutation.target.firstChild
+                    const header = container.firstChild
+                    const body = container.lastChild
+                        header.style.backgroundColor = dark === "true" ? "#0C0E16" : "#F8F8FB"
+                        header.style.color = dark === "true" ? "#FFFFFF" : "black"
+                        body.style.backgroundColor = dark === "true" ? "#252945" : "#FFFFFF"
+                        body.style.color =dark === "true" ? "#FFFFFF" : "black"
+                        break
+    
+                }
+                    
+            }
+            
+        }
+    })
+    
+    
+    const datePickerRef = React.useCallback((node) => {
+        if(node) {
+            const targetNode = ReactDOM.findDOMNode(node)
+            targetNode.setAttribute("darkMode", darkMode)
+            let input = targetNode.getElementsByClassName("rdp-input-group input-group")[0].firstChild
+            input.style.backgroundColor = darkMode ? "#252945" : "white"
+            input.style.borderColor = darkMode ? "#252945" : "#DFE3FA"
+            input.style.color = darkMode ? "white" : "black"
+            nodeObserver.observe(targetNode, { attributes: true, childList: true, subtree: true })
+           
+        }
+    })
+    
+    // const cb = React.useCallback((nod) => {
+    //     const node = document.getElementsByClassName("rdp-header")
+    //   console.log(node)
+    // })
+
+    
+    
+
     
 
     React.useEffect(() => {
@@ -106,6 +159,8 @@ function Drawer({open, refetch}) {
             type: "From Street",
             fromStreet: input
         }
+        const output = inputValidator(input, 10)
+        console.log(output)
         dispatch(setFromStreet(payload))
     }
     
@@ -273,191 +328,191 @@ function Drawer({open, refetch}) {
     
 
     return (
-        <div style={!open ? hidden : null} className={drawerCSS.container}>
-            <div className={drawerCSS.formContainer}>
-            <div className={drawerCSS.formHeadline}>
-            <h5><span className={drawerCSS.hashtag}>{modType === "New Invoice" ? null : "#" }</span>{modType === "New Invoice" ? generateInvoiceNumber() : invoiceNumber}</h5>
+        <div style={!open ? hidden : null} className={darkMode ? drawerDarkCSS.container : drawerCSS.container}>
+            <div className={darkMode ? drawerDarkCSS.formContainer : drawerCSS.formContainer}>
+            <div className={darkMode ? drawerDarkCSS.formHeadline : drawerCSS.formHeadline}>
+            <h5><span className={darkMode ? drawerDarkCSS.hashtag : drawerCSS.hashtag}>{modType === "New Invoice" ? null : "#" }</span>{modType === "New Invoice" ? generateInvoiceNumber() : invoiceNumber}</h5>
             </div>
             
             
             <Form>
-                <p className={drawerCSS.fromToHeadline}>Bill From</p>
+                <p className={darkMode ? drawerDarkCSS.fromToHeadline : drawerCSS.fromToHeadline}>Bill From</p>
                 <FormGroup>
-                    <div className={drawerCSS.fullWidthInput}>
-                        <Label className={drawerCSS.fromStreetLabel} for="street">Street</Label>
-                        {invoice.length === 0 ?  <Input className={drawerCSS.fromStreetInput} onChange={(e) => fromStreetInput(e)} value={fromStreet} type="text" name="street" id="street" />
+                    <div className={darkMode ? drawerDarkCSS.fullWidthInput : drawerCSS.fullWidthInput}>
+                        <Label className={darkMode ? drawerDarkCSS.fromStreetLabel : drawerCSS.fromStreetLabel} for="street">Street</Label>
+                        {invoice.length === 0 ?  <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} onChange={(e) => fromStreetInput(e)} value={fromStreet} type="text" name="street" id="street" />
                             :
                         invoice.map((data) => {
-                            return <Input className={drawerCSS.fromStreetInput} value={data.fromStreet} type="text" name="street" id="street" />
+                            return <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} value={data.fromStreet} type="text" name="street" id="street" />
                         })}
                     </div>
                     
-                    <div className={drawerCSS.fromCityContainer}>
-                        <Label className={drawerCSS.fromCityLabel} for="city">City</Label>
-                        {invoice.length === 0 ? <Input className={drawerCSS.fromCityInput} onChange={(e) => fromCityInput(e)} value={fromCity} type="text" name="city" id="city" /> 
+                    <div className={darkMode ? drawerDarkCSS.fromCityContainer : drawerCSS.fromCityContainer}>
+                        <Label className={darkMode ? drawerDarkCSS.fromCityLabel : drawerCSS.fromCityLabel} for="city">City</Label>
+                        {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromCityInput : drawerCSS.fromCityInput} onChange={(e) => fromCityInput(e)} value={fromCity} type="text" name="city" id="city" /> 
                             :
                         invoice.map((data) => {
-                                return <Input className={drawerCSS.fromCityInput} value={data.fromCity} type="text" name="city" id="city" />
+                                return <Input className={darkMode ? drawerDarkCSS.fromCityInput : drawerCSS.fromCityInput} value={data.fromCity} type="text" name="city" id="city" />
                         })}
                         
                     </div>
                     
-                    <div className={drawerCSS.fromZipContainer}>
-                        <Label className={drawerCSS.fromZipLabel} for="zip">Zip Code</Label>
-                        {invoice.length === 0 ? <Input className={drawerCSS.fromZipInput} onChange={(e)=> fromZipInput(e)} value={fromZip} type="text" name="zip" id="zip" />
+                    <div className={darkMode ? drawerDarkCSS.fromZipContainer : drawerCSS.fromZipContainer}>
+                        <Label className={darkMode ? drawerDarkCSS.fromZipLabel : drawerCSS.fromZipLabel} for="zip">Zip Code</Label>
+                        {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromZipInput : drawerCSS.fromZipInput} onChange={(e)=> fromZipInput(e)} value={fromZip} type="text" name="zip" id="zip" />
                             :
                         invoice.map((data) => {
-                            return <Input className={drawerCSS.fromZipInput} value={data.fromZip} type="text" name="zip" id="zip" />
+                            return <Input className={darkMode ? drawerDarkCSS.fromZipInput : drawerCSS.fromZipInput} value={data.fromZip} type="text" name="zip" id="zip" />
                         })}
                         
                     </div>
 
-                    <div className={drawerCSS.fromCountryContainer}>
-                        <Label className={drawerCSS.fromCountryLabel} for="country">Country</Label>
-                        {invoice.length === 0 ? <Input className={drawerCSS.fromCountryInput} onChange={(e)=> fromCountryInput(e) } value={fromCountry} type="text" name="country" id="country" />
+                    <div className={darkMode ? drawerDarkCSS.fromCountryContainer : drawerCSS.fromCountryContainer}>
+                        <Label className={darkMode ? drawerDarkCSS.fromCountryLabel : drawerCSS.fromCountryLabel} for="country">Country</Label>
+                        {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromCountryInput : drawerCSS.fromCountryInput} onChange={(e)=> fromCountryInput(e) } value={fromCountry} type="text" name="country" id="country" />
                             :
                         invoice.map((data) => {
-                            return <Input className={drawerCSS.fromCountryInput} value={data.fromCountry} type="text" name="country" id="country" />
+                            return <Input className={darkMode ? drawerDarkCSS.fromCountryInput : drawerCSS.fromCountryInput} value={data.fromCountry} type="text" name="country" id="country" />
                         })}
                         
                     </div>
-                    <p className={drawerCSS.fromToHeadline}>Bill To</p>
-                    <div className={drawerCSS.fullWidthInput}>
-                        <Label className={drawerCSS.fromStreetLabel} for="cname">Client's Name</Label>
-                        {invoice.length === 0 ? <Input className={drawerCSS.fromStreetInput} onChange={(e)=> toNameInput(e) } value={toName} type="text" name="cname" id="cname" />
+                    <p className={darkMode ? drawerDarkCSS.fromToHeadline : drawerCSS.fromToHeadline}>Bill To</p>
+                    <div className={darkMode ? drawerDarkCSS.fullWidthInput : drawerCSS.fullWidthInput}>
+                        <Label className={darkMode ? drawerDarkCSS.fromStreetLabel : drawerCSS.fromStreetLabel} for="cname">Client's Name</Label>
+                        {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} onChange={(e)=> toNameInput(e) } value={toName} type="text" name="cname" id="cname" />
                             : 
                         invoice.map((data) => {
-                            return <Input className={drawerCSS.fromStreetInput} value={data.recipient} type="text" name="cname" id="cname" />
+                            return <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} value={data.recipient} type="text" name="cname" id="cname" />
                         })}
                         
                     </div>
-                    <div className={drawerCSS.fullWidthInput}>
-                        <Label className={drawerCSS.fromStreetLabel} for="cemail">Client's Email</Label>
-                        { invoice.length === 0 ? <Input className={drawerCSS.fromStreetInput} onChange={(e)=> toEmailInput(e) } value={toEmail} type="text" name="cemail" id="cemail" />
+                    <div className={darkMode ? drawerDarkCSS.fullWidthInput : drawerCSS.fullWidthInput}>
+                        <Label className={darkMode ? drawerDarkCSS.fromStreetLabel : drawerCSS.fromStreetLabel} for="cemail">Client's Email</Label>
+                        { invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} onChange={(e)=> toEmailInput(e) } value={toEmail} type="text" name="cemail" id="cemail" />
                             : 
                         invoice.map((data) => {
-                            return <Input className={drawerCSS.fromStreetInput} value={data.toEmail} type="text" name="cemail" id="cemail" />
+                            return <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} value={data.toEmail} type="text" name="cemail" id="cemail" />
                         })}
                         
                     </div>
-                    <div className={drawerCSS.fullWidthInput}>
-                        <Label className={drawerCSS.fromStreetLabel} for="streetAddress">Street Address</Label>
-                        {invoice.length === 0 ? <Input className={drawerCSS.fromStreetInput} onChange={(e)=> toStreetInput(e) } value={toStreet} type="text" name="streetAddress" id="streetAddress" />
+                    <div className={darkMode ? drawerDarkCSS.fullWidthInput : drawerCSS.fullWidthInput}>
+                        <Label className={darkMode ? drawerDarkCSS.fromStreetLabel : drawerCSS.fromStreetLabel} for="streetAddress">Street Address</Label>
+                        {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} onChange={(e)=> toStreetInput(e) } value={toStreet} type="text" name="streetAddress" id="streetAddress" />
                             :
                         invoice.map((data) => {
-                            return <Input className={drawerCSS.fromStreetInput} value={data.toStreet} type="text" name="streetAddress" id="streetAddress" />
+                            return <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} value={data.toStreet} type="text" name="streetAddress" id="streetAddress" />
                         })}
                         
                     </div>
-                    <div className={drawerCSS.fromCityContainer}>
-                        <Label className={drawerCSS.fromCityLabel} for="ccity">City</Label>
-                        {invoice.length === 0 ? <Input className={drawerCSS.fromCityInput} onChange={(e) => toCityInput(e)} value={toCity} type="text" name="ccity" id="ccity" />
+                    <div className={darkMode ? drawerDarkCSS.fromCityContainer : drawerCSS.fromCityContainer}>
+                        <Label className={darkMode ? drawerDarkCSS.fromCityLabel : drawerCSS.fromCityLabel} for="ccity">City</Label>
+                        {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromCityInput : drawerCSS.fromCityInput} onChange={(e) => toCityInput(e)} value={toCity} type="text" name="ccity" id="ccity" />
                             : 
                         invoice.map((data) => {
-                            return  <Input className={drawerCSS.fromCityInput} value={data.toCity} type="text" name="ccity" id="ccity" />
+                            return  <Input className={darkMode ? drawerDarkCSS.fromCityInput : drawerCSS.fromCityInput} value={data.toCity} type="text" name="ccity" id="ccity" />
                         })}
                        
                     </div>
                     
-                    <div className={drawerCSS.fromZipContainer}>
-                        <Label className={drawerCSS.fromZipLabel} for="czip">Zip Code</Label>
-                        {invoice.length === 0 ? <Input className={drawerCSS.fromZipInput} onChange={(e) => toZipInput(e)} value={toZip} type="text" name="czip" id="czip" />
+                    <div className={darkMode ? drawerDarkCSS.fromZipContainer : drawerCSS.fromZipContainer}>
+                        <Label className={darkMode ? drawerDarkCSS.fromZipLabel : drawerCSS.fromZipLabel} for="czip">Zip Code</Label>
+                        {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromZipInput : drawerCSS.fromZipInput} onChange={(e) => toZipInput(e)} value={toZip} type="text" name="czip" id="czip" />
                             : 
                         invoice.map((data) => {
-                            return <Input className={drawerCSS.fromZipInput} value={data.toZip} type="text" name="czip" id="czip" />
+                            return <Input className={darkMode ? drawerDarkCSS.fromZipInput : drawerCSS.fromZipInput} value={data.toZip} type="text" name="czip" id="czip" />
                         })}
                         
                     </div>
 
-                    <div className={drawerCSS.fromCountryContainer}>
-                        <Label className={drawerCSS.fromCountryLabel} for="ccountry">Country</Label>
-                        {invoice.length === 0 ? <Input className={drawerCSS.fromCountryInput} onChange={(e)=> toCountryInput(e)} value={toCountry} type="text" name="ccountry" id="ccountry" />
+                    <div className={darkMode ? drawerDarkCSS.fromCountryContainer : drawerCSS.fromCountryContainer}>
+                        <Label className={darkMode ? drawerDarkCSS.fromCountryLabel : drawerCSS.fromCountryLabel} for="ccountry">Country</Label>
+                        {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromCountryInput : drawerCSS.fromCountryInput} onChange={(e)=> toCountryInput(e)} value={toCountry} type="text" name="ccountry" id="ccountry" />
                             : 
                         invoice.map((data) => {
-                            return <Input className={drawerCSS.fromCountryInput} value={data.toCountry} type="text" name="ccountry" id="ccountry" />
+                            return <Input className={darkMode ? drawerDarkCSS.fromCountryInput : drawerCSS.fromCountryInput} value={data.toCountry} type="text" name="ccountry" id="ccountry" />
                         })}
                         
                     </div>
-                    <div className={drawerCSS.dateTerms}>
-                        <div className={drawerCSS.dateTermsSubContainer}>
-                            <div className={drawerCSS.dateTermsSubSubContainer}>
-                                <Label className={drawerCSS.fromCountryLabel} for="datePicker">Invoice Date</Label>
+                    <div className={darkMode ? drawerDarkCSS.dateTerms : drawerCSS.dateTerms}>
+                        <div className={darkMode ? drawerDarkCSS.dateTermsSubContainer : drawerCSS.dateTermsSubContainer}>
+                            <div ref={datePickerRef}  className={darkMode ? drawerDarkCSS.dateTermsSubSubContainer : drawerCSS.dateTermsSubSubContainer}>
+                                <Label className={darkMode ? drawerDarkCSS.fromCountryLabel : drawerCSS.fromCountryLabel} for="datePicker">Invoice Date</Label>
                                 <DatePicker value={currentWorkDate} onChange={(dateValue) => submitDate(dateValue)} className={drawerCSS.datePicker}  id="datePicker" />
-                                <div className={drawerCSS.calendarSymbol}>
+                                <div className={darkMode ? drawerDarkCSS.calendarSymbol : drawerCSS.calendarSymbol}>
                                     <Calendar  />
                                 </div>
                             </div>
                             
-                            <div className={drawerCSS.dateTermsSubSubContainer}>
-                            <Label className={`${drawerCSS.fromCountryLabel} subSub`} for="termPicker">Payment Terms</Label>
-                            <Dropdown menuClassName={drawerCSS.dropdownMenu} controlClassName={drawerCSS.dropdownControl} style={style} options={getOptions()} onChange={(e) => handleDueInChange(e)} value={defaultOption} placeholder="Select an option" arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} />
+                            <div className={darkMode ? drawerDarkCSS.dateTermsSubSubContainer : drawerCSS.dateTermsSubSubContainer}>
+                            <Label className={`${darkMode ? drawerDarkCSS.fromCountryLabel : drawerCSS.fromCountryLabel} subSub`} for="termPicker">Payment Terms</Label>
+                            <Dropdown menuClassName={darkMode ? drawerDarkCSS.dropdownMenu : drawerCSS.dropdownMenu} controlClassName={darkMode ? drawerDarkCSS.dropdownControl : drawerCSS.dropdownControl} style={style} options={getOptions()} onChange={(e) => handleDueInChange(e)} value={defaultOption} placeholder="Select an option" arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft/>} />
                             </div>   
                         </div>
                             
-                            <div className={`${drawerCSS.fullWidthInput} ${drawerCSS.projectDescription}`}>
-                                <Label className={drawerCSS.fromStreetLabel} for="pDescription">Project Description</Label>
-                                {invoice.length === 0 ? <Input className={drawerCSS.fromStreetInput} onChange={(e) => toProjectDesc(e) } value={toProject} type="text" name="pDescription" id="pDescription" />
+                            <div className={`${darkMode ? drawerDarkCSS.fullWidthInput : drawerCSS.fullWidthInput} ${darkMode ? drawerDarkCSS.projectDescription : drawerCSS.projectDescription}`}>
+                                <Label className={darkMode ? drawerDarkCSS.fromStreetLabel : drawerCSS.fromStreetLabel} for="pDescription">Project Description</Label>
+                                {invoice.length === 0 ? <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} onChange={(e) => toProjectDesc(e) } value={toProject} type="text" name="pDescription" id="pDescription" />
                                     : 
                                 invoice.map((data)=> {
-                                    return <Input className={drawerCSS.fromStreetInput} value={data.overallProject} type="text" name="pDescription" id="pDescription" />
+                                    return <Input className={darkMode ? drawerDarkCSS.fromStreetInput : drawerCSS.fromStreetInput} value={data.overallProject} type="text" name="pDescription" id="pDescription" />
                                 })}
                                 
                             </div>
-                        <div className={drawerCSS.addDeleteContainer}>
-                            <h5 className={drawerCSS.itemListHeadline}>Item List</h5>
-                            <div className={drawerCSS.itemListDescriptions}>
-                                <div className={drawerCSS.headlineContainer}>
-                                    <div className={drawerCSS.iNameContainer}>
-                                        <Label className={drawerCSS.itemListDesc} for="iName">Item Name</Label>
+                        <div className={darkMode ? drawerDarkCSS.addDeleteContainer : drawerCSS.addDeleteContainer}>
+                            <h5 className={darkMode ? drawerDarkCSS.itemListHeadline : drawerCSS.itemListHeadline}>Item List</h5>
+                            <div className={darkMode ? drawerDarkCSS.itemListDescriptions : drawerCSS.itemListDescriptions}>
+                                <div className={darkMode ? drawerDarkCSS.headlineContainer : drawerCSS.headlineContainer}>
+                                    <div className={darkMode ? drawerDarkCSS.iNameContainer : drawerCSS.iNameContainer}>
+                                        <Label className={darkMode ? drawerDarkCSS.itemListDesc : drawerCSS.itemListDesc} for="iName">Item Name</Label>
                                         {invoice.length === 0 ? 
-                                            itemArray.map((item, index) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "description") } value={item.description} type="text" name="iName" id="iName" />)
+                                            itemArray.map((item, index) => <Input className={`${darkMode ? drawerDarkCSS.iDataInput : drawerCSS.iDataInput} ${darkMode ? drawerDarkCSS.totalAmountDarkText : drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "description") } value={item.description} type="text" name="iName" id="iName" />)
                                             :
 
-                                            itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.description} type="text" name="iName" id="iName" />)}
+                                            itemsPurchased.map((workItem) => <Input className={`${darkMode ? drawerDarkCSS.iDataInput : drawerCSS.iDataInput} ${darkMode ? drawerDarkCSS.totalAmountDarkText : drawerCSS.totalAmountDarkText}`} value={workItem.description} type="text" name="iName" id="iName" />)}
                                         
                                     </div>
-                                    <div className={drawerCSS.qtyContainer}>
-                                        <Label className={drawerCSS.itemListDesc} for="qty">Qty.</Label>
+                                    <div className={darkMode ? drawerDarkCSS.qtyContainer : drawerCSS.qtyContainer}>
+                                        <Label className={darkMode ? drawerDarkCSS.itemListDesc : drawerCSS.itemListDesc} for="qty">Qty.</Label>
                                         {invoice.length === 0 ? 
-                                        itemArray.map((item, index) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "qty") } value={!isNaN(item.qty) ? item.qty : ""} type="text" name="qty" id="qty" />)
+                                        itemArray.map((item, index) => <Input className={`${darkMode ? drawerDarkCSS.iDataInput : drawerCSS.iDataInput} ${darkMode ? drawerDarkCSS.totalAmountDarkText : drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "qty") } value={!isNaN(item.qty) ? item.qty : ""} type="text" name="qty" id="qty" />)
                                             :
-                                        itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.qty} type="text" name="qty" id="qty" />)}
+                                        itemsPurchased.map((workItem) => <Input className={`${darkMode ? drawerDarkCSS.iDataInput : drawerCSS.iDataInput} ${darkMode ? drawerDarkCSS.totalAmountDarkText : drawerCSS.totalAmountDarkText}`} value={workItem.qty} type="text" name="qty" id="qty" />)}
                                         
                                     </div>
-                                    <div className={drawerCSS.priceContainer}>
-                                        <Label className={drawerCSS.itemListDesc} for="price">Price</Label>
+                                    <div className={darkMode ? drawerDarkCSS.priceContainer : drawerCSS.priceContainer}>
+                                        <Label className={darkMode ? drawerDarkCSS.itemListDesc : drawerCSS.itemListDesc} for="price">Price</Label>
                                         { invoice.length === 0 ? 
-                                            itemArray.map((item, index) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "pricePerItem") } value={!isNaN(item.pricePerItem) ? item.pricePerItem : ""} type="text" name="price" id="price" />)
+                                            itemArray.map((item, index) => <Input className={`${darkMode ? drawerDarkCSS.iDataInput : drawerCSS.iDataInput} ${darkMode ? drawerDarkCSS.totalAmountDarkText : drawerCSS.totalAmountDarkText}`} onChange={ (e) => editItemField(e, index, "pricePerItem") } value={!isNaN(item.pricePerItem) ? item.pricePerItem : ""} type="text" name="price" id="price" />)
                                             :
-                                            itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountDarkText}`} value={workItem.pricePerItem.toFixed(2)} type="text" name="pricePerItem" id="pricePerItem" />)}
+                                            itemsPurchased.map((workItem) => <Input className={`${darkMode ? drawerDarkCSS.iDataInput : drawerCSS.iDataInput} ${darkMode ? drawerDarkCSS.totalAmountDarkText : drawerCSS.totalAmountDarkText}`} value={workItem.pricePerItem.toFixed(2)} type="text" name="pricePerItem" id="pricePerItem" />)}
                                         
                                     </div>
-                                    <div ref={totalContainerRef} className={drawerCSS.totalContainer}>
-                                        <Label className={drawerCSS.itemListDesc}>Total</Label>
+                                    <div ref={totalContainerRef} className={darkMode ? drawerDarkCSS.totalContainer : drawerCSS.totalContainer}>
+                                        <Label className={darkMode ? drawerDarkCSS.itemListDesc : drawerCSS.itemListDesc}>Total</Label>
                                         {invoice.length === 0 ? 
-                                            itemArray.map((item, index) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`} onChange={ (e) => editItemField(e, index, "total") }  value={ !isNaN(Number(item.qty) * Number(item.pricePerItem)) ? (Number(item.qty) * Number(item.pricePerItem)).toFixed(2) : "0.00"} type="text" name="total" id="total" />)
+                                            itemArray.map((item, index) => <Input className={`${darkMode ? drawerDarkCSS.iDataInput : drawerCSS.iDataInput} ${darkMode ? drawerDarkCSS.totalAmountLightText : drawerCSS.totalAmountLightText} ${darkMode ? drawerDarkCSS.removeBorder : drawerCSS.removeBorder}`} onChange={ (e) => editItemField(e, index, "total") }  value={ !isNaN(Number(item.qty) * Number(item.pricePerItem)) ? (Number(item.qty) * Number(item.pricePerItem)).toFixed(2) : "0.00"} type="text" name="total" id="total" />)
                                             :
-                                            itemsPurchased.map((workItem) => <Input className={`${drawerCSS.iDataInput} ${drawerCSS.totalAmountLightText} ${drawerCSS.removeBorder}`}  value={(workItem.qty * workItem.pricePerItem).toFixed(2)} type="text" name="total" id="total" /> )}
+                                            itemsPurchased.map((workItem) => <Input className={`${darkMode ? drawerDarkCSS.iDataInput : drawerCSS.iDataInput} ${darkMode ? drawerDarkCSS.totalAmountLightText : drawerCSS.totalAmountLightText} ${darkMode ? drawerDarkCSS.removeBorder : drawerCSS.removeBorder}`}  value={(workItem.qty * workItem.pricePerItem).toFixed(2)} type="text" name="total" id="total" /> )}
                                         
                                     </div>
-                                    <div className={drawerCSS.trashSymbolContainer}>
+                                    <div className={darkMode ? drawerDarkCSS.trashSymbolContainer : drawerCSS.trashSymbolContainer}>
                                     
                                     {invoice.length === 0 ? 
                                         itemArray.map((workItem, index) => {
                                             
                                             return (
-                                            <div className={drawerCSS.svgContainer}>
+                                            <div className={darkMode ? drawerDarkCSS.svgContainer : drawerCSS.svgContainer}>
                                                 <h4> </h4>
-                                                <span className={drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index, workItem)} /> </span> 
+                                                <span className={darkMode ? drawerDarkCSS.trashSymbol : drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index, workItem)} /> </span> 
                                             </div>
                                             )
                                         })
                                             :
                                         itemsPurchased.map((workItem, index) => {
                                         return (
-                                            <div className={drawerCSS.svgContainer}>
+                                            <div className={darkMode ? drawerDarkCSS.svgContainer : drawerCSS.svgContainer}>
                                                 <h4> </h4>
-                                                <span className={drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index, workItem)} /> </span> 
+                                                <span className={darkMode ? drawerDarkCSS.trashSymbol : drawerCSS.trashSymbol}><Trash onClick={()=> handleRowDelete(index, workItem)} /> </span> 
                                             </div>
                                              
                                         )
@@ -477,15 +532,19 @@ function Drawer({open, refetch}) {
                 </FormGroup>
             
             </Form>
-            <Button className={drawerCSS.addRowBtn} description="AddRow" mode="light" type={6} clicked={addRow} />
+            <Button className={drawerCSS.addRowBtn} description="AddRow" mode={darkMode ? "dark" : "light"} type={6} clicked={addRow} />
             <div className={drawerCSS.btnContainer}>
-                <Button className={drawerCSS.btn} description="Cancel" mode="light" type={3} clicked={toggleClose} />
-                <Button className={drawerCSS.rightButton} clicked={submitData} invoiceNumber={invoiceNumber} description="Save as Draft" mode="light" type={4} specialAlign={{property: "marginLeft", value: "auto"}} />
-                <Button clicked={submitData} invoiceNumber={invoiceNumber} description="Save & Send" mode="light" type={2}  />
+                <Button className={drawerCSS.btn} description="Cancel" mode={darkMode ? "dark" : "light"} type={3} clicked={toggleClose} />
+                <Button className={drawerCSS.rightButton} clicked={submitData} invoiceNumber={invoiceNumber} description="Save as Draft" mode={darkMode ? "dark" : "light"} type={4} specialAlign={{property: "marginLeft", value: "auto"}} />
+                <Button clicked={submitData} invoiceNumber={invoiceNumber} description="Save & Send" mode={darkMode ? "dark" : "light"} type={2}  />
             </div> 
             </div>
         </div> 
     )
+}
+
+Drawer.propTypes = {
+
 }
 
 export default Drawer;

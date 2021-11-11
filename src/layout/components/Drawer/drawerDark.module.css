@@ -1,0 +1,347 @@
+.container {
+    height:100vh;
+    width: 600px;
+    background-color: #141625;
+    position:absolute;
+    z-index: 999;
+    border-radius: 0 15px 15px 0;
+    left:103px;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    overflow-y:scroll;
+}
+
+.dateTermsSubContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dateTermsSubSubContainer {
+    width: 48%;
+}
+
+.svgContainer {
+    height: 35px;
+    margin-bottom:142%;
+}
+
+.formHeadline {
+    font-family: 'Spartan', sans-serif;
+    font-size: 30px;
+}
+
+.hashtag {
+    color: #888EB0;
+}   
+
+.rightButton{
+    margin-left: auto;
+}
+
+.dropdownControl {
+    margin-top:8px!important;
+    width: 100%;
+    display:flex!important;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #252945;
+    height: 35px;
+    display:block;
+    margin-top:8px;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold!important;
+    font-size: 15px!important;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: white!important;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    background-color: #1E2139 !important;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset!important;
+    border-color: #252945!important;
+    border-image: initial
+}
+
+.dropdownMenu {
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold!important;
+    font-size: 13px!important;
+    background-color: #1E2139 !important;
+    color: white!important;
+}
+
+
+.addRowBtn {
+    width: 100%!important;
+    margin-top: 10px;
+
+}
+
+.btnContainer {
+    display: flex;
+    flex-direction:row;
+    margin-top: 15px;
+}
+
+.fromToHeadline {
+    color: #7C5DFA;
+    font-family: 'Spartan', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 55px;
+}
+
+.formContainer {
+    width: 90%;
+}
+
+.projectDescription {
+    margin-top: 18px;
+}
+
+.fullWidthInput {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.fromStreetLabel {
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    color: #7E88C3;
+}
+
+.itemListHeadline {
+    font-family: 'Spartan', sans-serif;
+    color: #DFE3FA;
+    font-size: 20px;
+}
+
+.iNameContainer {
+    width: 214px;
+}
+
+.qtyContainer {
+    width: 25px;
+}
+
+
+
+.totalAmountLightText {
+    margin-top:0;
+    margin-bottom: 0;
+    align-self:center;
+    font-family: 'Spartan', sans-serif;
+    color: #DFE3FA;
+    font-weight:bold;
+}
+
+.totalAmountDarkText {
+    margin-top:0;
+    margin-bottom: 0;
+    align-self:center;
+    font-family: 'Spartan', sans-serif;
+    font-weight:bold;
+}
+
+.totalAmountContainer {
+    height: 35px;
+    margin-top:15px;
+    display:flex;
+}
+
+.trashSymbol {
+    align-self: flex-end;
+}
+
+.removeBorder {
+    border: 1px transparent !important;
+    height: 37px!important;
+}
+
+.trashSymbolContainer {
+    height:100%;
+    margin-top: 23px;
+    display:flex;
+    flex-direction: column;
+   
+}
+
+.iDataInput {
+    width: 90%;
+    border-color: #252945;
+    color: #FFFFFF;
+    background-color: #1E2139
+}
+
+.priceContainer {
+    width: 100px;
+}
+
+.totalContainer {
+    width:100px;
+}
+
+
+.itemListDesc {
+    font-family: 'Spartan', sans-serif;
+    color: #7E88C3;
+    font-size:12px;
+}
+
+.iDataInput {
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #252945;
+    margin-top: 15px;
+}
+
+.headlineContainer {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 17px;
+}
+
+.itemName {
+    width: 214px;
+}
+
+
+.fromStreetInput {
+    height: 35px;
+    width: 100%;
+    display:block;
+    margin-top: 8px;
+    border-color: #252945;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    background-color: #1E2139;
+    color: #FFFFFF;
+}
+
+.dateTerms {
+    position:relative;
+}
+
+.calendarSymbol {
+    position:absolute;
+    top:39px;
+    left:210px;
+    z-index: 1;
+}
+
+.fromCityLabel {
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    color: #7E88C3;
+}
+
+.fromCityContainer {
+    width: 30%;
+    display: inline-block;
+    margin-right: 6%;
+}
+
+.fromCityInput {
+    width: 100%;
+    height: 35px;
+    display:block;
+    margin-top:8px;
+    border-color: #1E2139;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    background-color: #1E2139;
+    color: #FFFFFF;
+}
+
+.fromZipLabel {
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    color: #7E88C3;
+    margin-top: 8px;
+}
+
+.fromZipContainer {
+    width: 28%;
+    display:inline-block;
+    margin-right: 6%;
+}
+.fromZipInput {
+    width: 100%;
+    height: 35px;
+    display:block;
+    margin-top: 8px;
+    border-color: #252945;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    background-color: #1E2139;
+    color: #FFFFFF;
+}
+
+.fromCountryContainer {
+    width: 30%;
+    display: inline-block;
+}
+
+.fromCountryLabel {
+    font-family: 'Spartan', sans-serif;
+    font-size: 11px;
+    color: #7E88C3;
+}
+
+.fromCountryInput {
+    width: 100%;
+    height: 35px;
+    display:block;
+    margin-top:8px;
+    border-color: #252945;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    background-color: #1E2139;
+    color: #FFFFFF;
+}
+
+.dateTerms {
+    width: 100%;
+    margin-top: 20px;
+
+}
+
+.datePicker {
+    width: 100%;
+    height: 35px;
+    display:block;
+    margin-top:8px;
+    border-color: #252945;
+    border-radius: 5px;
+    box-shadow:none;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    background-color: #1E2139;
+}
