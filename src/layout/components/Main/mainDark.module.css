@@ -31,3 +31,8 @@
     width: 730px;
 }
 
+@media (max-width:1024px) {
+    .bodyContent {
+        height:100vh
+    }
+}

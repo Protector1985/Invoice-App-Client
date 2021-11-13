@@ -37,3 +37,23 @@
         linear-gradient(60deg, white 50%, transparent 50%);
 }
 
+@media (max-width: 1024px) {
+    .container {
+        width: 80px;
+        min-height:80px;
+        max-height:80px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+
+    .lightBlue {
+        border-bottom-right-radius: 15px;
+    }
+
+    .pie {
+        width: 30px;
+        height: 27px;
+        top: 33%;
+        left: 33%;
+    }
+}

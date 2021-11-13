@@ -37,3 +37,11 @@
     margin-top: 3px;
     color: #FFFFFF;
 }
+
+
+@media (max-width: 768px) {
+    .dropdownContainer{
+      margin-right: 20px;
+      padding:10px;
+    }
+  }

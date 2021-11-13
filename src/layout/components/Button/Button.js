@@ -9,9 +9,11 @@ import {resetDateState} from '../../../Redux/dateSlice'
 import {toggleClose, toggleOpen} from '../../../Redux/drawerSlice'
 import {useHistory} from 'react-router-dom'
 import { useUpdateCommandMutation, useDeleteInvoiceMutation } from '../../../Redux/services/invoiceDataService'
+import useDimensions from "../../../utility/sizing/useDimensions"
 
 function Button({description, mode, type, clicked, invoiceNumber, specialAlign, refetch}) {
     const [submitTrigger] = useUpdateCommandMutation()
+    const {width, heigth} = useDimensions()
     const navigate = useHistory()
     let { data = [], error, isLoading} = useGetOneInvoiceQuery(invoiceNumber) 
     const modType = useSelector((state) => state.drawerOpen.modType)
@@ -199,7 +201,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
     function returnButtonStyling(typeProp) {
         if(typeProp === 1) {
             return {
-                width:"150px",
+                width: width < 768 ? "90px" : "150px",
                 bgColor: "#7C5DFA",
                 bgColorHover: "#9277FF",
                 txtColor: "#FFFFFF",
@@ -267,8 +269,8 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
     const circleStyle = {
         borderRadius: "50px",
         backgroundColor: "white",
-        width: "30px",
-        height: "30px",
+        width: width < 768 ? "25px" : "30px",
+        height: width < 768 ? "25px" : "30px",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -278,7 +280,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
 
     const descriptionStyle = {
         fontFamily: `'Spartan', sans-serif`,
-        fontSize: "12px",
+        fontSize: type === 1 && width < 768 ? "11px" : "12px",
         fontWeight: "bold",
         marginLeft: type === 6 ? "10px" : "none",
         marginTop: type === 6 ? "3px" : "none"

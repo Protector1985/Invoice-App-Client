@@ -9,11 +9,13 @@ import './headStylesheet.css'
 import {toggleOpen} from '../../../../Redux/drawerSlice'
 import {useSelector, useDispatch} from "react-redux"
 import { changeFilter } from "../../../../Redux/filterSlice"
+import useDimensions from '../../../../utility/sizing/useDimensions'
 
 function Header({numInvoices, refetch}) {
     const dispatch = useDispatch()
     const filterState = useSelector((state) => state.filterSlice.value)
     const darkMode = useSelector((state) => state.themeSlice.darkMode)
+    const {width, height} = useDimensions();
 
     console.log("Filterstate " + filterState)
     const dropdownItems = [
@@ -39,8 +41,8 @@ function Header({numInvoices, refetch}) {
                 <h5 className={darkMode? headerDarkCSS.invoiceAmount : headerCSS.invoiceAmount}>{numInvoices === 0 ? "No invoices" : `There are ${numInvoices} invoices`}</h5>
             </div>
             <div className="btnDropdownWrapper">
-                <Dropdown arrowClassName={darkMode? headerDarkCSS.arrowContainer : headerCSS.arrowContainer} onChange={(e) => handleChange(e)} menuClassName={darkMode? headerDarkCSS.placeholder : headerCSS.placeholder} controlClassName={darkMode ? headerDarkCSS.dropdownContainer : headerCSS.dropdownContainer} options={dropdownItems} arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft />} placeholder="Filter by status" />
-                <Button refetch={refetch} clicked={toggleOpen} description="New Invoice" mode={darkMode ? "dark" : "light"} type={1} />
+               <Dropdown arrowClassName={darkMode? headerDarkCSS.arrowContainer : headerCSS.arrowContainer} onChange={(e) => handleChange(e)} menuClassName={darkMode? headerDarkCSS.placeholder : headerCSS.placeholder} controlClassName={darkMode ? headerDarkCSS.dropdownContainer : headerCSS.dropdownContainer} options={dropdownItems} arrowClosed={<ArrowDown />} arrowOpen={<ArrowLeft />} placeholder="Filter" /> 
+                <Button refetch={refetch} clicked={toggleOpen} description={width < 768 ? "New" : "New Invoice"} mode={darkMode ? "dark" : "light"} type={1} />
             </div>
         </div>
     )

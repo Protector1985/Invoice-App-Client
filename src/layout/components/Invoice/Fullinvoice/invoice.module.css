@@ -185,3 +185,30 @@
     margin-top: 0px;
     color: #7E88C3;
 }
+
+@media (max-width: 767px) {
+
+
+    .container{
+        min-width: 300px;
+        width: 90vw;
+    }
+    
+    .topContainer {
+        min-width: 300px;
+        width: 82vw
+    
+    }
+    
+    .centerContainer {
+        min-width: 300px;
+        width: 82vw
+    }
+    
+    .bottomContainer {
+        min-width: 300px;
+        width:82vw;
+        
+    }
+
+}

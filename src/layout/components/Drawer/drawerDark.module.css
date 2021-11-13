@@ -345,3 +345,9 @@
     font-weight: bold;
     background-color: #1E2139;
 }
+
+@media (max-width:1024px) {
+    .container {
+        left:0px;
+    }
+}

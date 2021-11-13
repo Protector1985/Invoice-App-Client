@@ -1,36 +1,40 @@
-
-
 .headline {
-    font-family: 'Spartan', sans-serif;
-    font-weight:bold;
-    margin-bottom:0px;
-    margin-top:12px;
+  font-family: "Spartan", sans-serif;
+  font-weight: bold;
+  margin-bottom: 0px;
+  margin-top: 12px;
 }
 
 .invoiceAmount {
-    font-family: 'Spartan', sans-serif;
-    margin-top: 3px;
-    font-size: 9px;
-    color: #888EB0;
+  font-family: "Spartan", sans-serif;
+  margin-top: 3px;
+  font-size: 9px;
+  color: #888eb0;
 }
 
 .dropdownContainer {
-    display:flex;
-    font-family: 'Spartan', sans-serif;
-    font-weight:bold;
-    letter-spacing:-1px;
-    font-size: 12px;
-    margin-right: 50px;
-    align-self: center;
-    border: none;
-    background-color: #F8F8FB;
-
+  display: flex;
+  font-family: "Spartan", sans-serif;
+  font-weight: bold;
+  letter-spacing: -1px;
+  font-size: 12px;
+  margin-right: 50px;
+  align-self: center;
+  border: none;
+  background-color: #f8f8fb;
 }
 
 .placeholder {
-    font-family: 'Spartan', sans-serif;
-    font-weight:bold;
-    letter-spacing:-1px;
-    font-size: 12px;
-    margin-top: 3px;
+  font-family: "Spartan", sans-serif;
+  font-weight: bold;
+  letter-spacing: -1px;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+@media (max-width: 768px) {
+  .dropdownContainer{
+    margin-right: 20px;
+    padding:10px;
+  }
 }

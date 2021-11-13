@@ -12,7 +12,9 @@ function SidebarFooter() {
     const dispatch = useDispatch()
     return (
             <div className="footerContainer">
-                <Sun onClick={() => dispatch(changeTheme())} className={footerCSS.symbol}/>
+                <Sun onClick={() => dispatch(changeTheme())} style={{
+                    "margin":"auto"
+                }}/>
                 <hr />
                 <img className='avatarImage' src={avatar} alt="avatar pic" />
             </div>

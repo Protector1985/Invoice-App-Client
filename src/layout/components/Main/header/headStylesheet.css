@@ -16,3 +16,11 @@
 .Dropdown-arrow-wrapper {
     margin-left: 15px;
 }
+
+@media (max-width:768px) {
+    .headerContainer{
+        width: 90vw;
+        margin:30px auto;
+        min-width:300px;
+    }
+}

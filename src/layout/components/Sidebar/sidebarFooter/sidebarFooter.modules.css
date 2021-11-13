@@ -1,8 +1,8 @@
 
 
-.symbol {
+/* .symbol {
     align-self:center;
-}
+} */
 
 hr {
     border: 1px solid #494E6E!important;
@@ -18,4 +18,24 @@ hr {
     max-width:55%;
     height:auto;
     border-radius:50%;
+}
+
+@media (max-width: 1024px) {
+    .footerContainer {
+        display:flex;
+        flex-direction:row;
+        height: 80px;
+        width:165px;
+        margin-left:auto;
+        margin-right:20px;
+    }
+
+    
+
+    .avatarImage {
+        max-width:40px;
+        height: 40px;
+        margin:auto;
+
+    }
 }

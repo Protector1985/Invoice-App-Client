@@ -16,3 +16,23 @@
 .footer {
     text-align: center;
 }
+
+@media (max-width: 1024px) {
+    .master {
+        width: 100vw;
+        height: 80px;
+    }
+    .body {
+        min-height: 80px;
+        max-height: 80px;
+        flex-direction:row;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius:0px;
+    }
+}
+
+@media(max-width: 768px) {
+    .master {
+        min-width: 300px;
+    }
+}

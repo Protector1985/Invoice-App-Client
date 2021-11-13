@@ -330,3 +330,9 @@
     font-family: 'Spartan', sans-serif;
     font-weight: bold;
 }
+
+@media (max-width:1024px) {
+    .container {
+        left:0px;
+    }
+}
