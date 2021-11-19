@@ -6,8 +6,8 @@ const dateSlice = createSlice ({
         invoiceDateMonth: null,
         invoiceDateDay: null,
         invoiceDateYear: null,
-        dueIn: null,
-        ISO: null,
+        dueIn: 1,
+        ISO: new Date().toISOString(),
     },
 
     reducers: {
@@ -25,7 +25,7 @@ const dateSlice = createSlice ({
             state.invoiceDateMonth= null;
             state.invoiceDateDay = null;
             state.invoiceDateYear = null;
-            state.dueIn = null;
+            state.dueIn = 1;
             state.ISO= null;
         },
         editDate: (state, action) => {

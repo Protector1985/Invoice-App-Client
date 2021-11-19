@@ -132,7 +132,7 @@
 .invoiceData {
     margin-top: 4px;
     font-family: 'Spartan', sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     color: #FFFFFF;
 }
 
@@ -186,4 +186,138 @@
     margin-bottom: 4px;
     margin-top: 0px;
     color: #DFE3FA;
+}
+
+@media (max-width: 767px) {
+
+
+    .container{
+        min-width: 300px;
+        width: 92vw;
+    }
+    
+    .topContainer {
+        min-width: 300px;
+        width: 82vw;
+        flex-direction:column;
+        margin-bottom: 50px;
+    
+    }
+    
+    .centerContainer {
+        min-width: 300px;
+        width: 82vw
+    }
+    
+    .bottomContainer {
+        min-width: 300px;
+        width:82vw;
+        
+    }
+
+    .addressContainer {
+        text-align:left;
+    }
+
+    .centerLeft {
+        margin-right: 40px;
+        margin-bottom:25px;
+    }
+    
+    .centerMiddle {
+        margin-right: 40px;
+    }
+    .centerContainer {
+        flex-wrap: wrap;
+    }
+    .invoiceData {
+        font-size: 13px
+    }
+
+    .invoiceHeadline {
+        font-size: 12px;
+    }
+
+    .description {
+        
+        margin-bottom: 15px;
+        margin-top: -9px
+    }
+    .address {
+        font-size: 10px
+    }
+
+    .itemName {
+        min-width:100px
+    }
+    .qtyContainer {
+        margin-right:5px
+    }
+    .priceContainer {
+        margin-right: 5px;
+    }
+    .btnContainer {
+        display:flex;
+        flex-direction: row;
+        margin-bottom: 50px;
+        width:80%;
+        justify-content:flex-end
+    }
+    button {
+        margin:1%;
+    }
+
+}
+
+@media (max-width: 492px) {
+    .itemAmountandPrice{
+        margin-bottom:15px
+    }
+    .itemName {
+        margin-bottom:-4px;
+        align-self: center;
+        margin-left:auto;
+        margin-right:25px;
+    }
+    .smallItemRow {
+        display:flex;
+        flex-direction:row;
+    }
+    .itemNameContainer {
+        width:100%;
+    }
+}
+
+@media(max-width: 377px) {
+    .invoiceHeadline {
+        margin-left:10px;
+    }
+    .invoiceData {
+        margin-left: 10px;
+    }
+
+    .addressContainer {
+        margin-left: 10px;
+    }
+    .hashtag {
+        margin-left: 19px;
+    }
+
+    .description {
+        margin-left: 19px;
+        margin-bottom: 15px;
+        margin-top: -9px
+    }
+
+    .address {
+        margin-left:10px;
+        font-size: 9px
+    }
+
+    .totalPrice {
+        font-size:16px
+    }
+    .amountDueDescription{
+        font-size: 11px;
+    }
 }

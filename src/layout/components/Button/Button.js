@@ -6,10 +6,12 @@ import {resetItemState, editItems} from '../../../Redux/itemListSlice'
 import {resetDataState, editFields} from '../../../Redux/inputFieldsSlice'
 import { editDate } from '../../../Redux/dateSlice'
 import {resetDateState} from '../../../Redux/dateSlice'
+import { setInputErrors, resetInputErrors } from '../../../Redux/fieldErrorSlice'
 import {toggleClose, toggleOpen} from '../../../Redux/drawerSlice'
 import {useHistory} from 'react-router-dom'
 import { useUpdateCommandMutation, useDeleteInvoiceMutation } from '../../../Redux/services/invoiceDataService'
 import useDimensions from "../../../utility/sizing/useDimensions"
+import submitValidation from '../../../utility/helpers/submitValidation'
 
 function Button({description, mode, type, clicked, invoiceNumber, specialAlign, refetch}) {
     const [submitTrigger] = useUpdateCommandMutation()
@@ -70,7 +72,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
 
     function handleClick(e) {
         if((e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") && modType !== "Edit" ) {
-             clicked({
+             const body = {
                 invoiceNumber: generatedInvoiceNumber,
                 fromStreet: fromStreet,
                 fromCity: fromCity,
@@ -89,12 +91,52 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
                 year: year,
                 month: month,
                 day: day,
-                status: returnBillStatus(e)     
-            })
-            dispatch(resetItemState())
-            dispatch(resetDataState())
-            dispatch(resetDateState())
-            dispatch(toggleClose())
+                status: returnBillStatus(e)   
+
+             }
+
+             
+             if(submitValidation(body).numFieldErrors !== 0 || submitValidation(body).itemArrayIndexErrors.length !== 0 ) {
+                 const payload = {
+                     type: "InputErrorEvent",
+                     emptyFieldErrors: submitValidation(body).emptyFieldErrors,
+                     itemArrayIndexErrors: submitValidation(body).itemArrayIndexErrors
+                 }
+                 dispatch(setInputErrors(payload))
+             } else {
+                    clicked({
+                        invoiceNumber: generatedInvoiceNumber,
+                        fromStreet: fromStreet,
+                        fromCity: fromCity,
+                        fromZip: fromZip,
+                        fromCountry: fromCountry,
+                        toName: toName,
+                        toEmail: toEmail,
+                        toStreet: toStreet,
+                        toCity: toCity,
+                        toZip: toZip,
+                        toCountry: toCountry,
+                        toProject: toProject,
+                        itemArray: itemArray,
+                        isoDate: isoDate,
+                        dueIn: dueIn,
+                        year: year,
+                        month: month,
+                        day: day,
+                        status: returnBillStatus(e)     
+                    })
+            
+                    dispatch(resetItemState())
+                    dispatch(resetDataState())
+                    dispatch(resetDateState())
+                    dispatch(resetInputErrors())
+                    dispatch(toggleClose())
+
+                }
+
+            
+            
+            
         
          } else if((e.target.innerText === "Save as Draft" || e.target.innerText === "Save & Send") && modType === "Edit" ) {
             
@@ -122,6 +164,8 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
                 status: returnBillStatus(e),
                 destroy: destroyItems,
             }
+
+            
             
             submitTrigger(body)
             dispatch(resetItemState())

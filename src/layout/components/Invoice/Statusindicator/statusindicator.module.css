@@ -8,6 +8,16 @@
     border-radius: 5px;
 }
 
+.containerNormal {
+    display:flex;
+    flex-direction: row;
+    width: 104px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
 .circle {
     width: 8px;
     height: 8px;
@@ -60,8 +70,11 @@
     color: #373B53
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .container {
         margin-bottom:18px;
+    }
+    .containerNormal {
+        margin-bottom: 0px;
     }
 }

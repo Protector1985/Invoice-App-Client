@@ -30,6 +30,7 @@
 .formHeadline {
     font-family: 'Spartan', sans-serif;
     font-size: 30px;
+    color: #FFFFFF;
 }
 
 .hashtag {
@@ -134,11 +135,11 @@
 }
 
 .iNameContainer {
-    width: 214px;
+    width: 45%;
 }
 
 .qtyContainer {
-    width: 25px;
+    width: 5%;
 }
 
 
@@ -191,11 +192,11 @@
 }
 
 .priceContainer {
-    width: 100px;
+    width: 15%;
 }
 
 .totalContainer {
-    width:100px;
+    width:15%;
 }
 
 
@@ -349,5 +350,15 @@
 @media (max-width:1024px) {
     .container {
         left:0px;
+    }
+}
+
+@media (max-width: 597px) {
+    .container {
+        width: 100vw;
+        min-width:300px;
+    }
+    .dropdownControl {
+        font-size: 0.7rem!important;
     }
 }

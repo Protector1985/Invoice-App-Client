@@ -13,7 +13,8 @@ import Dropdown from "react-dropdown";
 import { ReactComponent as ArrowDown } from "../../../assets/icon-arrow-down.svg";
 import { ReactComponent as ArrowLeft } from "../../../assets/icon-arrow-left.svg";
 import { ReactComponent as Trash } from "../../../assets/icon-delete.svg";
-import style from "react-dropdown/style.css";
+import { generateErrorMessage } from "./functions/helperFunctions";
+import style from "./style.css"
 import {
   setFromStreet,
   setFromCity,
@@ -36,6 +37,8 @@ var DatePicker = require("reactstrap-date-picker");
 
 function Drawer({ open, refetch }) {
   const dispatch = useDispatch();
+  const fieldInputErrors = useSelector((state) => state.fieldErrorSlice)
+  console.log(fieldInputErrors)
   const darkMode = useSelector((state) => state.themeSlice.darkMode);
   const modType = useSelector((state) => state.drawerOpen.modType);
   const invoiceNumber = useSelector((state) => state.drawerOpen.invoiceNumber);
@@ -58,7 +61,7 @@ function Drawer({ open, refetch }) {
   const itemArray = useSelector((state) => state.itemListSlice.items);
   const isoDate = useSelector((state) => state.dateSlice.ISO);
   const dueIn = useSelector((state) => state.dateSlice.dueIn);
-  const [calendarOpen, setCalendarOpen] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState(null);
   const [
     submitData,
     { isError, isUninitialized, isLoading, isSuccess, error },
@@ -68,9 +71,11 @@ function Drawer({ open, refetch }) {
   };
   const [itemsPurchased, setItemsPurchased] = React.useState([]);
   const [currentWorkDate, setCurrentWorkDate] = React.useState(
-    "2021-11-22T20:00:00.000Z"
+    new Date().toISOString()
   );
 
+  generateErrorMessage(fieldInputErrors)
+  
   function getOptions() {
     const opt = [];
     for (let i = 2; i <= 30; i++) {
@@ -133,10 +138,7 @@ function Drawer({ open, refetch }) {
     }
   });
 
-  // const cb = React.useCallback((nod) => {
-  //     const node = document.getElementsByClassName("rdp-header")
-  //   console.log(node)
-  // })
+  
 
   React.useEffect(() => {
     if (invoice.length > 0) {
@@ -214,7 +216,9 @@ function Drawer({ open, refetch }) {
   }
 
   function toEmailInput(e) {
+    
     const input = e.target.value;
+
     if(!inputValidator(input, 90)) {  
         const payload = {
             type: "To Email",
@@ -314,13 +318,13 @@ function Drawer({ open, refetch }) {
 
   function handleDueInChange(e) {
     const dueIn = e.value;
-    if(!inputValidator(input, 50)) {  
+    
     const payload = {
       type: "DueIn",
       value: dueIn,
     };
     dispatch(setDueIn(payload));
-    }
+    
   }
 
   function generateInvoiceNumber() {
@@ -380,6 +384,7 @@ function Drawer({ open, refetch }) {
     dispatch(deleteRow(payload));
   }
 
+  
   return (
     <div
       style={!open ? hidden : null}
@@ -435,6 +440,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.fromStreet === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromStreetInput
@@ -450,6 +456,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.fromStreet === "ERROR" ? {"border": "1px solid #dc3545"} : null}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromStreetInput
@@ -484,6 +491,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.fromCity === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromCityInput
@@ -499,6 +507,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.fromCity === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromCityInput
@@ -531,6 +540,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.fromZip === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromZipInput
@@ -546,6 +556,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.fromZip === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromZipInput
@@ -580,6 +591,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.fromCountry === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromCountryInput
@@ -595,6 +607,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.fromCountry === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromCountryInput
@@ -637,6 +650,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.toName === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromStreetInput
@@ -652,6 +666,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.toName === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromStreetInput
@@ -685,6 +700,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.toEmail === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromStreetInput
@@ -700,6 +716,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.toEmail === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromStreetInput
@@ -733,6 +750,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.toStreet === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromStreetInput
@@ -748,6 +766,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.toStreet === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromStreetInput
@@ -781,6 +800,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.toCity === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromCityInput
@@ -796,6 +816,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.toCity === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromCityInput
@@ -828,6 +849,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.toZip=== "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromZipInput
@@ -843,6 +865,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.toZip === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromZipInput
@@ -877,6 +900,7 @@ function Drawer({ open, refetch }) {
               </Label>
               {invoice.length === 0 ? (
                 <Input
+                  style={fieldInputErrors.toCountry === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                   className={
                     darkMode
                       ? drawerDarkCSS.fromCountryInput
@@ -892,6 +916,7 @@ function Drawer({ open, refetch }) {
                 invoice.map((data) => {
                   return (
                     <Input
+                      style={fieldInputErrors.toCountry === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                       className={
                         darkMode
                           ? drawerDarkCSS.fromCountryInput
@@ -937,7 +962,8 @@ function Drawer({ open, refetch }) {
                     Invoice Date
                   </Label>
                   <DatePicker
-                    value={currentWorkDate}
+                    selected={isoDate}
+                    value={isoDate}
                     onChange={(dateValue) => submitDate(dateValue)}
                     className={drawerCSS.datePicker}
                     id="datePicker"
@@ -1015,6 +1041,7 @@ function Drawer({ open, refetch }) {
                 </Label>
                 {invoice.length === 0 ? (
                   <Input
+                    style={fieldInputErrors.toProject === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                     className={
                       darkMode
                         ? drawerDarkCSS.fromStreetInput
@@ -1030,6 +1057,7 @@ function Drawer({ open, refetch }) {
                   invoice.map((data) => {
                     return (
                       <Input
+                        style={fieldInputErrors.toProject === "ERROR" ? {"border": "1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                         className={
                           darkMode
                             ? drawerDarkCSS.fromStreetInput
@@ -1094,6 +1122,7 @@ function Drawer({ open, refetch }) {
                       {invoice.length === 0
                         ? itemArray.map((item, index) => (
                             <Input
+                              style={fieldInputErrors.itemArrayIndexErrors.includes(index) ? {"border":"1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                               className={`${
                                 darkMode
                                   ? drawerDarkCSS.iDataInput
@@ -1114,6 +1143,7 @@ function Drawer({ open, refetch }) {
                           ))
                         : itemsPurchased.map((workItem) => (
                             <Input
+                              style={fieldInputErrors.itemArrayIndexErrors.includes(index) ? {"border":"1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                               className={`${
                                 darkMode
                                   ? drawerDarkCSS.iDataInput
@@ -1150,6 +1180,7 @@ function Drawer({ open, refetch }) {
                       {invoice.length === 0
                         ? itemArray.map((item, index) => (
                             <Input
+                              style={fieldInputErrors.itemArrayIndexErrors.includes(index) ? {"border":"1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                               className={`${
                                 darkMode
                                   ? drawerDarkCSS.iDataInput
@@ -1168,6 +1199,7 @@ function Drawer({ open, refetch }) {
                           ))
                         : itemsPurchased.map((workItem) => (
                             <Input
+                              style={fieldInputErrors.itemArrayIndexErrors.includes(index) ? {"border":"1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                               className={`${
                                 darkMode
                                   ? drawerDarkCSS.iDataInput
@@ -1204,6 +1236,7 @@ function Drawer({ open, refetch }) {
                       {invoice.length === 0
                         ? itemArray.map((item, index) => (
                             <Input
+                              style={fieldInputErrors.itemArrayIndexErrors.includes(index) ? {"border":"1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                               className={`${
                                 darkMode
                                   ? drawerDarkCSS.iDataInput
@@ -1228,6 +1261,7 @@ function Drawer({ open, refetch }) {
                           ))
                         : itemsPurchased.map((workItem) => (
                             <Input
+                              style={fieldInputErrors.itemArrayIndexErrors.includes(index) ? {"border":"1px solid #dc3545"} : darkMode ? {"border": "1px solid #252945"} : {"border": "1px solid #DFE3FA"}}
                               className={`${
                                 darkMode
                                   ? drawerDarkCSS.iDataInput
@@ -1391,7 +1425,9 @@ function Drawer({ open, refetch }) {
           type={6}
           clicked={addRow}
         />
+        <h4 className={drawerCSS.errorMessage}>{generateErrorMessage(fieldInputErrors)}</h4>
         <div className={drawerCSS.btnContainer}>
+        
           <Button
             className={drawerCSS.btn}
             description="Cancel"

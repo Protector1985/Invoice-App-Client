@@ -4,7 +4,7 @@ import indicatorDarkCSS from './statusindicatorDark.module.css'
 import {Spinner} from 'reactstrap'
 import {useSelector} from 'react-redux'
 
-function Statusindicator({status}) {
+function Statusindicator({status, styleProp}) {
     const darkMode = useSelector((state) => state.themeSlice.darkMode)
     function returnClassStyling() {
         switch (status) {
@@ -48,21 +48,21 @@ function Statusindicator({status}) {
                 
             case "DRAFT" || "PENDING" || "PAID" :
                 return (
-                    <div className={`${indicatorCSS.container} ${returnClassStyling().containerColor}`}>
+                    <div className={`${styleProp === "NORMAL" ? indicatorCSS.containerNormal : indicatorCSS.container} ${returnClassStyling().containerColor}`}>
                         <div className={`${indicatorCSS.circle} ${returnClassStyling().circleColor}` }></div>
                         <p className={`${indicatorCSS.status} ${returnClassStyling().statusColor}`}>{returnClassStyling().descriptor}</p>
                     </div>
                     )
             case "PENDING" :
                 return (
-                    <div className={`${indicatorCSS.container} ${returnClassStyling().containerColor}`}>
+                    <div className={`${styleProp === "NORMAL" ? indicatorCSS.containerNormal : indicatorCSS.container} ${returnClassStyling().containerColor}`}>
                         <div className={`${indicatorCSS.circle} ${returnClassStyling().circleColor}` }></div>
                         <p className={`${indicatorCSS.status} ${returnClassStyling().statusColor}`}>{returnClassStyling().descriptor}</p>
                     </div>
                     )
             case  "PAID" :
                 return (
-                    <div className={`${indicatorCSS.container} ${returnClassStyling().containerColor}`}>
+                    <div className={`${styleProp === "NORMAL" ? indicatorCSS.containerNormal : indicatorCSS.container} ${returnClassStyling().containerColor}`}>
                         <div className={`${indicatorCSS.circle} ${returnClassStyling().circleColor}` }></div>
                         <p className={`${indicatorCSS.status} ${returnClassStyling().statusColor}`}>{returnClassStyling().descriptor}</p>
                     </div>

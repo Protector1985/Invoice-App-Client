@@ -24,3 +24,15 @@
     margin-right: 13px;
     font-size: 13px;
 }
+
+@media (max-width: 767px) {
+    .container {
+        width:90%;
+        padding-right:25px;
+    }
+
+    .statusText {
+        margin-right: auto;
+    }
+    
+}

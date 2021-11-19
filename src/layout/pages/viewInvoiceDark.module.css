@@ -30,3 +30,9 @@
     color: #FFFFFF;
     font-family: 'Spartan', sans-serif;
 }
+
+@media(max-width:767px) {
+    .goBack {
+        width:90vw;
+    }
+}

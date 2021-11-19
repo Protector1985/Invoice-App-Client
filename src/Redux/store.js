@@ -9,6 +9,8 @@ import filterSlice from './filterSlice'
 import {invoiceDataService} from './services/invoiceDataService'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import themeSlice from './themeSlice'
+import fieldErrorSlice from './fieldErrorSlice'
+
 
 const store = configureStore({
   reducer: {
@@ -21,6 +23,7 @@ const store = configureStore({
     invoiceNumberSlice: invoiceNumberSlice,
     themeSlice: themeSlice,
     filterSlice: filterSlice,
+    fieldErrorSlice: fieldErrorSlice,
   },
 
   

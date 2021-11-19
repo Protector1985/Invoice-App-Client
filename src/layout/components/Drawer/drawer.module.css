@@ -55,7 +55,7 @@
     box-shadow:none;
     font-family: 'Spartan', sans-serif;
     font-weight: bold!important;
-    font-size: 15px!important;
+    font-size: 0.9rem!important;
     -webkit-writing-mode: horizontal-tb !important;
     text-rendering: auto;
     color: -internal-light-dark(black, white);
@@ -131,11 +131,11 @@
 }
 
 .iNameContainer {
-    width: 214px;
+    width: 40%;
 }
 
 .qtyContainer {
-    width: 25px;
+    width: 5%;
 }
 
 
@@ -185,11 +185,11 @@
 }
 
 .priceContainer {
-    width: 100px;
+    width: 15%;;
 }
 
 .totalContainer {
-    width:100px;
+    width:15%;
 }
 
 
@@ -235,10 +235,16 @@
     position:relative;
 }
 
+.errorMessage{
+    color: #dc3545;
+    font-family: 'Spartan', sans-serif;
+    font-weight: bold;
+    text-align:center;
+}
 .calendarSymbol {
     position:absolute;
     top:39px;
-    left:210px;
+    left:38%;
     z-index: 1;
 }
 
@@ -334,5 +340,15 @@
 @media (max-width:1024px) {
     .container {
         left:0px;
+    }
+}
+
+@media (max-width: 597px) {
+    .container {
+        width: 100vw;
+        min-width:300px;
+    }
+    .dropdownControl {
+        font-size: 0.7rem!important;
     }
 }

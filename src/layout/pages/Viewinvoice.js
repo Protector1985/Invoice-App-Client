@@ -27,7 +27,7 @@ function Viewinvoice(props) {
     return (
         <div className={darkMode ? viewInvoiceDarkCSS.body : viewinvoiceCSS.body}>
         <Drawer open={drawerOpen} />
-            <div className={viewinvoiceCSS.goBack}>
+            <div className={darkMode ? viewInvoiceDarkCSS.goBack : viewinvoiceCSS.goBack}>
                 <Link to="/"><ArrowLeft /></Link>
                 <h5 className={darkMode ? viewInvoiceDarkCSS.goBackHeadline : viewinvoiceCSS.goBackHeadline}>Go back</h5>
             </div>
