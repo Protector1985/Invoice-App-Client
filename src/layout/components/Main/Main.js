@@ -51,9 +51,9 @@ function Main(props) {
             } else {
             return data.map((invoice, index) => {
                 if(filterState === invoice.status) {
-                    return  <Invoice refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
+                    return  <Invoice key={invoice.invoiceNumber} refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
                 } else if(filterState === "ALL") {
-                    return  <Invoice refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
+                    return  <Invoice key={Math.random()} refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
                 }
                 
                 
@@ -69,7 +69,7 @@ function Main(props) {
 
     return (
         <div className={darkMode ? mainDarkCSS.body : mainCSS.body}>
-            <Drawer refetch={refetch} open={drawerOpen} />
+            <Drawer key={Math.random()} refetch={refetch} open={drawerOpen} />
                 <div ref={bodyContent} className={mainCSS.bodyContent}>
                     <Header refetch={refetch} key="pageHeader" numInvoices={data.length} className="headerContainer" />
                     {returnBody()}

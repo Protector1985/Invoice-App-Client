@@ -10,10 +10,11 @@ function App() {
   return (
     <div className={appCSS.container}>
       <SocketContext.Provider value={socket}>
-        <Router>
-          <Sidebar />
-          <Route exact path="/" component={Main} />
+        <Router key={Math.random()}>
+          <Sidebar key={Math.random()} />
+          <Route key={Math.random()} exact path="/" component={Main} />
           <Route
+            key={Math.random()}
             path="/:invoiceNumber"
             render={(rest) => <ViewInvoice {...rest} />}
           />
