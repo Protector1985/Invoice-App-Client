@@ -35,11 +35,9 @@ function Fullinvoice(props) {
         })
 
         React.useEffect(() => {
-            console.log("REEEEEEFEEETCH")
             refetch()
         }, [fetchController])
     
-        console.log(invoice.toEmail)
 
         function returnHtml() {
             if(width >= 768) {

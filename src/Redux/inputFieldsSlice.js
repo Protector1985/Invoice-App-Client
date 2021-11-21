@@ -56,7 +56,6 @@ export const inputFieldsSlice = createSlice({
             state.isoDate = action.payload.isoDate
         },
         resetDataState: (state) => {
-            console.log("Resetting Data State!!!")
             state.fromStreet = "";
             state.fromCity= "";
             state.fromZip = "";

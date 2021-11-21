@@ -10,7 +10,6 @@ import useDimensions from '../../../utility/sizing/useDimensions'
 function Invoice({invoiceNumber, recipientName, dueDate, status, itemsPurchased, month, day, year, amount}) {
     const darkMode = useSelector((state) => state.themeSlice.darkMode)
     const {width, heigth} = useDimensions()
-    console.log(width)
     const dollarConvert = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',

@@ -17,7 +17,7 @@ function Header({numInvoices, refetch}) {
     const darkMode = useSelector((state) => state.themeSlice.darkMode)
     const {width, height} = useDimensions();
 
-    console.log("Filterstate " + filterState)
+
     const dropdownItems = [
         {value: "ALL", label: "Filter by status"},
         {value: "PAID", label:"Paid"},

@@ -40,7 +40,6 @@ const itemListSlice = createSlice({
 
         editItems: (state, action) => {
             state.items = action.payload.items
-            console.log(state.items)
         }
     }
 

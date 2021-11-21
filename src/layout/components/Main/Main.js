@@ -35,10 +35,8 @@ function Main(props) {
         })
 
         React.useEffect(() => {
-            console.log("REEEEEEFEEETCH")
             refetch()
         }, [fetchController])
-    console.log("FETCH CONTROLLER MAIN")
 
     function returnBody() {
         

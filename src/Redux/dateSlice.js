@@ -18,7 +18,6 @@ const dateSlice = createSlice ({
             state.ISO = action.payload.ISO
         },
         setDueIn: (state, action) => {
-            console.log(action.payload)
             state.dueIn = action.payload.value
         },
         resetDateState: (state) => {

@@ -283,9 +283,7 @@ function Drawer({ open, refetch }) {
   }
 
   function editItemField(e, index, type, item) {
-    if (item) {
-      console.log(item.qty * item.pricePerItem);
-    }
+    
     if(!inputValidator(e.target.value, 90)) {  
         const payload = {
             type: type,
@@ -382,7 +380,7 @@ function Drawer({ open, refetch }) {
     dispatch(deleteRow(payload));
   }
 
-  console.log(invoice)
+  
   
   return (
     <div
