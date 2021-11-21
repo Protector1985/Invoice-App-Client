@@ -199,6 +199,8 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
             navigate.push("/")
             
         } else if(e.target.innerText === "Edit") {
+            const date = new Date(data.invoice.dueDate).toISOString()
+            
             const payload = {
                 type: e.target.innerText,
                 fromStreet: data.invoice.fromStreet,
@@ -224,6 +226,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
                 invoiceDateDay: data.invoice.invoiceDateDay,
                 invoiceDateYear: data.invoice.invoiceDateYear,
                 dueIn: data.invoice.dueIn,
+                ISO: date,
             }
             dispatch(resetItemState())
             dispatch(editFields(payload))

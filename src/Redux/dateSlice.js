@@ -33,7 +33,7 @@ const dateSlice = createSlice ({
             state.invoiceDateDay = action.payload.invoiceDateDay;
             state.invoiceDateYear = action.payload.invoicedateYear;
             state.dueIn = action.payload.dueIn;
-            state.ISO = `${action.payload.invoiceDateYear}-${action.payload.invoiceDateMonth}-${action.payload.invoiceDateDay}`
+            state.ISO = action.payload.ISO
         }
     }
 })

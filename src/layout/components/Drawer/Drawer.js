@@ -38,7 +38,6 @@ var DatePicker = require("reactstrap-date-picker");
 function Drawer({ open, refetch }) {
   const dispatch = useDispatch();
   const fieldInputErrors = useSelector((state) => state.fieldErrorSlice)
-  console.log(fieldInputErrors)
   const darkMode = useSelector((state) => state.themeSlice.darkMode);
   const modType = useSelector((state) => state.drawerOpen.modType);
   const invoiceNumber = useSelector((state) => state.drawerOpen.invoiceNumber);
@@ -61,7 +60,7 @@ function Drawer({ open, refetch }) {
   const itemArray = useSelector((state) => state.itemListSlice.items);
   const isoDate = useSelector((state) => state.dateSlice.ISO);
   const dueIn = useSelector((state) => state.dateSlice.dueIn);
-  const [errorMessage, setErrorMessage] = React.useState(null);
+  
   const [
     submitData,
     { isError, isUninitialized, isLoading, isSuccess, error },
@@ -75,7 +74,6 @@ function Drawer({ open, refetch }) {
   );
 
   generateErrorMessage(fieldInputErrors)
-  
   function getOptions() {
     const opt = [];
     for (let i = 2; i <= 30; i++) {
@@ -384,6 +382,7 @@ function Drawer({ open, refetch }) {
     dispatch(deleteRow(payload));
   }
 
+  console.log(invoice)
   
   return (
     <div
