@@ -2,7 +2,7 @@
   "name": "invoice",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://143.198.51.5:5000/",
+  "proxy": "https://execudevserv.xyz/",
   "dependencies": {
     "@material-ui/core": "^4.12.2",
     "@reduxjs/toolkit": "^1.6.1",
