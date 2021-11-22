@@ -94,7 +94,7 @@ function Button({description, mode, type, clicked, invoiceNumber, specialAlign, 
                 status: returnBillStatus(e)   
              }
 
-             console.log(body)
+            
              
              if(submitValidation(body).numFieldErrors !== 0 || submitValidation(body).itemArrayIndexErrors.length !== 0 ) {
                  const payload = {

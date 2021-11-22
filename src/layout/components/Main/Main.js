@@ -39,7 +39,6 @@ function Main(props) {
         }, [fetchController])
 
     function returnBody() {
-            console.log(data)
             if(data.length === 0) {
                 return (
                     <div className={darkMode ? mainDarkCSS.emptyBody : mainCSS.emptyBody}>
