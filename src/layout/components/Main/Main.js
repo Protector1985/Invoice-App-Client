@@ -39,7 +39,7 @@ function Main(props) {
         }, [fetchController])
 
     function returnBody() {
-        
+            console.log(data)
             if(data.length === 0) {
                 return (
                     <div className={darkMode ? mainDarkCSS.emptyBody : mainCSS.emptyBody}>
@@ -49,7 +49,7 @@ function Main(props) {
                     </div>
                 ) 
             } else {
-            return data.map((invoice, index) => {
+                return data.map((invoice, index) => {
                 if(filterState === invoice.status) {
                     return  <Invoice key={invoice.invoiceNumber} refetchInvoice={refetch} key={invoice.invoiceNumber} month={invoice.invoiceDateMonth} day={invoice.invoiceDateDay} year={invoice.invoiceDateYear} index={index} itemsPurchased={invoice.itemsPurchased} invoiceNumber={invoice.invoiceNumber} recipientName={invoice.recipient} dueDate={invoice.dueDate} amount={invoice.amount} status={invoice.status} />
                 } else if(filterState === "ALL") {

@@ -401,9 +401,9 @@ function Drawer({ open, refetch }) {
             <span
               className={darkMode ? drawerDarkCSS.hashtag : drawerCSS.hashtag}
             >
-              {modType === "New Invoice" ? null : "#"}
+              {modType === "New Invoice" || "New" ? null : "#"}
             </span>
-            {modType === "New Invoice"
+            {modType === "New Invoice" || "New"
               ? generateInvoiceNumber()
               : invoiceNumber}
           </h5>
@@ -1423,8 +1423,7 @@ function Drawer({ open, refetch }) {
           clicked={addRow}
         />
         <h4 className={drawerCSS.errorMessage}>{generateErrorMessage(fieldInputErrors)}</h4>
-        <div className={drawerCSS.btnContainer}>
-        
+        <div className={drawerCSS.btnContainer}> 
           <Button
             className={drawerCSS.btn}
             description="Cancel"
